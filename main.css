@@ -29,7 +29,7 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
-/* --- Header & Navigation (Matches Work Page) --- */
+/* --- Header & Navigation --- */
 .navbar {
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -75,16 +75,17 @@ body {
 /* --- Main Hero Section --- */
 .hero-section {
     margin-top: 75px;
+    margin-bottom: 75px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 6rem 0; /* More vertical space for impact */
+    padding: 6rem 0;
     background-color: #f8f9fa;
 }
 
 .hero-section h1 {
-    font-size: 4rem; /* Larger font size for the main headline */
+    font-size: 4rem;
     font-weight: 900;
     line-height: 1.2;
     color: #212529;
@@ -115,14 +116,14 @@ body {
 
 .cta-button:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(65, 105, 225, 0.3); /* Shadow matches the gradient */
+    box-shadow: 0 8px 25px rgba(65, 105, 225, 0.3);
 }
 
 /* --- Team Section --- */
 .team-section {
     padding: 5rem 0;
     text-align: center;
-    background-color: #fff; /* White background to separate from hero */
+    background-color: #fff;
 }
 
 .team-section h2 {
@@ -146,6 +147,14 @@ body {
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.team-card.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .team-card:hover {
@@ -283,6 +292,7 @@ body {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    cursor: pointer; /* Makes it clear it's clickable */
 }
 
 .service-card.visible {
@@ -328,12 +338,100 @@ body {
 }
 
 
-/* --- Footer (Matches Work Page) --- */
+/* --- Footer --- */
 .footer {
     background-color: #212529;
     color: #adb5bd;
     text-align: center;
     padding: 2rem 0;
+}
+
+/* --- NEW: Modal Styles --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 20, 40, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), visibility 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    transform: translateY(-30px) scale(0.95);
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0) scale(1);
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: #aaa;
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+.modal-close-btn:hover {
+    color: #333;
+    transform: rotate(90deg);
+}
+
+#modalTitle {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+
+#modalDescription {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 2rem;
+}
+
+.price-range {
+    background-color: #f8f9fa;
+    border-left: 4px solid #4169E1;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+}
+
+.price-range strong {
+    color: #333;
+}
+
+#modalPrice {
+    font-weight: 500;
+    color: #4169E1;
 }
 
 /* --- Responsive Design --- */
@@ -362,4 +460,3 @@ body {
         margin-bottom: 2rem;
     }
 }
-
