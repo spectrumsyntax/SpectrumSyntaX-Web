@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spectrum Syntax - Weaving the Future of Code</title>
-    <link rel="icon" href="spectrumsyntaxlogo.jpg">
+    <link rel="icon" href="spectrumsyntaxlogo.jpg" onerror="this.onerror=null;this.src='spectrumsyntaxlogo.jpg';">
     <link rel="stylesheet" href="main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,7 +44,6 @@
                 <h2>What We Do</h2>
                 <p class="section-subtitle">We offer a complete suite of services to bring your digital vision to life.</p>
                 <div class="services-grid">
-                    <!-- ADDED data-* attributes for modal content -->
                     <div class="service-card" 
                         data-title="Web Development" 
                         data-description="We build responsive, high-performance websites tailored to your business needs, from stunning landing pages to complex e-commerce platforms. Our solutions are secure, scalable, and optimized for search engines." 
@@ -53,6 +52,10 @@
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
                         </div>
                         <h3>Web Development</h3>
+                        <!-- NEW: Hover Overlay -->
+                        <div class="service-card-overlay">
+                            <p>Click for details</p>
+                        </div>
                     </div>
                     <div class="service-card"
                         data-title="App Development"
@@ -62,6 +65,10 @@
                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
                         </div>
                         <h3>App Development</h3>
+                        <!-- NEW: Hover Overlay -->
+                        <div class="service-card-overlay">
+                            <p>Click for details</p>
+                        </div>
                     </div>
                     <div class="service-card"
                         data-title="AI / ML / DL"
@@ -71,6 +78,10 @@
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                         </div>
                         <h3>AI / ML / DL</h3>
+                        <!-- NEW: Hover Overlay -->
+                        <div class="service-card-overlay">
+                            <p>Click for details</p>
+                        </div>
                     </div>
                     <div class="service-card"
                         data-title="Internet of Things (IoT)"
@@ -80,6 +91,10 @@
                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.128 19.825a1.586 1.586 0 01-2.242 0l-1.12-1.12a1.586 1.586 0 010-2.242l.628-.628a1.586 1.586 0 000-2.242l-1.12-1.12a1.586 1.586 0 010-2.242l1.12-1.12a1.586 1.586 0 012.242 0l1.12 1.12a1.586 1.586 0 002.242 0l.628-.628a1.586 1.586 0 012.242 0l1.12 1.12a1.586 1.586 0 010 2.242l-.628.628a1.586 1.586 0 000 2.242l1.12 1.12a1.586 1.586 0 010 2.242l-1.12 1.12a1.586 1.586 0 01-2.242 0l-1.12-1.12a1.586 1.586 0 00-2.242 0l-.628.628zM12 15a3 3 0 100-6 3 3 0 000 6z"/></svg>
                         </div>
                         <h3>IoT</h3>
+                         <!-- NEW: Hover Overlay -->
+                        <div class="service-card-overlay">
+                            <p>Click for details</p>
+                        </div>
                     </div>
                     <div class="service-card"
                         data-title="Data Science"
@@ -89,6 +104,10 @@
                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                         </div>
                         <h3>Data Science</h3>
+                         <!-- NEW: Hover Overlay -->
+                        <div class="service-card-overlay">
+                            <p>Click for details</p>
+                        </div>
                     </div>
                     <div class="service-card"
                         data-title="UI / UX Design"
@@ -98,6 +117,10 @@
                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                         </div>
                         <h3>UI / UX Design</h3>
+                         <!-- NEW: Hover Overlay -->
+                        <div class="service-card-overlay">
+                            <p>Click for details</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -106,7 +129,7 @@
         <section class="about-section" id="aboutSection">
             <div class="container about-grid">
                 <div class="about-image">
-                    <img src="spectrumsyntaxlogo.jpg" alt="Spectrum Syntax Logo Placeholder" onerror="this.onerror=null;this.src='https://placehold.co/400x400/CCCCCC/FFFFFF?text=Image+Not+Found';">
+                    <img src="spectrumsyntaxlogo.jpg" alt="Spectrum Syntax Logo Placeholder" onerror="this.onerror=null;this.src='spectrumsyntaxlogo.jpg';">
                 </div>
                 <div class="about-content">
                     <h2><span class="gradient-text">About</span> Spectrum SyntaX</h2>
@@ -126,17 +149,17 @@
                 <h2>Meet Our Leadership</h2>
                 <div class="team-grid">
                     <div class="team-card">
-                        <img src="nadhanda.jpg" alt="Founder Photo" onerror="this.onerror=null;this.src='https://placehold.co/120x120/CCCCCC/FFFFFF?text=Image';">
+                        <img src="nadhanda.jpg" alt="Founder Photo" onerror="this.onerror=null;this.src='nadhanda.jpg';">
                         <h3>Deepak P</h3>
                         <p>Founder & Lead Strategist</p>
                     </div>
                     <div class="team-card">
-                        <img src="jozzef.jpg" alt="Co-Founder Photo" onerror="this.onerror=null;this.src='https://placehold.co/120x120/CCCCCC/FFFFFF?text=Image';">
+                        <img src="jozzef.jpg" alt="Co-Founder Photo" onerror="this.onerror=null;this.src='jozzef.jpg';">
                         <h3>Sunny Joseph A</h3>
                         <p>Founder & Head of Innovation</p>
                     </div>
                     <div class="team-card">
-                        <img src="praveen.jpg" alt="CEO Photo" onerror="this.onerror=null;this.src='https://placehold.co/120x120/CCCCCC/FFFFFF?text=Image';">
+                        <img src="praveen.jpg" alt="CEO Photo" onerror="this.onerror=null;this.src='praveen.jpg';">
                         <h3>PraveenKumar S</h3>
                         <p>CEO & Head of Technology</p>
                     </div>
@@ -150,14 +173,13 @@
         </div>
     </footer>
     
-    <!-- NEW: Modal Structure -->
     <div id="serviceModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-btn">&times;</button>
             <h3 id="modalTitle">Service Title</h3>
             <p id="modalDescription">Detailed description of the service goes here...</p>
             <div class="price-range">
-                <strong>Price Range Starts from:</strong> <span id="modalPrice">$XXXX - $YYYY</span>
+                <strong>Price Range Starts from:</strong> <span id="modalPrice">₹XXXX</span>
             </div>
         </div>
     </div>
@@ -183,11 +205,10 @@
                 observer.observe(element);
             });
             
-            // --- NEW: Modal Functionality ---
+            // --- Modal Functionality ---
             const serviceCards = document.querySelectorAll('.service-card');
             const modal = document.getElementById('serviceModal');
             
-            // Check if modal exists to prevent errors
             if (modal) {
                 const modalTitle = document.getElementById('modalTitle');
                 const modalDescription = document.getElementById('modalDescription');
@@ -214,14 +235,12 @@
     
                 closeModalBtn.addEventListener('click', closeModal);
                 
-                // Close modal if overlay is clicked
                 modal.addEventListener('click', (event) => {
                     if (event.target === modal) {
                         closeModal();
                     }
                 });
 
-                // Close modal with Escape key
                 document.addEventListener('keydown', (event) => {
                     if (event.key === 'Escape' && modal.classList.contains('active')) {
                         closeModal();
