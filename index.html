@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spectrum Syntax - Weaving the Future of Code</title>
-    <link rel="icon" href="X.jpg" onerror="this.onerror=null;this.src='spectrumsyntaxlogo.jpg';">
-    <link rel="stylesheet" href="main.css">
+    <link rel="icon" href="X.jpg" onerror="this.onerror=null;this.src='X.jpg';">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <!-- NEW: EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
 </head>
 <body>
 
@@ -20,7 +23,7 @@
                     <li><a href="index.html" class="active">Home</a></li>
                     <li><a href="#aboutSection">About</a></li>
                     <li><a href="explore.html">Work</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -52,7 +55,6 @@
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
                         </div>
                         <h3>Web Development</h3>
-                        <!-- NEW: Hover Overlay -->
                         <div class="service-card-overlay">
                             <p>Click for details</p>
                         </div>
@@ -65,7 +67,6 @@
                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
                         </div>
                         <h3>App Development</h3>
-                        <!-- NEW: Hover Overlay -->
                         <div class="service-card-overlay">
                             <p>Click for details</p>
                         </div>
@@ -78,7 +79,6 @@
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                         </div>
                         <h3>AI / ML / DL</h3>
-                        <!-- NEW: Hover Overlay -->
                         <div class="service-card-overlay">
                             <p>Click for details</p>
                         </div>
@@ -91,7 +91,6 @@
                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.128 19.825a1.586 1.586 0 01-2.242 0l-1.12-1.12a1.586 1.586 0 010-2.242l.628-.628a1.586 1.586 0 000-2.242l-1.12-1.12a1.586 1.586 0 010-2.242l1.12-1.12a1.586 1.586 0 012.242 0l1.12 1.12a1.586 1.586 0 002.242 0l.628-.628a1.586 1.586 0 012.242 0l1.12 1.12a1.586 1.586 0 010 2.242l-.628.628a1.586 1.586 0 000 2.242l1.12 1.12a1.586 1.586 0 010 2.242l-1.12 1.12a1.586 1.586 0 01-2.242 0l-1.12-1.12a1.586 1.586 0 00-2.242 0l-.628.628zM12 15a3 3 0 100-6 3 3 0 000 6z"/></svg>
                         </div>
                         <h3>IoT</h3>
-                         <!-- NEW: Hover Overlay -->
                         <div class="service-card-overlay">
                             <p>Click for details</p>
                         </div>
@@ -104,7 +103,6 @@
                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                         </div>
                         <h3>Data Science</h3>
-                         <!-- NEW: Hover Overlay -->
                         <div class="service-card-overlay">
                             <p>Click for details</p>
                         </div>
@@ -117,7 +115,6 @@
                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                         </div>
                         <h3>UI / UX Design</h3>
-                         <!-- NEW: Hover Overlay -->
                         <div class="service-card-overlay">
                             <p>Click for details</p>
                         </div>
@@ -145,27 +142,66 @@
     </main>
 
     <section class="team-section">
-            <div class="container">
-                <h2>Meet Our Leadership</h2>
-                <div class="team-grid">
-                    <div class="team-card">
-                        <img src="nadhanda.jpg" alt="Founder Photo" onerror="this.onerror=null;this.src='nadhanda.jpg';">
-                        <h3>Deepak P</h3>
-                        <p>Founder & Lead Strategist</p>
-                    </div>
-                    <div class="team-card">
-                        <img src="jozzef.jpg" alt="Co-Founder Photo" onerror="this.onerror=null;this.src='jozzef.jpg';">
-                        <h3>Sunny Joseph A</h3>
-                        <p>Founder & Head of Innovation</p>
-                    </div>
-                    <div class="team-card">
-                        <img src="praveen.jpg" alt="CEO Photo" onerror="this.onerror=null;this.src='praveen.jpg';">
-                        <h3>PraveenKumar S</h3>
-                        <p>CEO & Head of Technology</p>
-                    </div>
+        <div class="container">
+            <h2>Meet Our Leadership</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <img src="nadhanda.jpg" alt="Founder Photo" onerror="this.onerror=null;this.src='nadhanda.jpg';">
+                    <h3>Deepak P</h3>
+                    <p>Founder & Lead Strategist</p>
+                </div>
+                <div class="team-card">
+                    <img src="jozzef.jpg" alt="Founder Photo" onerror="this.onerror=null;this.src='jozzef.jpg';">
+                    <h3>Sunny Joseph A</h3>
+                    <p>Founder & Head of Innovation</p>
+                </div>
+                <div class="team-card">
+                    <img src="praveen.jpg" alt="CEO Photo" onerror="this.onerror=null;this.src='praveen.jpg';">
+                    <h3>PraveenKumar S</h3>
+                    <p>CEO & Head of Technology</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2>Get in Touch</h2>
+            <p class="section-subtitle">Have a project in mind? We'd love to hear from you.</p>
+            <form id="contact-form" class="contact-form">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" class="form-input" placeholder=" " required>
+                    <label for="name" class="form-label">Full Name</label>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="email" class="form-input" placeholder=" " required>
+                    <label for="email" class="form-label">Your Email</label>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="phone" name="phone" class="form-input" placeholder=" " required>
+                    <label for="phone" class="form-label">Phone Number (e.g., +91 9876543210)</label>
+                </div>
+                <div class="form-group">
+                    <select id="service" name="service" class="form-input" required>
+                        <option value="" disabled selected></option>
+                        <option value="Web Development">Web Development</option>
+                        <option value="App Development">App Development</option>
+                        <option value="AI / ML / DL">AI / ML / DL</option>
+                        <option value="IoT">Internet of Things (IoT)</option>
+                        <option value="Data Science">Data Science</option>
+                        <option value="UI / UX Design">UI / UX Design</option>
+                    </select>
+                     <label for="service" class="form-label">Service of Interest</label>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" name="message" rows="3" class="form-input" placeholder=" " required></textarea>
+                    <label for="message" class="form-label">Your Problem Statement</label>
+                </div>
+                <button type="submit" class="cta-button">Send Message</button>
+                <div id="form-status"></div>
+            </form>
+        </div>
+    </section>
 
     <footer class="footer">
         <div class="container">
@@ -184,11 +220,10 @@
         </div>
     </div>
 
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // --- Intersection Observer for Animations ---
-            const animatedElements = document.querySelectorAll('.team-card, .about-image, .about-content, .service-card');
+            const animatedElements = document.querySelectorAll('.team-card, .about-image, .about-content, .service-card, .contact-form');
     
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -245,6 +280,39 @@
                     if (event.key === 'Escape' && modal.classList.contains('active')) {
                         closeModal();
                     }
+                });
+            }
+
+            // --- Modern Contact Form with EmailJS ---
+            const contactForm = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+
+            if(contactForm) {
+                // IMPORTANT: Replace with your actual EmailJS IDs
+                emailjs.init('gdANf9T0m9S77PcoN'); // Replace with your User ID
+
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const submitButton = this.querySelector('button[type="submit"]');
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Sending...';
+
+                    // --- Send email using EmailJS ---
+                    emailjs.sendForm('service_2bewcjb', 'template_1kyurng', this) // Replace with your Service & Template IDs
+                        .then(function() {
+                            formStatus.textContent = 'Message sent successfully!';
+                            formStatus.className = 'status-success';
+                            contactForm.reset();
+                        }, function(error) {
+                            formStatus.textContent = 'Failed to send message. Please try again.';
+                            formStatus.className = 'status-error';
+                            console.log('FAILED...', error);
+                        })
+                        .finally(function() {
+                             submitButton.disabled = false;
+                             submitButton.textContent = 'Send Message';
+                        });
                 });
             }
         });
