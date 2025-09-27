@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Work - Spectrum Syntax</title>
-    <link rel="stylesheet" href="explore.css">
+    <link rel="icon" href="spectrumsyntaxlogo.jpg" onerror="this.onerror=null;this.src='X.jpg';">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" href="X.jpg" onerror="this.onerror=null;this.src='spectrumsyntaxlogo.jpg';">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="explore.css">
 </head>
 <body>
 
@@ -19,7 +19,7 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="index.html#aboutSection">About</a></li>
-                    <li><a href="projects.html" class="active">Work</a></li>
+                    <li><a href="explore.html" class="active">Work</a></li>
                     <li><a href="index.html#contact">Contact</a></li>
                 </ul>
             </nav>
@@ -30,17 +30,12 @@
         <section class="projects-hero">
             <h1 class="gradient-text">Our Innovative Work</h1>
             <p>A selection of projects that showcase our passion for technology and commitment to quality. Use the filters to explore by technology.</p>
+            <p><strong>Video Previews comming soon! </strong></p>
         </section>
 
+        <section id="filter-buttons" class="filter-container"></section>
         
-        <section id="filter-buttons" class="filter-container">
-          
-        </section>
-
-       
-        <section id="project-grid" class="project-grid">
-
-        </section>
+        <section id="project-grid" class="project-grid"></section>
     </main>
 
     <footer class="footer">
@@ -48,50 +43,179 @@
             <p>&copy; 2025 Spectrum Syntax. All rights reserved.</p>
         </div>
     </footer>
+    
+    
+    <div id="projectModal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="modalCloseBtn" class="modal-close-btn">&times;</button>
+            <div class="modal-media">
+                 <div id="modalCarousel" class="modal-carousel">
+                    <!-- Images will be injected here by JS -->
+                    <button class="carousel-btn prev" id="prevBtn">&#10094;</button>
+                    <button class="carousel-btn next" id="nextBtn">&#10095;</button>
+                </div>
+                <div id="modalVideo" class="modal-video-container hidden">
+                    <iframe id="youtubePlayer" width="100%" height="100%" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="modal-details">
+                <h2 id="modalTitle" class="modal-title">Project Title</h2>
+                <div class="modal-view-switcher">
+                    <button id="viewImagesBtn" class="view-btn active">View Images</button>
+                    <button id="viewVideoBtn" class="view-btn">Watch Video</button>
+                </div>
+                <p id="modalDescription">Project description goes here.</p>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         const projects = [
             {
                 title: 'E-commerce Clothing Shop',
-                description: 'A responsive frontend design for a modern e-commerce site with product listings, a shopping cart, and a checkout process.',
-                imageUrl: 'Serenity.jpg',
+                description: 'A responsive frontend design for a modern e-commerce site with product listings, a shopping cart, and a checkout process. The design focuses on a clean user interface and an intuitive browsing experience, making it easy for customers to find and purchase products.',
+                imageUrls: [
+                    '/serenity/Serenity.jpg',
+                    '/serenity/Screenshot 2025-09-26 145812.png',
+                    '/serenity/Screenshot 2025-09-26 145720.png',
+                    '/serenity/Screenshot 2025-09-26 145649.png',
+
+                ],
+                youtubeVideoId: 'ysz5S6PUM-U', 
                 tags: ['HTML', 'CSS', 'JavaScript']
             },
             {
                 title: 'University Department Website',
-                description: 'A fully-featured web application for a university department, including course listings and faculty profiles.',
-                imageUrl: 'deptweb.jpg',
-                tags: ['HTML', 'CSS', 'JavaScript', 'Node.js', 'MongoDB']
-            },
-            {
-                title: 'MentorX Learning Platform',
-                description: 'An interactive site for connecting mentors and learners. Features include profiles, scheduling, and messaging.',
-                imageUrl: 'mentorX.jpg',
-                tags: ['HTML', 'CSS', 'JavaScript', 'Node.js', 'MongoDB']
-            },
-            {
-                title: 'Dead-Eye Wager Game',
-                description: 'A platform for a rock-paper-scissors game with a spectator mode where users can place bets on players.',
-                imageUrl: 'Deadeyewager.jpg',
-                tags: ['HTML', 'CSS', 'JavaScript', 'Node.js', 'MongoDB', 'AI/ML']
+                description: 'A fully-featured web application for a university department, including dynamic course listings, faculty profiles with publications, and an event calendar. The backend allows administrators to easily update content without touching any code.',
+                imageUrls: [
+                    '/dept/Screenshot 2025-09-26 150404.png',
+                    '/dept/Screenshot 2025-09-26 150430.png',
+                    '/dept/Screenshot 2025-09-26 150447.png',
+                    '/dept/Screenshot 2025-09-26 150525.png',
+                    '/dept/Screenshot 2025-09-26 150539.png',
+                    '/dept/Screenshot 2025-09-26 150552.png',
+                    '/dept/Screenshot 2025-09-26 150610.png',
+                    '/dept/Screenshot 2025-09-26 150706.png',
+                    '/dept/Screenshot 2025-09-26 150723.png',
+                    '/dept/Screenshot 2025-09-26 150806.png',
+                    '/dept/Screenshot 2025-09-26 150830.png'
+                ],
+                youtubeVideoId: 'ysz5S6PUM-U', 
+                tags: ['HTML', 'CSS', 'JavaScript', 'Node.js', 'MongoDB','Express.js']
             },
             {
                 title: 'Medmax Symptom Checker',
-                description: 'An AI-powered tool where users can input symptoms to receive potential medicine and health suggestions.',
-                imageUrl: 'medmax.jpg',
+                description: 'An AI-powered tool where users can input symptoms to receive potential medicine and health suggestions. The machine learning model analyzes user input against a vast database to provide helpful, non-diagnostic information and directs users to seek professional medical advice.',
+                imageUrls: [
+                    '/medmax/front.jpg',
+                    '/medmax/nearbydoc.jpg',
+                    '/medmax/medmax bot.jpg',
+                    '/medmax/doclist.jpg'
+                ],
+                youtubeVideoId: 'ysz5S6PUM-U', 
                 tags: ['HTML', 'CSS', 'JavaScript', 'AI/ML']
             },
             {
                 title: 'OneWorld Travel Planner',
-                description: 'A travel companion app built for travelers to plan itineraries, discover locations, and save memories. Frontend only.',
-                imageUrl: 'oneworld.jpg',
+                description: 'A travel companion app built for travelers to plan itineraries, discover locations, and save memories. The user-friendly interface allows for drag-and-drop scheduling and provides integrated maps and suggestions. Frontend only demo.',
+                imageUrls: [
+                     '/oneworld/WhatsApp Image 2025-09-26 at 21.24.12_19a04d2d.jpg'
+                ],
+                youtubeVideoId: 'ysz5S6PUM-U', 
                 tags: ['HTML', 'CSS', 'JavaScript']
-            }
+            },
+                      {
+                title: 'Death Eye Wager',
+                description: 'The Dead-Eye Wager is a three-part, full-stack application that gamifies real-world Rock-Paper-Scissors duels by integrating computer vision with a real-time wagering dashboard. It brings the excitement and transparency of a betting parlor to a simple, physical game, acting as the "trusted marshal" to settle all disputes, It also have a PVP mode ',
+                imageUrls: [
+                     '/deatheyewager/Screenshot 2025-09-26 151932.png',
+                     '/deatheyewager/Screenshot 2025-09-26 151946.png',
+                     '/deatheyewager/Screenshot 2025-09-26 152233.png',
+                     '/deatheyewager/Screenshot 2025-09-26 195758.png',
+                     '/deatheyewager/Screenshot 2025-09-26 195814.png',
+                     '/deatheyewager/Screenshot 2025-09-26 195829.png'
+                ],
+                youtubeVideoId: 'ysz5S6PUM-U', 
+                tags: ['HTML', 'CSS', 'JavaScript','Node.js','AI/ML','Express.js','MongoDB']
+            },
+                                  {
+                title: 'cloud-connected emergency healthcare system',
+                description: 'A cloud-connected emergency healthcare system where patients register using mobile OTP and link their fingerprint. Their medical history and emergency contacts are securely stored. In case of an accident, scanning the fingerprint at a hospital (via ESP32 prototype) instantly retrieves patient details and medical history, while automatically sending an alert with live GPS location to emergency contacts via SMS/WhatsApp. This reduces accident response time and improves emergency care.',
+                imageUrls: [
+                     '/fingerprint health record/fingerprint health.jpg'
+                ],
+                tags: ['Python', 'MongoDB', 'Arduino IDE','C++','Express.js','MongoDB','ESP32','R307 Fingerprint Sensor','NEO-6M GPS',' SIM800L GSM']
+            },
+                                  {
+                title: 'MentorX',
+                description: 'MentorX is a mentor–mentee platform designed to strengthen the bond between faculty and students by providing a structured system for academic and personal guidance. Each student is assigned a mentor who can track their academic performance, attendance, skills, goals, and overall growth. The platform enables:Faculty Dashboard – Mentors can view their mentees’ details, update progress, and provide personalized guidance.Student Dashboard – Students can interact with their mentors, access resources, and track their own academic journey.Performance Tracking – Integration of marks, attendance, and feedback helps identify areas of improvement. Communication & Support – A streamlined channel for students to seek help and for mentors to provide continuous support. The goal of MentorX is to create a transparent, supportive, and growth-focused ecosystem where students receive proper guidance and mentorship throughout their academic life.',
+                imageUrls: [
+                     'mentorx/Screenshot 2025-09-26 203046.png',
+                     'mentorx/Screenshot 2025-09-26 203102.png',
+                     'mentorx/Screenshot 2025-09-26 203302.png',
+                     'mentorx/Screenshot 2025-09-26 203413.png',
+                     'mentorx/Screenshot 2025-09-26 203343.png',
+                     'mentorx/Screenshot 2025-09-26 203357.png',
+                     'mentorx/Screenshot 2025-09-26 203427.png',
+                     'mentorx/Screenshot 2025-09-26 203439.png',
+                     'mentorx/Screenshot 2025-09-26 203502.png',
+                     'mentorx/Screenshot 2025-09-26 203514.png',
+                     'mentorx/Screenshot 2025-09-26 203533.png',
+                     'mentorx/Screenshot 2025-09-26 203549.png',
+                     'mentorx/Screenshot 2025-09-26 203604.png',
+                     'mentorx/Screenshot 2025-09-26 203643.png',
+                     'mentorx/Screenshot 2025-09-26 203656.png',
+                     'mentorx/Screenshot 2025-09-26 203705.png',
+                     'mentorx/Screenshot 2025-09-26 203716.png',
+                     'mentorx/Screenshot 2025-09-26 203759.png'
+                ],
+                youtubeVideoId: 'ysz5S6PUM-U', 
+                tags: ['HTML', 'CSS', 'JavaScript','Node.js','AI/ML','Express.js','MongoDB','Express.js']
+            },
+            {
+                title: 'SpectraStream',
+                description: 'SpectraStream – Dynamic Movie & Music Streaming Frontend Developed SpectraStream, a dynamic and interactive frontend platform for browsing and exploring movies and music. The platform is designed to provide an engaging and seamless user experience with intuitive navigation, rich media previews, and responsive design. Key Features Top Search Bar: Allows users to quickly find movies, music, or artists with real-time filtering. Interactive Sections: Separate sections for movies and music featuring horizontal carousels for featured content and vertical scrolling for categories. Detail Pages: Each item is clickable, leading to a detailed view containing the title, description, media preview, ratings, and other relevant information. Responsive Design: Fully optimized for desktop, tablet, and mobile devices, ensuring a smooth browsing experience across all screen sizes. Smooth Animations: Transitions, hover effects, and carousel animations enhance interactivity and user engagement. Creative Layouts: Unique and visually appealing arrangements for content categories, featured collections, and trending media, making the platform intuitive and enjoyable to navigate.',
+                imageUrls: [
+                    'spectrastream/Screenshot 2025-09-26 211854.png',
+                    'spectrastream/Screenshot 2025-09-26 211909.png',
+                    'spectrastream/Screenshot 2025-09-26 212123.png',
+                    'spectrastream/Screenshot 2025-09-26 212145.png',
+                    'spectrastream/Screenshot 2025-09-26 212212.png'
+                ],
+                youtubeVideoId: 'ysz5S6PUM-U', 
+                tags: ['HTML', 'CSS', 'JavaScript']
+            },
+                        {
+                title: 'Telegram Attendance Bot',
+                description: 'Telegram Attendance & Work Tracker Bot : A private and secure Telegram bot for tracking employee work hours and breaks. Users can check in, check out, and take different types of breaks (Toilet, Eat, Rest), each with specific time limits and usage counts. The bot automatically logs all activities, calculates total work and break durations, and sends detailed summary reports. Its designed for professional teams and includes an admin feature to securely retrieve the full activity log.',
+                imageUrls: [
+                    'telegram attendence bot/telegram bot pic 1.jpg',
+                    'telegram attendence bot/telegram bot pic 2.jpg'
+                ],
+                youtubeVideoId: 'ysz5S6PUM-U', 
+                tags: ['Telegram Bot','Python']
+            },
+
         ];
 
         // --- DOM ELEMENTS ---
         const projectGrid = document.getElementById('project-grid');
         const filterButtonsContainer = document.getElementById('filter-buttons');
+        const modal = document.getElementById('projectModal');
+        const modalCloseBtn = document.getElementById('modalCloseBtn');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalCarousel = document.getElementById('modalCarousel');
+        const modalVideo = document.getElementById('modalVideo');
+        const youtubePlayer = document.getElementById('youtubePlayer');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const viewImagesBtn = document.getElementById('viewImagesBtn');
+        const viewVideoBtn = document.getElementById('viewVideoBtn');
+
+        let currentProjectImages = [];
+        let currentImageIndex = 0;
 
         // --- FUNCTIONS ---
         function renderProjects(projectsToRender) {
@@ -102,59 +226,130 @@
             }
 
             projectsToRender.forEach(project => {
-                const tagsHtml = project.tags.map(tag =>
-                    `<span class="tag">${tag}</span>`
-                ).join('');
-
+                const tagsHtml = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
                 const projectCard = document.createElement('div');
                 projectCard.className = 'project-card';
+                
                 projectCard.innerHTML = `
-                    <img class="project-image" src="${project.imageUrl}" alt="${project.title}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/f8f9fa/333?text=Image+Not+Found';">
-                    <div class="card-content">
-                        <h3>${project.title}</h3>
-                        <p>${project.description}</p>
-                        <div class="tags-container">
-                            ${tagsHtml}
+                    <div class="project-image-container">
+                        <img class="project-image" src="${project.imageUrls[0]}" alt="${project.title}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/f8f9fa/333?text=Image+Not+Found';">
+                        <div class="card-video-overlay">
+                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
                         </div>
                     </div>
+                    <div class="card-content">
+                        <h3>${project.title}</h3>
+                        <p>${project.description.substring(0, 100)}...</p>
+                        <div class="tags-container">${tagsHtml}</div>
+                    </div>
                 `;
+                
+                projectCard.addEventListener('click', () => openModal(project));
                 projectGrid.appendChild(projectCard);
             });
         }
 
         function renderFilterButtons() {
             const allTags = ['All', ...new Set(projects.flatMap(p => p.tags))];
-
             allTags.forEach(tag => {
                 const button = document.createElement('button');
                 button.className = 'filter-btn';
                 button.textContent = tag;
-                if (tag === 'All') {
-                    button.classList.add('active');
-                }
+                if (tag === 'All') button.classList.add('active');
                 button.addEventListener('click', () => handleFilterClick(button, tag));
                 filterButtonsContainer.appendChild(button);
             });
         }
 
         function handleFilterClick(clickedButton, tag) {
-            document.querySelectorAll('#filter-buttons .filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
+            document.querySelectorAll('#filter-buttons .filter-btn').forEach(btn => btn.classList.remove('active'));
             clickedButton.classList.add('active');
-
-            if (tag === 'All') {
-                renderProjects(projects);
-            } else {
-                const filteredProjects = projects.filter(project => project.tags.includes(tag));
-                renderProjects(filteredProjects);
-            }
+            const filteredProjects = tag === 'All' ? projects : projects.filter(p => p.tags.includes(tag));
+            renderProjects(filteredProjects);
         }
 
-        // --- INITIALIZATION ---
+        function openModal(project) {
+            modalTitle.textContent = project.title;
+            modalDescription.textContent = project.description;
+            
+            // Populate Carousel
+            modalCarousel.innerHTML = `
+                <button class="carousel-btn prev" id="prevBtn">&#10094;</button>
+                <button class="carousel-btn next" id="nextBtn">&#10095;</button>
+            `; // Reset and add buttons
+            currentProjectImages = project.imageUrls;
+            currentProjectImages.forEach((url, index) => {
+                const img = document.createElement('img');
+                img.src = url;
+                img.alt = `${project.title} - Image ${index + 1}`;
+                if (index === 0) img.classList.add('active');
+                modalCarousel.appendChild(img);
+            });
+            currentImageIndex = 0;
+
+            // Set up Video
+            youtubePlayer.src = `https://www.youtube.com/embed/${project.youtubeVideoId}`;
+            
+            // Initial view state
+            showImageView();
+
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            youtubePlayer.src = ''; // Stop video from playing in background
+        }
+
+        function showImage(index) {
+            const images = modalCarousel.querySelectorAll('img');
+            images.forEach(img => img.classList.remove('active'));
+            images[index].classList.add('active');
+        }
+        
+        function showImageView() {
+            modalCarousel.classList.remove('hidden');
+            modalVideo.classList.add('hidden');
+            viewImagesBtn.classList.add('active');
+            viewVideoBtn.classList.remove('active');
+            youtubePlayer.src = ''; // Stop video when switching away
+        }
+
+        function showVideoView() {
+             const activeProjectTitle = modalTitle.textContent;
+             const project = projects.find(p => p.title === activeProjectTitle);
+             if (project) {
+                 youtubePlayer.src = `https://www.youtube.com/embed/${project.youtubeVideoId}`;
+             }
+            modalCarousel.classList.add('hidden');
+            modalVideo.classList.remove('hidden');
+            viewImagesBtn.classList.remove('active');
+            viewVideoBtn.classList.add('active');
+        }
+
+        // --- INITIALIZATION & EVENT LISTENERS ---
         document.addEventListener('DOMContentLoaded', () => {
             renderFilterButtons();
             renderProjects(projects);
+
+            modalCloseBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+            
+            viewImagesBtn.addEventListener('click', showImageView);
+            viewVideoBtn.addEventListener('click', showVideoView);
+            
+            // Using event delegation for carousel buttons as they are re-rendered
+             modalCarousel.addEventListener('click', e => {
+                if (e.target.matches('.next')) {
+                    currentImageIndex = (currentImageIndex + 1) % currentProjectImages.length;
+                    showImage(currentImageIndex);
+                } else if (e.target.matches('.prev')) {
+                     currentImageIndex = (currentImageIndex - 1 + currentProjectImages.length) % currentProjectImages.length;
+                    showImage(currentImageIndex);
+                }
+            });
         });
     </script>
 </body>
