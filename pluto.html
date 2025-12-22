@@ -20,13 +20,10 @@
             --text-bright: #ffffff;
             --text-soft: #a1a1aa;
             --glass-border: rgba(255, 255, 255, 0.08);
-            --header-offset: 64px;
+            --header-h: 64px;
             --font-main: 'Inter', sans-serif;
             --font-display: 'Outfit', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
-            
-            /* Responsive Offsets */
-            --header-h: 64px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -35,9 +32,9 @@
             font-family: var(--font-main);
             background-color: var(--bg-deep);
             color: var(--text-bright);
-            height: 100dvh; /* Dynamic Viewport Height for Mobile Keyboard Compatibility */
+            height: 100dvh; 
             width: 100%;
-            overflow: hidden;
+            overflow: hidden; 
             line-height: 1.5;
             display: flex;
             flex-direction: column;
@@ -45,7 +42,7 @@
 
         h1, h2, h3, b { font-family: var(--font-display); }
 
-        /* --- BACKGROUND ANIMATION --- */
+        /* --- BACKGROUND --- */
         .bg-animated-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -53,11 +50,9 @@
             overflow: hidden;
             background-color: var(--bg-deep);
         }
-
         .orb {
             position: absolute;
-            width: 50vw; height: 50vw;
-            min-width: 300px; min-height: 300px;
+            width: 60vw; height: 60vw;
             border-radius: 50%;
             filter: blur(100px);
             opacity: 0.15;
@@ -66,10 +61,7 @@
         .orb-1 { background: var(--accent-violet); top: -10%; left: -10%; }
         .orb-2 { background: var(--accent-lime); bottom: -10%; right: -10%; animation-delay: -5s; }
 
-        @keyframes drift {
-            from { transform: translate(0, 0) scale(1); }
-            to { transform: translate(10%, 10%) scale(1.1); }
-        }
+        @keyframes drift { from { transform: translate(0, 0) scale(1); } to { transform: translate(10%, 10%) scale(1.1); } }
 
         /* --- UI COMPONENTS --- */
         .btn {
@@ -88,72 +80,44 @@
             font-size: 0.75rem;
             width: 100%;
         }
-
         .btn-primary { background: var(--accent-lime); color: var(--bg-deep); }
         .btn-accent { background: var(--accent-violet); color: white; }
         .btn-emerald { background: var(--accent-emerald); color: var(--bg-deep); }
-        .btn-ghost { 
-            background: transparent; 
-            color: var(--text-soft); 
-            border: 1px solid var(--glass-border); 
-        }
+        .btn-ghost { background: transparent; color: var(--text-soft); border: 1px solid var(--glass-border); }
         .btn-ghost:hover { border-color: var(--accent-lime); color: var(--accent-lime); }
         .btn:active { transform: scale(0.96); }
 
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            border-radius: 2rem;
-            padding: 2rem;
-            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(12px);
+        .card { 
+            background: var(--bg-card); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 2rem; 
+            padding: 2rem; 
+            backdrop-filter: blur(12px); 
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6); 
         }
 
         .input-field {
-            width: 100%;
-            background: var(--bg-input);
-            border: 1px solid var(--glass-border);
-            padding: 16px;
-            border-radius: 14px;
-            color: white;
-            outline: none;
-            transition: 0.3s;
-            font-size: 0.95rem;
+            width: 100%; background: var(--bg-input); border: 1px solid var(--glass-border);
+            padding: 16px; border-radius: 14px; color: white; outline: none; transition: 0.3s; font-size: 0.95rem;
         }
 
         /* --- HEADER --- */
         .global-header { 
-            height: var(--header-h);
-            padding: 0 20px;
-            border-bottom: 1px solid var(--glass-border);
+            height: var(--header-h); padding: 0 20px; border-bottom: 1px solid var(--glass-border);
             display: flex; align-items: center; justify-content: space-between;
-            background: rgba(10, 11, 30, 0.9);
-            backdrop-filter: blur(24px);
-            z-index: 1000;
-            flex-shrink: 0;
+            background: rgba(10, 11, 30, 0.95); backdrop-filter: blur(24px); z-index: 1000; flex-shrink: 0;
         }
-        
         .logo-box { width: 36px; height: 36px; background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .logo-box img { width: 100%; height: 100%; object-fit: cover; }
-        .brand-text { display: flex; flex-direction: column; }
-        .brand-text b { color: var(--text-bright); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.1em; line-height: 1; }
         .brand-text sub { font-size: 0.6rem; color: var(--accent-violet); font-weight: 800; }
-
         .beta-pill { background: rgba(207, 255, 4, 0.1); color: var(--accent-lime); border: 1px solid var(--accent-lime); padding: 3px 6px; border-radius: 4px; font-size: 0.6rem; font-weight: 900; text-transform: uppercase; }
 
-        /* --- VIEWS CONTAINER --- */
-        main {
-            flex: 1;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
+        /* --- VIEWS --- */
+        main { flex: 1; position: relative; overflow: hidden; display: flex; flex-direction: column; }
 
-        /* --- SELECTION VIEW --- */
         #selection-view { height: 100%; display: flex; align-items: center; justify-content: center; padding: 20px; overflow-y: auto; }
         .selection-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; width: 100%; max-width: 1100px; }
-        .selection-card { cursor: pointer; text-align: center; display: flex; flex-direction: column; transition: 0.4s; }
+        .selection-card { cursor: pointer; text-align: center; transition: 0.4s ease; display: flex; flex-direction: column; }
         .selection-card:hover { border-color: var(--accent-lime); transform: translateY(-8px); }
         .icon-circle { width: 72px; height: 72px; border-radius: 24px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
         .icon-indigo { background: rgba(139, 92, 246, 0.15); color: var(--accent-violet); }
@@ -161,125 +125,50 @@
         .icon-emerald { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); }
 
         /* --- CHAT VIEW --- */
-        #chat-view {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            width: 100%;
-        }
-        #chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 24px 16px;
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .chat-input-area {
-            padding: 16px;
-            background: rgba(10, 11, 30, 0.85);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid var(--glass-border);
-            flex-shrink: 0;
-        }
-        .chat-input-container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            border-radius: 1.5rem;
-            display: flex;
-            align-items: flex-end;
-            padding: 6px;
-            gap: 12px;
-        }
-        #user-input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            padding: 12px 16px;
-            color: white;
-            outline: none;
-            resize: none;
-            min-height: 44px;
-            max-height: 150px;
-            font-size: 1rem;
-            font-family: inherit;
-        }
-        .send-btn {
-            width: 44px; height: 44px;
-            border-radius: 12px;
-            background: var(--accent-lime);
-            color: var(--bg-deep);
-            display: flex; align-items: center; justify-content: center;
-            border: none; cursor: pointer;
-            flex-shrink: 0;
-        }
+        #chat-view { display: flex; flex-direction: column; height: 100%; width: 100%; }
+        #chat-messages { flex: 1; overflow-y: auto; padding: 24px 16px; width: 100%; max-width: 900px; margin: 0 auto; }
+        .chat-input-area { padding: 16px; background: rgba(10, 11, 30, 0.85); border-top: 1px solid var(--glass-border); flex-shrink: 0; backdrop-filter: blur(20px); }
+        .chat-input-container { max-width: 900px; margin: 0 auto; background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: 1.5rem; display: flex; align-items: flex-end; padding: 6px; gap: 12px; }
+        #user-input { flex: 1; background: transparent; border: none; padding: 12px 16px; color: white; outline: none; resize: none; min-height: 44px; max-height: 150px; font-size: 1rem; font-family: inherit; }
+        .send-btn { width: 44px; height: 44px; border-radius: 12px; background: var(--accent-lime); color: var(--bg-deep); display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; flex-shrink: 0; }
 
-        /* --- GHOST MODE 2.0 (RESPONSIVE SPLIT) --- */
+        /* --- GHOST MODE --- */
         #ghost-display-view { height: 100%; display: flex; flex-direction: column; background: #050510; }
-        .ghost-stage { 
-            flex: 1; 
-            display: flex; 
-            flex-direction: row; 
-            overflow: hidden; 
-        }
+        .ghost-stage { flex: 1; display: flex; overflow: hidden; }
 
         @media (max-width: 850px) {
             .ghost-stage { flex-direction: column; overflow-y: auto; }
-            .ghost-code-pane { flex: 0 0 auto !important; height: 35dvh !important; border-right: none !important; border-bottom: 1px solid var(--glass-border); }
-            .ghost-viz-pane { flex: 0 0 auto !important; }
+            .ghost-code-pane { flex: 0 0 auto !important; height: 35dvh !important; border-bottom: 1px solid var(--glass-border); border-right: none !important; }
         }
 
-        .ghost-code-pane { 
-            flex: 0 0 42%; 
-            border-right: 1px solid var(--glass-border); 
-            background: #08081a; 
-            overflow-y: auto; 
-            position: relative;
-            padding-bottom: 30vh;
-        }
+        .ghost-code-pane { flex: 0 0 42%; background: #08081a; overflow-y: auto; position: relative; border-right: 1px solid var(--glass-border); padding-bottom: 30vh; }
+        .ghost-viz-pane { flex: 1; padding: 24px; overflow-y: auto; background: radial-gradient(circle at 50% 50%, #0d0d26 0%, #050510 100%); }
 
-        .ghost-viz-pane { 
-            flex: 1; 
-            padding: 24px; 
-            overflow-y: auto; 
-            background: radial-gradient(circle at 50% 50%, #0d0d26 0%, #050510 100%); 
-        }
-
-        /* LOGIC PULSE HIGHLIGHTER */
         .viz-line-highlighter { 
             position: absolute; left: 0; width: 100%; height: 30px; 
-            background: rgba(207, 255, 4, 0.12); border-left: 4px solid var(--accent-lime); 
-            pointer-events: none; transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 5;
-            animation: pulseHighlighter 2s infinite ease-in-out;
+            background: rgba(207, 255, 4, 0.15); border-left: 4px solid var(--accent-lime); 
+            pointer-events: none; transition: top 0.25s cubic-bezier(0.4, 0, 0.2, 1); z-index: 5;
+            animation: pulseHigh 1.5s infinite;
         }
-        @keyframes pulseHighlighter {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; background: rgba(207, 255, 4, 0.2); }
-        }
+        @keyframes pulseHigh { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; background: rgba(207, 255, 4, 0.25); } }
 
-        .code-line { padding-left: 28px; font-family: var(--font-mono); font-size: 0.85rem; height: 30px; display: flex; align-items: center; color: var(--text-soft); white-space: pre; position: relative; z-index: 10; }
-        .code-line.active { color: var(--accent-lime); font-weight: 700; text-shadow: 0 0 10px rgba(207, 255, 4, 0.3); }
+        .code-line { padding-left: 30px; font-family: var(--font-mono); font-size: 0.85rem; height: 30px; display: flex; align-items: center; color: var(--text-soft); white-space: pre; position: relative; z-index: 10; }
+        .code-line.active { color: var(--accent-lime); font-weight: 700; background: rgba(207, 255, 4, 0.05); text-shadow: 0 0 8px rgba(207, 255, 4, 0.3); }
 
         .memory-stack { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
-        .memory-chip { background: var(--bg-card); border: 1px solid var(--glass-border); padding: 10px 15px; border-radius: 12px; display: flex; flex-direction: column; min-width: 140px; transition: 0.4s; }
-        .memory-chip.updated { border-color: var(--accent-lime); box-shadow: 0 0 20px rgba(207, 255, 4, 0.2); transform: scale(1.03); }
+        .memory-chip { background: var(--bg-card); border: 1px solid var(--glass-border); padding: 10px 15px; border-radius: 12px; min-width: 140px; transition: 0.4s; }
+        .memory-chip.updated { border-color: var(--accent-lime); transform: scale(1.03); box-shadow: 0 0 20px rgba(207, 255, 4, 0.2); }
         .chip-label { font-size: 0.6rem; color: var(--accent-emerald); font-weight: 900; text-transform: uppercase; margin-bottom: 2px; }
         .chip-value { font-family: var(--font-mono); font-size: 0.95rem; color: white; display: flex; align-items: center; gap: 8px; }
         .chip-diff { font-size: 0.75rem; color: var(--accent-lime); opacity: 0.6; }
 
+        .analogy-card { background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(139, 92, 246, 0.05) 100%); border: 1px solid var(--accent-violet); border-radius: 20px; padding: 20px; margin-bottom: 24px; display: flex; gap: 15px; }
+        .analogy-bulb { font-size: 2rem; filter: drop-shadow(0 0 10px var(--accent-violet)); }
+        .analogy-title { font-size: 0.65rem; font-weight: 900; text-transform: uppercase; color: var(--accent-violet); margin-bottom: 4px; }
+        .analogy-content { font-size: 1.05rem; line-height: 1.5; color: #fff; font-weight: 500; }
+
         .ghost-dashboard-section { margin-bottom: 24px; padding: 20px; background: rgba(22, 24, 55, 0.45); border: 1px solid var(--glass-border); border-radius: 24px; position: relative; backdrop-filter: blur(16px); }
         .commentary-header { border-left: 6px solid var(--accent-emerald); min-height: 110px; }
-        
-        .analogy-card { 
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(139, 92, 246, 0.05) 100%); 
-            border: 1px solid var(--accent-violet); 
-            border-radius: 20px; padding: 20px; margin-bottom: 24px; display: flex; gap: 15px;
-        }
-        .analogy-bulb { font-size: 2rem; filter: drop-shadow(0 0 10px var(--accent-violet)); }
-        .analogy-title { font-size: 0.65rem; font-weight: 900; text-transform: uppercase; color: var(--accent-violet); margin-bottom: 5px; }
-        .analogy-content { font-size: 1.05rem; line-height: 1.5; color: #fff; font-weight: 500; }
 
         .ghost-nav-cluster { display: flex; gap: 10px; margin-bottom: 12px; }
         .ghost-mini-btn { flex: 1; background: rgba(207, 255, 4, 0.1); border: 1px solid var(--accent-lime); color: var(--accent-lime); padding: 10px; border-radius: 10px; font-size: 0.65rem; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: 0.2s; }
@@ -291,129 +180,113 @@
 
         .line-badge { background: var(--accent-emerald); color: var(--bg-deep); padding: 2px 6px; border-radius: 4px; font-size: 0.6rem; font-weight: 900; margin-left: 10px; }
 
-        /* --- UTILS --- */
         .hidden { display: none !important; }
         .custom-scrollbar::-webkit-scrollbar { width: 5px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
         .typing-dot { width: 6px; height: 6px; background-color: var(--accent-lime); border-radius: 50%; display: inline-block; animation: bounce 1.4s infinite ease-in-out both; margin-right: 4px; }
         @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
-        .prose pre { background: #000; padding: 1.2rem; border-radius: 16px; overflow-x: auto; margin: 12px 0; border: 1px solid var(--glass-border); color: var(--accent-lime); font-family: var(--font-mono); font-size: 0.85rem; }
         
+        .ghost-log-entry { font-size: 0.75rem; padding: 8px 0; border-bottom: 1px solid var(--glass-border); color: var(--text-soft); }
+        .ghost-log-line { color: var(--accent-emerald); font-weight: 900; margin-right: 10px; }
+
         #intelligence-loader { margin-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .loader-ring { width: 50px; height: 50px; border: 4px solid rgba(207, 255, 4, 0.1); border-top-color: var(--accent-lime); border-radius: 50%; animation: spin 1s infinite linear; }
         .loader-text { font-size: 0.7rem; font-weight: 900; color: var(--accent-lime); text-transform: uppercase; letter-spacing: 0.2em; animation: pulse 2s infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
     </style>
 </head>
 <body class="custom-scrollbar">
 
-    <div class="bg-animated-container">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-    </div>
+    <div class="bg-animated-container"><div class="orb orb-1"></div><div class="orb orb-2"></div></div>
 
-    <!-- GLOBAL HEADER -->
     <header class="global-header">
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <div class="logo-box">
-                <img src="X.jpg" alt="Logo" onerror="this.src='https://via.placeholder.com/32/0a0b1e/cfff04?text=X'">
-            </div>
-            <div class="brand-text">
-                <b>Pluto Intelligence</b>
-                <sub>SpectrumSyntaX</sub>
-            </div>
+        <div style="display:flex; align-items:center; gap:15px;">
+            <div class="logo-box"><img src="X.jpg" alt="X" onerror="this.src='https://via.placeholder.com/32/cfff04?text=X'"></div>
+            <div class="brand-text"><b>Pluto Intelligence</b><sub>SpectrumSyntaX</sub></div>
         </div>
         <div style="display: flex; align-items: center; gap: 12px;">
             <div class="beta-pill">Beta</div>
-            <button onclick="location.reload()" class="btn btn-ghost" style="width: auto; padding: 6px 12px; font-size: 0.65rem; border-radius: 10px;">Reset</button>
+            <button onclick="location.reload()" class="btn btn-ghost" style="width:auto; padding:6px 12px; font-size:0.6rem;">Reset</button>
         </div>
     </header>
 
     <main>
-        <!-- VIEW: SELECTION -->
+        <!-- SELECTION VIEW -->
         <div id="selection-view">
             <div class="selection-grid">
                 <div onclick="startNeuralChat()" class="card selection-card">
                     <div class="icon-circle icon-indigo">✦</div>
-                    <h2>Neural Chat</h2>
-                    <p style="color: var(--text-soft); font-size: 0.9rem; margin-top: 10px; margin-bottom: 24px;">Direct session dialogue. fr. No cap.</p>
+                    <h2>Neural Chat</h2><p style="color:var(--text-soft); font-size:0.9rem; margin-top:10px; margin-bottom:24px;">Direct session dialogue. fr. No cap.</p>
                     <button class="btn btn-primary">Initialize Link</button>
                 </div>
                 <div onclick="showPlutoX()" class="card selection-card">
                     <div class="icon-circle icon-orange">⚡</div>
-                    <h2>Pluto-X</h2>
-                    <p style="color: var(--text-soft); font-size: 0.9rem; margin-top: 10px; margin-bottom: 24px;">Synthesis engine. Ingest AI sources.</p>
+                    <h2>Pluto-X</h2><p style="color:var(--text-soft); font-size:0.9rem; margin-top:10px; margin-bottom:24px;">Synthesis engine. Ingest AI sources.</p>
                     <button class="btn btn-accent">Synthesize Base</button>
                 </div>
                 <div onclick="showGhostMode()" class="card selection-card">
                     <div class="icon-circle icon-emerald">👁</div>
-                    <h2>Ghost Mode 2.0</h2>
-                    <p style="color: var(--text-soft); font-size: 0.9rem; margin-top: 10px; margin-bottom: 24px;">Elite Debugger. Advanced ML & Logic.</p>
+                    <h2>Ghost Mode 2.0</h2><p style="color:var(--text-soft); font-size:0.9rem; margin-top:10px; margin-bottom:24px;">Elite Debugger. Advanced Algos & Logic.</p>
                     <button class="btn btn-emerald">Launch Engine</button>
                 </div>
             </div>
         </div>
 
-        <!-- VIEW: PLUTO-X SETUP -->
+        <!-- PLUTO-X SETUP -->
         <div id="setup-view" class="hidden" style="height:100%; display:flex; align-items:center; justify-content:center; padding:20px;">
-            <div class="card" style="max-width: 500px; width: 100%;">
+            <div class="card" style="max-width:500px; width:100%;">
                 <div id="setup-content">
-                    <button onclick="goHome()" class="btn btn-ghost" style="width: auto; font-size: 0.65rem; padding: 8px 16px; margin-bottom: 24px;">← Neural Link Home</button>
+                    <button onclick="goHome()" class="btn btn-ghost" style="width:auto; padding:8px 16px; margin-bottom:24px; font-size: 0.65rem;">← Neural Link Home</button>
                     <h1>Foundation Synthesis</h1>
                     <div style="text-align: left; margin: 24px 0;">
                         <input id="link1" type="url" placeholder="ChatGPT Share Link" class="input-field" style="margin-bottom: 12px;">
                         <input id="link2" type="url" placeholder="Gemini Share Link" class="input-field">
                     </div>
-                    <button id="init-btn" onclick="runSynthesis()" class="btn btn-primary">Start to Cook</button>
+                    <button onclick="runSynthesis()" class="btn btn-primary">Start to Cook</button>
                 </div>
-                <div id="intelligence-loader" class="intelligence-loader hidden">
+                <div id="intelligence-loader" class="hidden" style="text-align:center;">
                     <div class="loader-ring"></div>
-                    <div id="loader-status" class="loader-text">Locking into Sources</div>
+                    <div class="loader-text">Locking into Sources</div>
                 </div>
             </div>
         </div>
 
-        <!-- VIEW: GHOST SETUP -->
+        <!-- GHOST SETUP -->
         <div id="ghost-setup-view" class="hidden" style="height:100%; display:flex; align-items:center; justify-content:center; padding:20px;">
-            <div class="card" style="max-width: 850px; width: 100%; display: flex; flex-direction: column; max-height: 85vh;">
+            <div class="card" style="max-width:850px; width:100%; height:85vh; display:flex; flex-direction:column;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 15px; flex-shrink: 0;">
-                    <button onclick="goHome()" class="btn btn-ghost" style="width: auto; font-size: 0.65rem; padding: 8px 16px;">← Back</button>
-                    <button onclick="loadTemplateCode()" class="btn btn-ghost" style="width: auto; font-size: 0.65rem; padding: 8px 16px; border-color: var(--accent-emerald); color: var(--accent-emerald);">Load Template</button>
+                    <button onclick="goHome()" class="btn btn-ghost" style="width:auto; padding:8px 16px; font-size: 0.65rem;">← Back</button>
+                    <button onclick="loadTemplateCode()" class="btn btn-ghost" style="width:auto; padding:8px 16px; font-size: 0.65rem; border-color: var(--accent-emerald); color: var(--accent-emerald);">Load Template</button>
                 </div>
                 <h1>Trace Simulation</h1>
                 <select id="debug-language" class="input-field" style="margin: 15px 0; flex-shrink: 0;">
-                    <option value="python">Python (ML Recommended)</option>
-                    <option value="javascript">JavaScript</option>
-                    <option value="cpp">C++ (Modern)</option>
-                    <option value="c">C (Legacy)</option>
+                    <option value="python">Python (ML Recommended)</option><option value="javascript">JavaScript</option>
+                    <option value="cpp">C++ (Modern)</option><option value="c" selected>C (Legacy)</option>
                 </select>
-                <textarea id="debug-code-input" class="input-field custom-scrollbar" style="flex:1; font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.5; resize: none; margin-bottom:20px;" placeholder="Paste logic here..."></textarea>
+                <textarea id="debug-code-input" class="input-field custom-scrollbar" style="flex:1; font-family:var(--font-mono); font-size:0.8rem; line-height: 1.5; resize:none; margin-bottom:20px;" placeholder="Paste logic here..."></textarea>
                 <button id="debug-btn" onclick="initGhostTrace()" class="btn btn-emerald" style="flex-shrink: 0;">Analyze & Animate</button>
             </div>
         </div>
 
-        <!-- VIEW: CHAT -->
+        <!-- CHAT VIEW -->
         <div id="chat-view" class="hidden">
             <div id="chat-messages" class="custom-scrollbar"></div>
             <div class="chat-input-area">
                 <div class="chat-input-container">
-                    <textarea id="user-input" placeholder="Continue neural session..." oninput="autoResize(this)"></textarea>
-                    <button onclick="handleChatSubmit()" class="send-btn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                    </button>
+                    <textarea id="user-input" placeholder="Continue neural session..." oninput="this.style.height='auto'; this.style.height=this.scrollHeight+'px'"></textarea>
+                    <button onclick="handleChatSubmit()" class="send-btn">➔</button>
                 </div>
             </div>
         </div>
 
-        <!-- VIEW: GHOST EXECUTION DASHBOARD -->
+        <!-- GHOST DASHBOARD -->
         <div id="ghost-display-view" class="hidden">
             <div class="ghost-stage">
-                <!-- LEFT: INDEPENDENT CODE PANEL -->
                 <div class="ghost-code-pane custom-scrollbar" id="ghost-code-scroll">
-                    <div id="highlighter" class="viz-line-highlighter hidden"></div>
+                    <div id="code-target" style="position:relative;"><div id="highlighter" class="viz-line-highlighter hidden"></div></div>
                     <div id="code-lines-target"></div>
                 </div>
-
-                <!-- RIGHT: INDEPENDENT INSIGHTS PANEL -->
                 <div class="ghost-viz-pane custom-scrollbar">
                     <div id="analogy-bridge" class="analogy-card hidden">
                         <span class="analogy-bulb">💡</span>
@@ -422,7 +295,7 @@
                             <div id="analogy-content" class="analogy-content">Initializing Logic Bridge...</div>
                         </div>
                     </div>
-
+                    
                     <div id="ghost-commentary" class="ghost-dashboard-section commentary-header hidden">
                         <div class="ghost-nav-cluster">
                             <button id="ghost-prev-btn" class="ghost-mini-btn">Back</button>
@@ -431,7 +304,7 @@
                         <div style="font-size: 0.55rem; font-weight: 900; color: var(--accent-emerald); text-transform: uppercase; letter-spacing: 0.15em;">
                             Trace Active <span id="line-indicator" class="line-badge">Line 0</span>
                         </div>
-                        <div id="commentary-text" style="font-size: 0.95rem; font-weight: 500; color: white; line-height: 1.5; margin-top: 10px;">Decrypting virtual execution path...</div>
+                        <div id="commentary-text" style="font-size: 1rem; font-weight: 500; color: white; line-height: 1.5; margin-top: 10px;">Decrypting virtual execution path...</div>
                         
                         <div class="speed-pill">
                             <div class="speed-option" onclick="updateSpeed(3000, this)">Turbo</div>
@@ -446,7 +319,7 @@
 
                     <div class="ghost-dashboard-section">
                         <label style="font-size: 0.65rem; font-weight: 900; color: var(--text-soft); text-transform: uppercase;">Intelligence Trail</label>
-                        <div id="ghost-log" class="ghost-log-area custom-scrollbar"></div>
+                        <div id="ghost-log" class="custom-scrollbar" style="max-height: 300px;"></div>
                     </div>
                 </div>
             </div>
@@ -455,158 +328,125 @@
 
     <script>
         const API_BASE = 'https://pluto-intelligence-backend-gfjl.onrender.com/api';
-        let appState = {
-            foundation: "", history: [], ghostSteps: [], ghostIdx: 0, ghostDelay: 12000, timer: null
-        };
+        let appState = { foundation: "", history: [], ghostSteps: [], ghostIdx: 0, ghostDelay: 12000, timer: null };
 
         // --- NAVIGATION ---
-        function goHome() {
-            document.querySelectorAll('main > div').forEach(el => el.classList.add('hidden'));
-            document.getElementById('selection-view').classList.remove('hidden');
-        }
+        function goHome() { document.querySelectorAll('main > div').forEach(el => el.classList.add('hidden')); document.getElementById('selection-view').classList.remove('hidden'); }
         function showPlutoX() { goHome(); document.getElementById('selection-view').classList.add('hidden'); document.getElementById('setup-view').classList.remove('hidden'); }
         function showGhostMode() { goHome(); document.getElementById('selection-view').classList.add('hidden'); document.getElementById('ghost-setup-view').classList.remove('hidden'); }
         function startNeuralChat() { runSynthesis(true); }
 
         // --- TEMPLATES ---
-        function loadTemplateCode() {
+        function loadTemplateCode() { 
             const lang = document.getElementById('debug-language').value;
             const input = document.getElementById('debug-code-input');
             const samples = {
-                c: `#include <stdio.h>\n\nint main() {\n    // Tracking XP for Hindi vocabulary mastery\n    int xp_gained[] = {10, 30, 5, 20};\n    int total_xp = 0;\n\n    for (int i = 0; i < 4; i++) {\n        int current = xp_gained[i];\n        \n        // High XP bonus logic\n        if (current > 25) {\n            total_xp = total_xp + current + 10;\n            printf("Locked In! %d XP added.\\n", current);\n        } else {\n            total_xp = total_xp + current;\n        }\n    }\n    \n    printf("Total Mastery: %d XP.\\n", total_xp);\n    return 0;\n}`,
-                python: `xp_gained = [10, 30, 5, 20]\ntotal_xp = 0\n\nfor current in xp_gained:\n    if current > 25:\n        total_xp += (current + 10)\n    else:\n        total_xp += current\n\nprint(f"Total XP: {total_xp}")`
+                c: `void deleteRear() {\n    if (front == NULL) {\n        printf("Deque is empty\\n");\n        return;\n    }\n    struct node *temp = rear;\n    printf("%d deleted from rear.\\n", rear->data);\n    if (front == rear) {\n        front = rear = NULL;\n    } else {\n        rear = rear->prev;\n        rear->next = NULL;\n    }\n    free(temp);\n}`,
+                python: `points = [10, 30, 5]\ntotal = 0\nfor p in points:\n    if p > 20:\n        total += (p + 5)\n    else:\n        total += p\nprint(f"Mastery: {total}")`
             };
-            input.value = samples[lang] || "";
+            input.value = samples[lang] || samples.c;
         }
 
         // --- SYNTHESIS ---
         async function runSynthesis(direct = false) {
-            let links = [];
-            if(!direct) {
-                const l1 = document.getElementById('link1').value;
-                const l2 = document.getElementById('link2').value;
-                if(!l1 && !l2) return alert("Paste links first. fr.");
-                if(l1) links.push({url:l1}); if(l2) links.push({url:l2});
-                document.getElementById('setup-content').classList.add('hidden');
-                document.getElementById('intelligence-loader').classList.remove('hidden');
-            }
+            const links = direct ? [] : [{url: document.getElementById('link1').value}, {url: document.getElementById('link2').value}].filter(l => l.url);
+            if(!direct && links.length === 0) return alert("Links needed. fr.");
+            document.getElementById('setup-content').classList.add('hidden');
+            document.getElementById('intelligence-loader').classList.remove('hidden');
             try {
-                const res = await fetch(`${API_BASE}/initialize`, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ links, title: direct ? "Direct Neural Session" : "Research Session" })
-                });
+                const res = await fetch(`${API_BASE}/initialize`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ links, title: direct ? "Direct Neural Session" : "Research Session" }) });
                 const data = await res.json();
-                if (!res.ok) throw new Error(data.error);
                 appState.foundation = data.foundation;
                 launchChatUI();
-            } catch (err) {
-                alert(err.message);
-                if(!direct) {
-                    document.getElementById('setup-content').classList.remove('hidden');
-                    document.getElementById('intelligence-loader').classList.add('hidden');
-                }
-            }
+            } catch (e) { alert("API Offline or Rate Limited."); goHome(); }
         }
 
         function launchChatUI() {
             document.querySelectorAll('main > div').forEach(el => el.classList.add('hidden'));
             document.getElementById('chat-view').classList.remove('hidden');
             appendMsg('assistant', appState.foundation);
-            // Dynamic scroll adjustment for mobile keyboard
-            window.visualViewport.addEventListener('resize', () => {
-                document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
-            });
         }
 
         // --- GHOST MODE ---
         async function initGhostTrace() {
             const code = document.getElementById('debug-code-input').value.trim();
             const language = document.getElementById('debug-language').value;
-            if(!code) return alert("Trace requires logic.");
-
-            const btn = document.getElementById('debug-btn');
-            btn.disabled = true; btn.innerText = "Analyzing Trace...";
-
+            if(!code) return alert("Code needed.");
+            const btn = document.getElementById('debug-btn'); btn.disabled = true; btn.innerText = "Analyzing Trace...";
             try {
-                const res = await fetch(`${API_BASE}/debug`, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ code, language })
-                });
+                const res = await fetch(`${API_BASE}/debug`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ code, language }) });
                 const data = await res.json();
-                if(!res.ok) throw new Error(data.error);
-
-                appState.ghostSteps = data.trace.steps;
-                appState.ghostIdx = 0;
-                setupStage(code);
-            } catch (err) {
-                alert("Trace Error: " + err.message);
-                btn.disabled = false; btn.innerText = "Analyze & Animate";
-            }
+                if (!data.success || !data.trace || !data.trace.steps) throw new Error("Invalid Trace Data");
+                appState.ghostSteps = data.trace.steps; appState.ghostIdx = 0;
+                renderStage(code);
+            } catch (e) { alert("Trace Error: Logic extraction failed. fr. try again."); btn.disabled = false; btn.innerText = "Analyze & Animate"; }
         }
 
-        function setupStage(rawCode) {
+        function renderStage(code) {
             document.querySelectorAll('main > div').forEach(el => el.classList.add('hidden'));
             document.getElementById('ghost-display-view').classList.remove('hidden');
             const target = document.getElementById('code-lines-target');
-            target.innerHTML = '';
-            rawCode.split('\n').forEach((line, i) => {
-                const div = document.createElement('div');
-                div.className = 'code-line'; div.id = `line-${i+1}`;
+            const high = document.getElementById('highlighter');
+            target.innerHTML = ''; 
+            code.split('\n').forEach((line, i) => {
+                const div = document.createElement('div'); div.className = 'code-line'; div.id = `line-${i+1}`;
                 div.textContent = `${(i+1).toString().padStart(3, ' ')}  ${line}`;
                 target.appendChild(div);
             });
-            // Button bindings
-            document.getElementById('ghost-next-btn').onclick = () => { if(appState.timer) clearTimeout(appState.timer); if(appState.ghostIdx < appState.ghostSteps.length - 1) { appState.ghostIdx++; playStep(); } };
+            document.getElementById('ghost-next-btn').onclick = () => { if(appState.timer) clearTimeout(appState.timer); if(appState.ghostIdx < appState.ghostSteps.length-1) { appState.ghostIdx++; playStep(); } };
             document.getElementById('ghost-prev-btn').onclick = () => { if(appState.timer) clearTimeout(appState.timer); if(appState.ghostIdx > 0) { appState.ghostIdx--; playStep(); } };
+            document.getElementById('ghost-log').innerHTML = '';
             playStep();
         }
 
         function truncate(val) {
             if (typeof val === 'string' && val.length > 25) return val.substring(0, 22) + "...";
-            if (Array.isArray(val) && val.length > 3) return `Arr(${val.length})`;
             return val;
         }
 
         function playStep() {
             if (appState.ghostSteps.length === 0) return;
             const step = appState.ghostSteps[appState.ghostIdx];
+            if (!step) return;
+
             const high = document.getElementById('highlighter');
             const memGrid = document.getElementById('ghost-memory');
-            const comm = document.getElementById('commentary-text');
-            const anal = document.getElementById('analogy-content');
-            
+            const currentMemory = step.memory || {};
+            const prevStep = (appState.ghostIdx > 0) ? appState.ghostSteps[appState.ghostIdx - 1] : null;
+            const prevMemory = (prevStep && prevStep.memory) ? prevStep.memory : {};
+
             high.classList.remove('hidden');
+            // Strict 30px offset per line height
             high.style.top = `${(step.line - 1) * 30}px`;
             document.getElementById('line-indicator').textContent = `Line ${step.line}`;
-
+            
             document.querySelectorAll('.code-line').forEach(el => el.classList.remove('active'));
             const activeLine = document.getElementById(`line-${step.line}`);
-            if(activeLine) {
-                activeLine.classList.add('active');
-                activeLine.scrollIntoView({ behavior: 'smooth', block: 'center', container: document.getElementById('ghost-code-scroll') });
+            if(activeLine) { 
+                activeLine.classList.add('active'); 
+                activeLine.scrollIntoView({ behavior: 'smooth', block: 'center', container: document.getElementById('ghost-code-scroll') }); 
             }
 
-            const prevMem = appState.ghostIdx > 0 ? appState.ghostSteps[appState.ghostIdx - 1].memory : {};
             memGrid.innerHTML = '';
-            Object.entries(step.memory).forEach(([key, val]) => {
-                const chip = document.createElement('div');
-                const isNew = JSON.stringify(prevMem[key]) !== JSON.stringify(val);
-                chip.className = `memory-chip ${isNew ? 'updated' : ''}`;
-                const diff = (isNew && prevMem[key] !== undefined) ? `<span class="chip-diff">${truncate(prevMem[key])} ➔</span>` : '';
-                chip.innerHTML = `<span class="chip-label">${key}</span><span class="chip-value">${diff} ${truncate(val)}</span>`;
+            Object.entries(currentMemory).forEach(([k, v]) => {
+                const isUpdated = JSON.stringify(prevMemory[k]) !== JSON.stringify(v);
+                const chip = document.createElement('div'); chip.className = `memory-chip ${isUpdated ? 'updated' : ''}`;
+                const diff = (isUpdated && prevMemory[k] !== undefined) ? `<span class="chip-diff">${truncate(prevMemory[k])} ➔</span>` : '';
+                chip.innerHTML = `<span class="chip-label">${k}</span><div class="chip-value">${diff} ${truncate(v)}</div>`;
                 memGrid.appendChild(chip);
             });
 
             document.getElementById('ghost-commentary').classList.remove('hidden');
-            comm.textContent = step.commentary;
-            if (step.analogy) { document.getElementById('analogy-bridge').classList.remove('hidden'); anal.textContent = step.analogy; }
+            document.getElementById('commentary-text').textContent = step.commentary || "Executing logic...";
+            if(step.analogy) { 
+                document.getElementById('analogy-bridge').classList.remove('hidden'); 
+                document.getElementById('analogy-content').textContent = step.analogy; 
+            }
 
-            const entry = document.createElement('div');
-            entry.className = 'log-entry';
-            entry.innerHTML = `<span class="log-line">L${step.line}</span><span>${step.commentary}</span>`;
-            document.getElementById('ghost-log').prepend(entry);
+            const log = document.getElementById('ghost-log');
+            const entry = document.createElement('div'); entry.className = 'ghost-log-entry';
+            entry.innerHTML = `<span class="ghost-log-line">L${step.line}</span> ${step.commentary}`;
+            log.prepend(entry);
 
             document.getElementById('ghost-prev-btn').disabled = appState.ghostIdx === 0;
             document.getElementById('ghost-next-btn').disabled = appState.ghostIdx >= appState.ghostSteps.length - 1;
@@ -621,42 +461,51 @@
 
         // --- CHAT HELPERS ---
         function simpleMd(txt) { return txt.replace(/^### (.*$)/gim, '<b>$1</b>').replace(/\*\*(.*)\*\*/gim, '<b>$1</b>').replace(/\n/gim, '<br>'); }
+        
         function appendMsg(role, content) {
             const container = document.getElementById('chat-messages');
             const div = document.createElement('div');
             div.style.display = 'flex'; div.style.justifyContent = role === 'user' ? 'flex-end' : 'flex-start'; div.style.marginBottom = '20px';
-            div.innerHTML = `<div style="background:${role === 'user' ? 'var(--accent-violet)' : 'var(--bg-card)'}; border:1px solid ${role === 'user' ? 'transparent' : 'var(--glass-border)'}; padding:18px; border-radius:18px; max-width:85%; font-size:1rem;">${simpleMd(content)}</div>`;
+            div.innerHTML = `<div style="background:${role === 'user' ? 'var(--accent-violet)' : 'var(--bg-card)'}; border:1px solid ${role === 'user' ? 'transparent' : 'var(--glass-border)'}; padding:18px; border-radius:20px; max-width:85%; font-size:1rem; line-height:1.6;">${simpleMd(content)}</div>`;
             container.appendChild(div);
             container.scrollTop = container.scrollHeight;
         }
 
         async function handleChatSubmit() {
-            const input = document.getElementById('user-input');
-            const txt = input.value.trim();
-            if(!txt) return;
-            input.value = ''; input.style.height = 'auto';
-            appendMsg('user', txt);
-            appState.history.push({role: 'user', content: txt});
+            const input = document.getElementById('user-input'); const txt = input.value.trim();
+            if(!txt) return; input.value = ''; input.style.height = 'auto'; appendMsg('user', txt); appState.history.push({role:'user', content:txt});
+            
+            // "Pluto is cooking" status restored
             const tId = 't-' + Date.now();
             const div = document.createElement('div');
             div.id = tId; div.style.display = 'flex'; div.style.marginBottom = '20px';
-            div.innerHTML = `<div style="background:var(--bg-card); padding:12px 20px; border-radius:18px;"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>`;
+            div.innerHTML = `<div style="background:var(--bg-card); border: 1px solid var(--glass-border); padding:12px 20px; border-radius:18px;">
+                <div style="font-size:0.6rem; font-weight:900; color:var(--accent-lime); text-transform:uppercase; margin-bottom:4px; letter-spacing:0.1em;">Pluto is cooking</div>
+                <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
+            </div>`;
             document.getElementById('chat-messages').appendChild(div);
+            document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+
             try {
-                const res = await fetch(`${API_BASE}/chat`, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ foundation: appState.foundation, history: appState.history })
-                });
-                const data = await res.json();
+                const res = await fetch(`${API_BASE}/chat`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ foundation:appState.foundation, history:appState.history }) });
+                const data = await res.json(); 
                 document.getElementById(tId).remove();
-                if(data.success) { appendMsg('assistant', data.reply); appState.history.push({role: 'assistant', content: data.reply}); }
-            } catch (err) { document.getElementById(tId).remove(); appendMsg('assistant', "Neural Link Error: " + err.message); }
+                if(data.success) { appendMsg('assistant', data.reply); appState.history.push({role:'assistant', content:data.reply}); }
+            } catch(e) { 
+                if(document.getElementById(tId)) document.getElementById(tId).remove(); 
+                appendMsg('assistant', "Neural Link Error. try again. fr."); 
+            }
         }
 
-        function autoResize(ta) { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; }
         document.getElementById('user-input').addEventListener('keydown', (e) => { if(e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleChatSubmit(); } });
 
+        if(window.visualViewport) {
+            window.visualViewport.addEventListener('resize', () => {
+                document.body.style.height = `${window.visualViewport.height}px`;
+                const msgs = document.getElementById('chat-messages');
+                if(msgs) msgs.scrollTop = msgs.scrollHeight;
+            });
+        }
     </script>
 </body>
 </html>
