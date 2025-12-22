@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details - Spectrum SyntaX</title>
+    <!-- Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Outfit:wght@500;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-deep: #0a0b1e;
+            --bg-card: #161837;
+            --accent-lime: #cfff04;
+            --accent-violet: #8b5cf6;
+            --accent-pink: #ff2e63;
+            --text-bright: #ffffff;
+            --text-soft: #a1a1aa;
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, .logo {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-bright);
+            overflow-x: hidden;
+            line-height: 1.6;
+            padding-bottom: 80px;
+        }
+
+        /* --- Background Elements --- */
+        .orb {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(120px);
+            opacity: 0.2;
+        }
+        .orb-1 { background: var(--accent-violet); top: -20%; right: -10%; }
+        .orb-2 { background: var(--accent-lime); bottom: -20%; left: -10%; opacity: 0.1; }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- Navbar Branding --- */
+        .navbar {
+            padding: 24px 0;
+            position: sticky;
+            top: 0;
+            background: rgba(10, 11, 30, 0.8);
+            backdrop-filter: blur(16px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 60px;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.6rem;
+            text-decoration: none;
+            color: var(--text-bright);
+            letter-spacing: -1px;
+        }
+        .logo span { color: var(--accent-lime); }
+
+        .back-btn {
+            color: var(--accent-violet);
+            text-decoration: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+        .back-btn:hover {
+            color: var(--accent-lime);
+            transform: translateX(-5px);
+        }
+
+        /* --- Content Header --- */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-tag {
+            color: var(--accent-violet);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            color: var(--accent-lime);
+        }
+
+        .header p {
+            color: var(--text-soft);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* --- Media Content --- */
+        .video-large {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 32px;
+            overflow: hidden;
+            margin-bottom: 60px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        /* --- Documentation Section --- */
+        .doc-section {
+            background: var(--bg-card);
+            padding: 50px;
+            border-radius: 32px;
+            border: 1px solid var(--glass-border);
+            position: relative;
+        }
+
+        .doc-section h2 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: var(--text-bright);
+            border-left: 4px solid var(--accent-lime);
+            padding-left: 20px;
+        }
+
+        .doc-section p {
+            color: var(--text-soft);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .feature-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .feature-item::before {
+            content: '✦';
+            color: var(--accent-lime);
+            font-weight: bold;
+        }
+
+        .feature-item span {
+            color: var(--text-bright);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            margin-top: 100px;
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-soft);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .doc-section { padding: 30px; }
+            h1 { font-size: 2.5rem; }
+            .navbar .logo { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">SPECTRUM <span>SYNTAX</span></a>
+            <a href="index.html" class="back-btn">← Back to Hub</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="header">
+            <span class="section-tag">Project Deep Dive</span>
+            <h1>Ocean WaY</h1>
+            <p>OceanWay is a conceptual maritime technology project focused on improving the daily safety, efficiency, and decision-making of small-scale fishing boats. The project explores how modern digital tools can be adapted to traditional fishing practices without adding complexity or high-cost hardware. OceanWay is designed with the understanding that fishermen operate in challenging environments where connectivity is limited, conditions are unpredictable, and decisions directly affect both safety and income.</p>
+        </div>
+
+        <div class="video-large">
+            <!-- Full Project Video -->
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/MGjJXRbeLpg?si=jk588VRvRUDZLfei" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <div class="doc-section">
+            <h2>Problem Context: </h2>
+            <p>
+                Small fishing boats largely depend on experience and intuition for navigation, fuel usage, and fishing decisions. While this knowledge is valuable, it often lacks real-time awareness of factors such as fuel limits, boundary proximity, and changing sea conditions. Additionally, fishermen face risks such as accidental border crossings, fuel miscalculations, and price uncertainty when selling their catch. Most existing solutions are either too expensive, hardware-heavy, or not designed for real sea conditions.
+            </p>
+             <h2>Core Idea:  </h2>
+            <p>
+                OceanWay proposes the idea of a Smart Captain digital assistant that supports fishermen during their trips using a simple, tablet-based system. Instead of replacing human expertise, the system acts as a decision-support layer, providing guidance, alerts, and awareness to help fishermen make safer and more informed choices while at sea. The focus is on reliability, simplicity, and usability rather than complex automation.
+            </p>
+            
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div>
+                        <span>Feature Alpha</span>
+                        Technical integration of X-logic systems.
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div>
+                        <span>Feature Beta</span>
+                        High-performance infrastructure scaling.
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div>
+                        <span>Launch Status</span>
+                        Scheduled for Q1 2025 release.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Spectrum Syntax. Built for the future of code.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

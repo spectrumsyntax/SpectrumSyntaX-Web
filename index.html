@@ -3,26 +3,463 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spectrum Syntax - Weaving the Future of Code</title>
-    <link rel="icon" href="X.jpg" onerror="this.onerror=null;this.src='X.jpg';">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="main.css">
-    <!-- NEW: EmailJS SDK -->
+    <title>Spectrum SyntaX - Future of Code</title>
+    <!-- Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Outfit:wght@500;800;900&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <style>
+        :root {
+            --bg-deep: #0a0b1e;
+            --bg-card: #161837;
+            --accent-lime: #cfff04;
+            --accent-violet: #8b5cf6;
+            --accent-pink: #ff2e63;
+            --text-bright: #ffffff;
+            --text-soft: #a1a1aa;
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, .logo {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-bright);
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* --- Background Elements --- */
+        .orb {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(100px);
+            opacity: 0.3;
+            animation: move 20s infinite alternate;
+        }
+        .orb-1 { background: var(--accent-violet); top: -10%; left: -10%; }
+        .orb-2 { background: var(--accent-lime); bottom: -10%; right: -10%; animation-delay: -5s; opacity: 0.1; }
+
+        @keyframes move {
+            from { transform: translate(0, 0); }
+            to { transform: translate(100px, 50px); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- Navbar --- */
+        .navbar {
+            padding: 24px 0;
+            position: sticky;
+            top: 0;
+            background: rgba(10, 11, 30, 0.8);
+            backdrop-filter: blur(16px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.6rem;
+            text-decoration: none;
+            color: var(--text-bright);
+            letter-spacing: -1px;
+        }
+
+        .logo span { color: var(--accent-lime); }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-soft);
+            font-weight: 500;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover, nav a.active { color: var(--accent-lime); }
+
+        /* --- Hero Section --- */
+        .hero-section {
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: clamp(3.5rem, 10vw, 6.5rem);
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 24px;
+            letter-spacing: -3px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, var(--accent-lime), #00ffaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-section p {
+            color: var(--text-soft);
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto 48px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 48px;
+            background: var(--accent-lime);
+            color: var(--bg-deep);
+            text-decoration: none;
+            font-weight: 800;
+            border-radius: 16px;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(207, 255, 4, 0.3);
+        }
+
+        /* --- BULLETIN NEXUS SLIDER --- */
+        .notice-board { padding: 100px 0; overflow: hidden; }
+        
+        .bulletin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 40px;
+        }
+
+        .slider-controls {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1.2rem;
+        }
+
+        .nav-btn:hover {
+            background: var(--accent-lime);
+            color: var(--bg-deep);
+            border-color: var(--accent-lime);
+        }
+
+        .bulletin-slider-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: visible;
+        }
+
+        .bulletin-carousel {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 20px 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            scroll-snap-type: x mandatory;
+        }
+
+        .bulletin-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .notice-card {
+            min-width: 450px;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 0;
+            overflow: hidden;
+            transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 600px) {
+            .notice-card { min-width: 85vw; }
+        }
+
+        .notice-card:hover {
+            border-color: var(--accent-violet);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .card-video-preview {
+            width: 100%;
+            height: 220px;
+            background: #000;
+            position: relative;
+        }
+
+        .card-video-preview iframe, .card-video-preview video {
+            width: 100%;
+            height: 100%;
+            border: none;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 30px;
+        }
+
+        .badge {
+            background: rgba(139, 92, 246, 0.15);
+            color: var(--accent-violet);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: inline-block;
+            text-transform: uppercase;
+        }
+
+        .notice-card h3 { font-size: 1.6rem; margin-bottom: 12px; }
+        .notice-card p { color: var(--text-soft); margin-bottom: 24px; line-height: 1.6; font-size: 0.95rem; }
+        
+        .view-project-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border: 1px solid var(--accent-lime);
+            color: var(--accent-lime);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .view-project-btn:hover {
+            background: var(--accent-lime);
+            color: var(--bg-deep);
+        }
+
+        /* --- Pluto Intelligence & Enhanced Planet --- */
+        .pluto-section { padding: 80px 0; }
+        .pluto-container {
+            background: linear-gradient(135deg, #1e1b4b, #131432);
+            border-radius: 40px;
+            padding: 60px;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+        }
+        .pluto-content { flex: 1.2; z-index: 1; }
+        .pluto-visual { 
+            flex: 1; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        .pluto-planet {
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle at 30% 30%, #f1f1f1 0%, #a8a8a8 20%, #222 100%);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 
+                inset -20px -20px 60px rgba(0,0,0,0.9),
+                0 0 80px rgba(139, 92, 246, 0.2);
+            overflow: hidden;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        /* Surface Texture Layer */
+        .pluto-planet::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 200%; height: 100%;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"),
+                radial-gradient(circle at 50% 50%, rgba(139, 69, 19, 0.1) 0%, transparent 60%),
+                radial-gradient(circle at 20% 30%, rgba(0,0,0,0.3) 0%, transparent 15%),
+                radial-gradient(circle at 70% 60%, rgba(255,255,255,0.05) 0%, transparent 20%);
+            background-size: 300px 300px, 100% 100%, 150px 150px, 120px 120px;
+            opacity: 0.5;
+            mix-blend-mode: multiply;
+            animation: rotate-surface 40s linear infinite;
+        }
+
+        /* The Heart (Tombaugh Regio) & Atmosphere Glow */
+        .pluto-planet::after {
+            content: '';
+            position: absolute;
+            bottom: 10%; right: 15%;
+            width: 120px; height: 110px;
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.25) 0%, transparent 80%);
+            border-radius: 50% 50% 45% 45%;
+            filter: blur(20px);
+            transform: rotate(-15deg);
+            z-index: 2;
+        }
+
+        /* Atmospheric Haze Layer */
+        .pluto-haze {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: inset 0 0 40px rgba(139, 92, 246, 0.4);
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        @keyframes rotate-surface {
+            from { transform: translateX(-50%); }
+            to { transform: translateX(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(3deg); }
+        }
+
+        /* --- Services --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 50px;
+        }
+        .service-card {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 32px;
+            border: 1px solid var(--glass-border);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .service-card:hover { background: var(--accent-lime); }
+        .service-card:hover * { color: var(--bg-deep) !important; }
+        .service-icon { width: 48px; height: 48px; color: var(--accent-lime); margin-bottom: 24px; }
+        .service-icon svg { width: 100%; height: 100%; }
+
+        /* --- Team --- */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        .team-card { text-align: center; }
+        .team-card .img-frame {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: #2a2d5a;
+            border-radius: 32px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border: 4px solid transparent;
+            transition: 0.3s;
+        }
+        .team-card:hover .img-frame { border-color: var(--accent-lime); transform: rotate(2deg); }
+        .team-card img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* --- Contact --- */
+        .contact-section { padding: 100px 0; background: #070814; }
+        .contact-form { max-width: 600px; margin: 40px auto 0; display: grid; gap: 20px; }
+        .form-input {
+            width: 100%;
+            padding: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            color: white;
+            font-size: 1rem;
+        }
+        .form-input:focus { outline: none; border-color: var(--accent-lime); }
+
+        /* --- Utilities --- */
+        .section-tag {
+            color: var(--accent-violet);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            display: block;
+            margin-bottom: 12px;
+        }
+        .visible { opacity: 1 !important; transform: translateY(0) !important; }
+        [data-anime] { opacity: 0; transform: translateY(20px); transition: 0.6s ease-out; }
+
+        @media (max-width: 768px) {
+            .pluto-container { flex-direction: column; padding: 40px 24px; text-align: center; }
+            h1 { font-size: 3rem; }
+            nav ul { display: none; }
+            .pluto-visual { order: -1; margin-bottom: 40px; }
+        }
+    </style>
 </head>
 <body>
 
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
     <header class="navbar">
         <div class="container">
-            <a href="index.html" class="logo">Spectrum SyntaX</a>
+            <a href="index.html" class="logo">SPECTRUM <span>SYNTAX</span></a>
             <nav>
                 <ul>
                     <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="#aboutSection">About</a></li>
+                    <li><a href="#bulletin">Bulletin</a></li>
                     <li><a href="explore.html">Work</a></li>
+                    <li><a href="#pluto">Pluto AI</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
@@ -32,292 +469,226 @@
     <main>
         <section class="hero-section">
             <div class="container">
-                <h1>
-                    Passion <span class="gradient-text">Meets Business</span>
-                </h1>
-                <p>
-                     Innovative digital solutions that redefine the boundaries of technology and design.
-                </p>
-                <a href="explore.html" class="cta-button">Explore Our Work</a>
+                <span class="section-tag" data-anime>Next-Gen Digital Lab</span>
+                <h1 data-anime>Passion <br><span class="gradient-text">Meets Business</span></h1>
+                <p data-anime>Innovative digital solutions that redefine the boundaries of technology and design. Weaving the future of code.</p>
+                <div data-anime>
+                    <a href="explore.html" class="cta-button">Explore Our Work</a>
+                </div>
             </div>
         </section>
 
-        <section class="services-section">
+        <!-- BULLETIN NEXUS (Dynamic Slider) -->
+        <section class="notice-board" id="bulletin">
             <div class="container">
-                <h2>What We Do</h2>
-                <p class="section-subtitle">We offer a complete suite of services to bring your digital vision to life.</p>
-                <div class="services-grid">
-                    <div class="service-card" 
-                        data-title="Web Development" 
-                        data-description="We build responsive, high-performance websites tailored to your business needs, from stunning landing pages to complex e-commerce platforms. Our solutions are secure, scalable, and optimized for search engines." 
-                        data-price="₹1499">
-                        <div class="service-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-                        </div>
-                        <h3>Web Development</h3>
-                        <div class="service-card-overlay">
-                            <p>Click for details</p>
-                        </div>
+                <div class="bulletin-header">
+                    <div data-anime>
+                        <span class="section-tag">Notice Board</span>
+                        <h2 style="font-size: clamp(2rem, 5vw, 3.5rem);">Bulletin <span class="gradient-text">Nexus</span></h2>
                     </div>
-                    <div class="service-card"
-                        data-title="App Development"
-                        data-description="From concept to launch, we create intuitive and engaging mobile applications for iOS and Android. We focus on user experience, performance, and seamless integration with your existing systems."
-                        data-price="₹1999">
-                        <div class="service-icon">
-                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-                        </div>
-                        <h3>App Development</h3>
-                        <div class="service-card-overlay">
-                            <p>Click for details</p>
-                        </div>
+                    <div class="slider-controls" data-anime>
+                        <button class="nav-btn" id="prevBtn">←</button>
+                        <button class="nav-btn" id="nextBtn">→</button>
                     </div>
-                    <div class="service-card"
-                        data-title="AI / ML / DL"
-                        data-description="Leverage the power of Artificial Intelligence and Machine Learning to unlock data-driven insights, automate processes, and create intelligent products. We specialize in Natural Language Processing, computer vision, and predictive analytics."
-                        data-price="₹1499">
-                        <div class="service-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                        </div>
-                        <h3>AI / ML / DL</h3>
-                        <div class="service-card-overlay">
-                            <p>Click for details</p>
-                        </div>
+                </div>
+                
+                <div class="bulletin-slider-wrapper" data-anime>
+                    <div class="bulletin-carousel" id="bulletin-carousel">
+                        <!-- Cards are injected via JavaScript BULLETIN_DATA -->
                     </div>
-                    <div class="service-card"
-                        data-title="Internet of Things (IoT)"
-                        data-description="Connect the physical and digital worlds with our end-to-end IoT solutions. We develop custom hardware, firmware, and cloud platforms to monitor, control, and analyze connected devices in real-time."
-                        data-price="₹1500">
-                        <div class="service-icon">
-                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.128 19.825a1.586 1.586 0 01-2.242 0l-1.12-1.12a1.586 1.586 0 010-2.242l.628-.628a1.586 1.586 0 000-2.242l-1.12-1.12a1.586 1.586 0 010-2.242l1.12-1.12a1.586 1.586 0 012.242 0l1.12 1.12a1.586 1.586 0 002.242 0l.628-.628a1.586 1.586 0 012.242 0l1.12 1.12a1.586 1.586 0 010 2.242l-.628.628a1.586 1.586 0 000 2.242l1.12 1.12a1.586 1.586 0 010 2.242l-1.12 1.12a1.586 1.586 0 01-2.242 0l-1.12-1.12a1.586 1.586 0 00-2.242 0l-.628.628zM12 15a3 3 0 100-6 3 3 0 000 6z"/></svg>
-                        </div>
-                        <h3>IoT</h3>
-                        <div class="service-card-overlay">
-                            <p>Click for details</p>
-                        </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pluto Intelligence -->
+        <section class="pluto-section" id="pluto">
+            <div class="container">
+                <div class="pluto-container" data-anime>
+                    <div class="pluto-content">
+                        <span class="section-tag">AI Core</span>
+                        <h2 style="font-size: 3.5rem; margin-bottom: 20px;">Pluto <span class="gradient-text">Intelligence</span></h2>
+                        <p style="font-size: 1.1rem; color: var(--text-soft); margin-bottom: 30px;">
+                             I'm Pluto, your go-to tech buddy, created by the innovative team at Spectrum SyntaX. I'm an AI designed to provide you with the most accurate and up-to-date information on all things tech. My knowledge is constantly evolving, so you can be sure you're getting the latest scoop on the latest trends and innovations.
+                        </p>
+                        <a href="pluto.html" class="cta-button" style="background: var(--accent-violet); color: white;">Explore the Core</a>
                     </div>
-                    <div class="service-card"
-                        data-title="Data Science"
-                        data-description="Transform raw data into actionable strategies. Our data science services include data visualization, statistical modeling, and building data pipelines to help you make smarter business decisions."
-                        data-price="₹999">
-                         <div class="service-icon">
-                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-                        </div>
-                        <h3>Data Science</h3>
-                        <div class="service-card-overlay">
-                            <p>Click for details</p>
-                        </div>
-                    </div>
-                    <div class="service-card"
-                        data-title="UI / UX Design"
-                        data-description="We craft beautiful, user-centric interfaces that are not only visually appealing but also easy to use. Our design process involves research, wireframing, prototyping, and user testing to ensure a flawless final product."
-                        data-price="₹199">
-                        <div class="service-icon">
-                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                        </div>
-                        <h3>UI / UX Design</h3>
-                        <div class="service-card-overlay">
-                            <p>Click for details</p>
+                    <div class="pluto-visual">
+                        <div class="pluto-planet">
+                            <div class="pluto-haze"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="about-section" id="aboutSection">
-            <div class="container about-grid">
-                <div class="about-image">
-                    <img src="spectrumsyntaxlogo.jpg" alt="Spectrum Syntax Logo Placeholder" onerror="this.onerror=null;this.src='spectrumsyntaxlogo.jpg';">
+        <!-- Services -->
+        <section class="notice-board" id="services">
+            <div class="container">
+                <h2 style="font-size: 3rem; text-align: center;" data-anime>What We <span class="gradient-text">Do</span></h2>
+                <div class="services-grid">
+                    <!-- Web Development -->
+                    <div class="service-card" data-anime data-title="Web Development" data-description="We build responsive, high-performance websites tailored to your business needs, from stunning landing pages to complex e-commerce platforms." data-price="₹1499">
+                        <div class="service-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg></div>
+                        <h3>Web Development</h3>
+                    </div>
+                    <!-- App Development -->
+                    <div class="service-card" data-anime data-title="App Development" data-description="From concept to launch, we create intuitive and engaging mobile applications for iOS and Android focusing on UX and performance." data-price="₹1999">
+                        <div class="service-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg></div>
+                        <h3>App Development</h3>
+                    </div>
+                    <!-- AI / ML / DL -->
+                    <div class="service-card" data-anime data-title="AI / ML / DL" data-description="Leverage the power of AI to unlock data-driven insights and automate processes with custom intelligent products." data-price="₹1499">
+                        <div class="service-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
+                        <h3>AI / ML / DL</h3>
+                    </div>
+                    <!-- IoT -->
+                    <div class="service-card" data-anime data-title="Internet of Things (IoT)" data-description="Connect the physical and digital worlds with custom hardware, firmware, and cloud platforms for real-time analysis." data-price="₹1500">
+                        <div class="service-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M8.128 19.825a1.586 1.586 0 01-2.242 0l-1.12-1.12a1.586 1.586 0 010-2.242l.628-.628a1.586 1.586 0 000-2.242l-1.12-1.12a1.586 1.586 0 010-2.242l1.12-1.12a1.586 1.586 0 012.242 0l1.12 1.12a1.586 1.586 0 002.242 0l.628-.628a1.586 1.586 0 012.242 0l1.12 1.12a1.586 1.586 0 010 2.242l-.628.628a1.586 1.586 0 000 2.242l1.12 1.12a1.586 1.586 0 010 2.242l-1.12 1.12a1.586 1.586 0 01-2.242 0l-1.12-1.12a1.586 1.586 0 00-2.242 0l-.628.628zM12 15a3 3 0 100-6 3 3 0 000 6z"/></svg></div>
+                        <h3>IoT</h3>
+                    </div>
+                    <!-- Data Science -->
+                    <div class="service-card" data-anime data-title="Data Science" data-description="Transform raw data into actionable strategies through visualization, statistical modeling, and intelligent pipelines." data-price="₹999">
+                        <div class="service-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div>
+                        <h3>Data Science</h3>
+                    </div>
+                    <!-- UI / UX -->
+                    <div class="service-card" data-anime data-title="UI / UX Design" data-description="We craft beautiful, user-centric interfaces through research, wireframing, and rigorous user testing." data-price="₹199">
+                        <div class="service-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></div>
+                        <h3>UI / UX Design</h3>
+                    </div>
                 </div>
-                <div class="about-content">
-                    <h2><span class="gradient-text">About</span> Spectrum SyntaX</h2>
-                    <p>Founded on the principle of innovation, Spectrum Syntax is a digital agency dedicated to building elegant, high-performance web solutions. We merge cutting-edge technology with user-centric design to help businesses thrive in the digital landscape.</p>
-                    <ul>
-                        <li><strong>Excellence:</strong> We are committed to delivering the highest quality work.</li>
-                        <li><strong>Collaboration:</strong> We work closely with our clients to achieve shared goals.</li>
-                        <li><strong>Integrity:</strong> We believe in transparent and honest communication.</li>
-                    </ul>
+            </div>
+        </section>
+
+        <!-- Leadership Section -->
+        <section class="notice-board">
+            <div class="container">
+                <h2 style="font-size: 3rem; text-align: center;" data-anime>Meet Our <span class="gradient-text">Leadership</span></h2>
+                <div class="team-grid">
+                    <div class="team-card" data-anime>
+                        <div class="img-frame">
+                            <img src="deepakcolour.jpg" alt="Deepak P" onerror="this.src='https://via.placeholder.com/250x250?text=Deepak+P'">
+                        </div>
+                        <h3>Deepak P</h3>
+                        <p style="color: var(--accent-lime)">Founder & Lead Strategist</p>
+                    </div>
+                    <div class="team-card" data-anime>
+                        <div class="img-frame">
+                            <img src="jozzeflatest.jpg" alt="Sunny Joseph A" onerror="this.src='https://via.placeholder.com/250x250?text=Sunny+Joseph+A'">
+                        </div>
+                        <h3>Sunny Joseph A</h3>
+                        <p style="color: var(--accent-violet)">Founder & Head of Innovation</p>
+                    </div>
+                    <div class="team-card" data-anime>
+                        <div class="img-frame">
+                            <img src="praveen.jpg" alt="PraveenKumar S" onerror="this.src='https://via.placeholder.com/250x250?text=PraveenKumar+S'">
+                        </div>
+                        <h3>PraveenKumar S</h3>
+                        <p style="color: var(--accent-pink)">CEO & Head of Technology</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="contact-section" id="contact">
+            <div class="container">
+                <div style="text-align: center;">
+                    <h2 style="font-size: 3rem;" data-anime>Let's <span class="gradient-text">Sync</span></h2>
+                    <p style="color: var(--text-soft); margin-bottom: 40px;" data-anime>Ready to build the future? Send us a message.</p>
+                    <form id="contact-form" class="contact-form" data-anime>
+                        <input type="text" name="name" class="form-input" placeholder="Full Name" required>
+                        <input type="email" name="email" class="form-input" placeholder="Email" required>
+                        <textarea name="message" class="form-input" rows="5" placeholder="Your Project Vision / Problem Statement" required></textarea>
+                        <button type="submit" class="cta-button">Send Signal</button>
+                        <div id="form-status" style="margin-top: 20px;"></div>
+                    </form>
                 </div>
             </div>
         </section>
     </main>
 
-    <section class="team-section">
-        <div class="container">
-            <h2>Meet Our Leadership</h2>
-            <div class="team-grid">
-                <div class="team-card">
-                    <img src="deepak new .jpeg" alt="Founder Photo" onerror="this.onerror=null;this.src='nadhanda.jpg';">
-                    <h3>Deepak P</h3>
-                    <p>Founder & Lead Strategist</p>
-                </div>
-                <div class="team-card">
-                    <img src="jozzef new.jpeg" alt="Founder Photo" onerror="this.onerror=null;this.src='jozzef.jpg';">
-                    <h3>Sunny Joseph A</h3>
-                    <p>Founder & Head of Innovation</p>
-                </div>
-                <div class="team-card">
-                    <img src="praveen.jpg" alt="CEO Photo" onerror="this.onerror=null;this.src='praveen.jpg';">
-                    <h3>PraveenKumar S</h3>
-                    <p>CEO & Head of Technology</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="contact-section" id="contact">
-        <div class="container">
-            <h2>Get in Touch</h2>
-            <p class="section-subtitle">Have a project in mind? We'd love to hear from you.</p>
-            <form id="contact-form" class="contact-form">
-                <div class="form-group">
-                    <input type="text" id="name" name="name" class="form-input" placeholder=" " required>
-                    <label for="name" class="form-label">Full Name</label>
-                </div>
-                <div class="form-group">
-                    <input type="email" id="email" name="email" class="form-input" placeholder=" " required>
-                    <label for="email" class="form-label">Your Email</label>
-                </div>
-                <div class="form-group">
-                    <input type="tel" id="phone" name="phone" class="form-input" placeholder=" " required>
-                    <label for="phone" class="form-label">Phone Number (e.g., +91 9876543210)</label>
-                </div>
-                <div class="form-group">
-                    <select id="service" name="service" class="form-input" required>
-                        <option value="" disabled selected></option>
-                        <option value="Web Development">Web Development</option>
-                        <option value="App Development">App Development</option>
-                        <option value="AI / ML / DL">AI / ML / DL</option>
-                        <option value="IoT">Internet of Things (IoT)</option>
-                        <option value="Data Science">Data Science</option>
-                        <option value="UI / UX Design">UI / UX Design</option>
-                    </select>
-                     <label for="service" class="form-label">Service of Interest</label>
-                </div>
-                <div class="form-group">
-                    <textarea id="message" name="message" rows="3" class="form-input" placeholder=" " required></textarea>
-                    <label for="message" class="form-label">Your Problem Statement</label>
-                </div>
-                <button type="submit" class="cta-button">Send Message</button>
-                <div id="form-status"></div>
-            </form>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Spectrum Syntax. All rights reserved.</p>
-        </div>
+    <footer style="padding: 50px 0; text-align: center; border-top: 1px solid var(--glass-border);">
+        <p style="color: var(--text-soft); font-size: 0.9rem;">&copy; 2025 Spectrum Syntax. All rights reserved.</p>
     </footer>
-    
-    <div id="serviceModal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="modal-close-btn">&times;</button>
-            <h3 id="modalTitle">Service Title</h3>
-            <p id="modalDescription">Detailed description of the service goes here...</p>
-            <div class="price-range">
-                <strong>Price Range Starts from:</strong> <span id="modalPrice">₹XXXX</span>
-            </div>
-        </div>
-    </div>
 
     <script>
+        const BULLETIN_DATA = [
+            {
+                badge: "Upcoming Product",
+                title: "Ocean Way",
+                description: "OceanWay is a low-cost maritime tech concept that helps small-scale fishermen improve safety and decision-making in challenging sea conditions.",
+                videoUrl: "https://www.youtube.com/embed/MGjJXRbeLpg?si=jk588VRvRUDZLfei",
+                pageLink: "project-oceanway.html"
+            },
+            {
+                badge: "Video Drop",
+                title: "Pluto Intelligence",
+                description: "I'm Pluto, your go-to tech buddy, created by the innovative team at Spectrum SyntaX. I'm an AI designed to provide you with the most accurate and up-to-date information on all things tech.",
+                videoUrl: "https://www.youtube.com/embed/QlBMPGOIeEs?si=jVgwSrs4_xA816ch",
+                pageLink: "project-ai.html"
+            }
+        ];
+
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Intersection Observer for Animations ---
-            const animatedElements = document.querySelectorAll('.team-card, .about-image, .about-content, .service-card, .contact-form');
-    
+            // Render Bulletins
+            const carousel = document.getElementById('bulletin-carousel');
+            BULLETIN_DATA.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'notice-card';
+                card.innerHTML = `
+                    <div class="card-video-preview">
+                        <iframe src="${item.videoUrl}" title="Project Video" allowfullscreen></iframe>
+                    </div>
+                    <div class="card-content">
+                        <span class="badge">${item.badge}</span>
+                        <h3>${item.title}</h3>
+                        <p>${item.description}</p>
+                        <a href="${item.pageLink}" class="view-project-btn">View Full Project →</a>
+                    </div>
+                `;
+                carousel.appendChild(card);
+            });
+
+            // Slider Logic
+            const nextBtn = document.getElementById('nextBtn');
+            const prevBtn = document.getElementById('prevBtn');
+
+            nextBtn.addEventListener('click', () => {
+                carousel.scrollBy({ left: 474, behavior: 'smooth' });
+            });
+
+            prevBtn.addEventListener('click', () => {
+                carousel.scrollBy({ left: -474, behavior: 'smooth' });
+            });
+
+            // Intersection Observer
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
                 });
-            }, {
-                threshold: 0.1
-            });
-    
-            animatedElements.forEach(element => {
-                observer.observe(element);
-            });
-            
-            // --- Modal Functionality ---
-            const serviceCards = document.querySelectorAll('.service-card');
-            const modal = document.getElementById('serviceModal');
-            
-            if (modal) {
-                const modalTitle = document.getElementById('modalTitle');
-                const modalDescription = document.getElementById('modalDescription');
-                const modalPrice = document.getElementById('modalPrice');
-                const closeModalBtn = modal.querySelector('.modal-close-btn');
-    
-                serviceCards.forEach(card => {
-                    card.addEventListener('click', () => {
-                        const title = card.getAttribute('data-title');
-                        const description = card.getAttribute('data-description');
-                        const price = card.getAttribute('data-price');
-    
-                        modalTitle.textContent = title;
-                        modalDescription.textContent = description;
-                        modalPrice.textContent = price;
-    
-                        modal.classList.add('active');
-                    });
-                });
-    
-                const closeModal = () => {
-                    modal.classList.remove('active');
-                };
-    
-                closeModalBtn.addEventListener('click', closeModal);
-                
-                modal.addEventListener('click', (event) => {
-                    if (event.target === modal) {
-                        closeModal();
-                    }
-                });
+            }, { threshold: 0.1 });
 
-                document.addEventListener('keydown', (event) => {
-                    if (event.key === 'Escape' && modal.classList.contains('active')) {
-                        closeModal();
-                    }
-                });
-            }
+            document.querySelectorAll('[data-anime]').forEach(el => observer.observe(el));
 
-            // --- Modern Contact Form with EmailJS ---
-            const contactForm = document.getElementById('contact-form');
-            const formStatus = document.getElementById('form-status');
-
-            if(contactForm) {
-                // IMPORTANT: Replace with your actual EmailJS IDs
-                emailjs.init('gdANf9T0m9S77PcoN'); // Replace with your User ID
-
-                contactForm.addEventListener('submit', function(e) {
+            // EmailJS Integration
+            const form = document.getElementById('contact-form');
+            if(form) {
+                emailjs.init('gdANf9T0m9S77PcoN');
+                form.addEventListener('submit', (e) => {
                     e.preventDefault();
-                    
-                    const submitButton = this.querySelector('button[type="submit"]');
-                    submitButton.disabled = true;
-                    submitButton.textContent = 'Sending...';
-
-                    // --- Send email using EmailJS ---
-                    emailjs.sendForm('service_2bewcjb', 'template_1kyurng', this) // Replace with your Service & Template IDs
-                        .then(function() {
-                            formStatus.textContent = 'Message sent successfully!';
-                            formStatus.className = 'status-success';
-                            contactForm.reset();
-                        }, function(error) {
-                            formStatus.textContent = 'Failed to send message. Please try again.';
-                            formStatus.className = 'status-error';
-                            console.log('FAILED...', error);
-                        })
-                        .finally(function() {
-                             submitButton.disabled = false;
-                             submitButton.textContent = 'Send Message';
-                        });
+                    const btn = form.querySelector('button');
+                    const status = document.getElementById('form-status');
+                    btn.innerText = 'Sending...';
+                    emailjs.sendForm('service_2bewcjb', 'template_1kyurng', form)
+                        .then(() => {
+                            status.innerText = 'Signal sent successfully! 🚀';
+                            status.style.color = 'var(--accent-lime)';
+                            form.reset();
+                        }).finally(() => btn.innerText = 'Send Signal');
                 });
             }
         });
     </script>
-
 </body>
 </html>
-

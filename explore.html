@@ -3,23 +3,426 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Work - Spectrum Syntax</title>
-    <link rel="icon" href="spectrumsyntaxlogo.jpg" onerror="this.onerror=null;this.src='X.jpg';">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="explore.css">
+    <title>Our Work - Spectrum SyntaX</title>
+    <!-- Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Outfit:wght@500;800;900&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <style>
+        :root {
+            --bg-deep: #0a0b1e;
+            --bg-card: #161837;
+            --accent-lime: #cfff04;
+            --accent-violet: #8b5cf6;
+            --accent-pink: #ff2e63;
+            --text-bright: #ffffff;
+            --text-soft: #a1a1aa;
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, .logo {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-bright);
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* --- Background Elements --- */
+        .orb {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(100px);
+            opacity: 0.2;
+            animation: move 20s infinite alternate;
+        }
+        .orb-1 { background: var(--accent-violet); top: -10%; left: -10%; }
+        .orb-2 { background: var(--accent-pink); bottom: -10%; right: -10%; animation-delay: -5s; opacity: 0.1; }
+
+        @keyframes move {
+            from { transform: translate(0, 0); }
+            to { transform: translate(100px, 50px); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- Navbar --- */
+        .navbar {
+            padding: 24px 0;
+            position: sticky;
+            top: 0;
+            background: rgba(10, 11, 30, 0.8);
+            backdrop-filter: blur(16px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.6rem;
+            text-decoration: none;
+            color: var(--text-bright);
+            letter-spacing: -1px;
+        }
+        .logo span { color: var(--accent-lime); }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-soft);
+            font-weight: 500;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+        nav a:hover, nav a.active { color: var(--accent-lime); }
+
+        /* --- Hero Section --- */
+        .projects-hero {
+            padding: 100px 0 60px;
+            text-align: center;
+        }
+
+        .section-tag {
+            color: var(--accent-violet);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 24px;
+            letter-spacing: -2px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, var(--accent-lime), #00ffaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .projects-hero p {
+            color: var(--text-soft);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 15px;
+        }
+
+        /* --- Filter Container --- */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 60px;
+        }
+
+        .filter-btn {
+            padding: 10px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            color: var(--text-soft);
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--accent-lime);
+            color: var(--bg-deep);
+            border-color: var(--accent-lime);
+            transform: translateY(-2px);
+        }
+
+        /* --- Project Grid --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+            margin-bottom: 100px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-violet);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .project-image-container {
+            width: 100%;
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.1);
+            opacity: 0.7;
+        }
+
+        .card-video-overlay {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px; height: 60px;
+            background: var(--accent-lime);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .project-card:hover .card-video-overlay {
+            opacity: 1;
+        }
+
+        .card-video-overlay svg {
+            width: 30px; height: 30px;
+            color: var(--bg-deep);
+        }
+
+        .card-content {
+            padding: 30px;
+        }
+
+        .card-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: var(--text-bright);
+        }
+
+        .card-content p {
+            color: var(--text-soft);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--accent-violet);
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* --- Modals --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 11, 30, 0.95);
+            display: none; justify-content: center; align-items: center; z-index: 2000;
+            backdrop-filter: blur(10px);
+        }
+        .modal-overlay.active { display: flex; }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            border-radius: 32px;
+            overflow-y: auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 25px; right: 25px;
+            background: var(--bg-deep);
+            color: white;
+            border: none;
+            width: 45px; height: 45px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: 0.3s;
+        }
+        .modal-close-btn:hover { background: var(--accent-pink); }
+
+        .modal-media {
+            width: 100%;
+            background: #000;
+            position: relative;
+            min-height: 400px;
+        }
+
+        .modal-carousel {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-carousel img {
+            max-width: 100%;
+            max-height: 500px;
+            display: none;
+        }
+
+        .modal-carousel img.active { display: block; }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%; transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 20px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: 0.3s;
+        }
+        .carousel-btn:hover { background: var(--accent-lime); color: var(--bg-deep); }
+        .carousel-btn.prev { left: 0; border-radius: 0 10px 10px 0; }
+        .carousel-btn.next { right: 0; border-radius: 10px 0 0 10px; }
+
+        .modal-video-container {
+            width: 100%;
+            aspect-ratio: 16/9;
+        }
+
+        .modal-details {
+            padding: 40px;
+        }
+
+        .modal-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--accent-lime);
+        }
+
+        .modal-view-switcher {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .view-btn {
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: var(--text-soft);
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .view-btn.active {
+            border-color: var(--accent-violet);
+            color: var(--accent-violet);
+        }
+
+        #modalDescription {
+            color: var(--text-soft);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .hidden { display: none !important; }
+
+        /* --- Footer --- */
+        .footer {
+            padding: 50px 0;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .no-projects-message {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px;
+            color: var(--text-soft);
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .modal-media { min-height: 250px; }
+            .modal-title { font-size: 1.8rem; }
+            nav ul { display: none; }
+        }
+    </style>
 </head>
 <body>
 
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
     <header class="navbar">
         <div class="container">
-            <a href="index.html" class="logo">Spectrum SyntaX</a>
+            <a href="index.html" class="logo">SPECTRUM <span>SYNTAX</span></a>
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html#aboutSection">About</a></li>
+                    <li><a href="index.html#bulletin">Bulletin</a></li>
                     <li><a href="explore.html" class="active">Work</a></li>
+                    <li><a href="index.html#pluto">Pluto AI</a></li>
                     <li><a href="index.html#contact">Contact</a></li>
                 </ul>
             </nav>
@@ -28,9 +431,10 @@
 
     <main class="container">
         <section class="projects-hero">
+            <span class="section-tag">Portfolio</span>
             <h1 class="gradient-text">Our Innovative Work</h1>
-            <p>A selection of projects that showcase our passion for technology and commitment to quality. Use the filters to explore by technology.</p>
-            <p><strong>Video Previews comming soon! </strong></p>
+            <p>A selection of projects that showcase our passion for technology and commitment to quality.</p>
+            <p style="font-size: 0.9rem; font-weight: 700; color: var(--accent-pink);">Video Previews coming soon!</p>
         </section>
 
         <section id="filter-buttons" class="filter-container"></section>
@@ -44,20 +448,20 @@
         </div>
     </footer>
     
-    
+    <!-- Project Modal -->
     <div id="projectModal" class="modal-overlay">
         <div class="modal-content">
             <button id="modalCloseBtn" class="modal-close-btn">&times;</button>
+            
             <div class="modal-media">
-                 <div id="modalCarousel" class="modal-carousel">
-                    <!-- Images will be injected here by JS -->
-                    <button class="carousel-btn prev" id="prevBtn">&#10094;</button>
-                    <button class="carousel-btn next" id="nextBtn">&#10095;</button>
+                <div id="modalCarousel" class="modal-carousel">
+                    <!-- Images injected by JS -->
                 </div>
                 <div id="modalVideo" class="modal-video-container hidden">
                     <iframe id="youtubePlayer" width="100%" height="100%" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
+
             <div class="modal-details">
                 <h2 id="modalTitle" class="modal-title">Project Title</h2>
                 <div class="modal-view-switcher">
@@ -69,8 +473,8 @@
         </div>
     </div>
 
-
     <script>
+        // Restored original projects data
         const projects = [
             {
                 title: 'E-commerce Clothing Shop',
@@ -80,7 +484,6 @@
                     '/serenity/Screenshot 2025-09-26 145812.png',
                     '/serenity/Screenshot 2025-09-26 145720.png',
                     '/serenity/Screenshot 2025-09-26 145649.png',
-
                 ],
                 youtubeVideoId: 'ysz5S6PUM-U', 
                 tags: ['HTML', 'CSS', 'JavaScript']
@@ -106,7 +509,7 @@
             },
             {
                 title: 'Medmax Symptom Checker',
-                description: 'An AI-powered tool where users can input symptoms to receive potential medicine and health suggestions. The machine learning model analyzes user input against a vast database to provide helpful, non-diagnostic information and directs users to seek professional medical advice.',
+                description: 'An AI-powered tool where users can input symptoms to receive potential medicine and health suggestions. The machine learning model analyzes user input against a vast database to provide helpful, non-diagnostic information.',
                 imageUrls: [
                     '/medmax/front.jpg',
                     '/medmax/nearbydoc.jpg',
@@ -118,64 +521,64 @@
             },
             {
                 title: 'OneWorld Travel Planner',
-                description: 'A travel companion app built for travelers to plan itineraries, discover locations, and save memories. The user-friendly interface allows for drag-and-drop scheduling and provides integrated maps and suggestions. Frontend only demo.',
+                description: 'A travel companion app built for travelers to plan itineraries, discover locations, and save memories. Drag-and-drop scheduling and integrated maps. Frontend only demo.',
                 imageUrls: [
-                     '/oneworld/WhatsApp Image 2025-09-26 at 21.24.12_19a04d2d.jpg'
+                    '/oneworld/WhatsApp Image 2025-09-26 at 21.24.12_19a04d2d.jpg'
                 ],
                 youtubeVideoId: 'ysz5S6PUM-U', 
                 tags: ['HTML', 'CSS', 'JavaScript']
             },
-                      {
+            {
                 title: 'Death Eye Wager',
-                description: 'The Dead-Eye Wager is a three-part, full-stack application that gamifies real-world Rock-Paper-Scissors duels by integrating computer vision with a real-time wagering dashboard. It brings the excitement and transparency of a betting parlor to a simple, physical game, acting as the "trusted marshal" to settle all disputes, It also have a PVP mode ',
+                description: 'The Dead-Eye Wager gamifies real-world Rock-Paper-Scissors duels by integrating computer vision with a real-time wagering dashboard. It acts as a trusted marshal for disputes in PVP mode.',
                 imageUrls: [
-                     '/deatheyewager/Screenshot 2025-09-26 151932.png',
-                     '/deatheyewager/Screenshot 2025-09-26 151946.png',
-                     '/deatheyewager/Screenshot 2025-09-26 152233.png',
-                     '/deatheyewager/Screenshot 2025-09-26 195758.png',
-                     '/deatheyewager/Screenshot 2025-09-26 195814.png',
-                     '/deatheyewager/Screenshot 2025-09-26 195829.png'
+                    '/deatheyewager/Screenshot 2025-09-26 151932.png',
+                    '/deatheyewager/Screenshot 2025-09-26 151946.png',
+                    '/deatheyewager/Screenshot 2025-09-26 152233.png',
+                    '/deatheyewager/Screenshot 2025-09-26 195758.png',
+                    '/deatheyewager/Screenshot 2025-09-26 195814.png',
+                    '/deatheyewager/Screenshot 2025-09-26 195829.png'
                 ],
                 youtubeVideoId: 'ysz5S6PUM-U', 
-                tags: ['HTML', 'CSS', 'JavaScript','Node.js','AI/ML','Express.js','MongoDB']
+                tags: ['Node.js','AI/ML','Express.js','MongoDB']
             },
-                                  {
-                title: 'cloud-connected emergency healthcare system',
-                description: 'A cloud-connected emergency healthcare system where patients register using mobile OTP and link their fingerprint. Their medical history and emergency contacts are securely stored. In case of an accident, scanning the fingerprint at a hospital (via ESP32 prototype) instantly retrieves patient details and medical history, while automatically sending an alert with live GPS location to emergency contacts via SMS/WhatsApp. This reduces accident response time and improves emergency care.',
+            {
+                title: 'Cloud-Connected Healthcare',
+                description: 'A cloud-connected system scanning fingerprints to retrieve medical history during emergencies, sending live GPS locations to contacts instantly via ESP32.',
                 imageUrls: [
-                     '/fingerprint health record/fingerprint health.jpg'
+                    '/fingerprint health record/fingerprint health.jpg'
                 ],
-                tags: ['Python', 'MongoDB', 'Arduino IDE','C++','Express.js','MongoDB','ESP32','R307 Fingerprint Sensor','NEO-6M GPS',' SIM800L GSM']
+                tags: ['Python', 'MongoDB', 'IoT', 'ESP32', 'C++']
             },
-                                  {
+            {
                 title: 'MentorX',
-                description: 'MentorX is a mentor–mentee platform designed to strengthen the bond between faculty and students by providing a structured system for academic and personal guidance. Each student is assigned a mentor who can track their academic performance, attendance, skills, goals, and overall growth. The platform enables:Faculty Dashboard – Mentors can view their mentees’ details, update progress, and provide personalized guidance.Student Dashboard – Students can interact with their mentors, access resources, and track their own academic journey.Performance Tracking – Integration of marks, attendance, and feedback helps identify areas of improvement. Communication & Support – A streamlined channel for students to seek help and for mentors to provide continuous support. The goal of MentorX is to create a transparent, supportive, and growth-focused ecosystem where students receive proper guidance and mentorship throughout their academic life.',
+                description: 'A platform designed to strengthen faculty-student bonds through structured academic guidance, tracking skills, goals, and growth in a supportive ecosystem.',
                 imageUrls: [
-                     'mentorx/Screenshot 2025-09-26 203046.png',
-                     'mentorx/Screenshot 2025-09-26 203102.png',
-                     'mentorx/Screenshot 2025-09-26 203302.png',
-                     'mentorx/Screenshot 2025-09-26 203413.png',
-                     'mentorx/Screenshot 2025-09-26 203343.png',
-                     'mentorx/Screenshot 2025-09-26 203357.png',
-                     'mentorx/Screenshot 2025-09-26 203427.png',
-                     'mentorx/Screenshot 2025-09-26 203439.png',
-                     'mentorx/Screenshot 2025-09-26 203502.png',
-                     'mentorx/Screenshot 2025-09-26 203514.png',
-                     'mentorx/Screenshot 2025-09-26 203533.png',
-                     'mentorx/Screenshot 2025-09-26 203549.png',
-                     'mentorx/Screenshot 2025-09-26 203604.png',
-                     'mentorx/Screenshot 2025-09-26 203643.png',
-                     'mentorx/Screenshot 2025-09-26 203656.png',
-                     'mentorx/Screenshot 2025-09-26 203705.png',
-                     'mentorx/Screenshot 2025-09-26 203716.png',
-                     'mentorx/Screenshot 2025-09-26 203759.png'
+                    'mentorx/Screenshot 2025-09-26 203046.png',
+                    'mentorx/Screenshot 2025-09-26 203102.png',
+                    'mentorx/Screenshot 2025-09-26 203302.png',
+                    'mentorx/Screenshot 2025-09-26 203413.png',
+                    'mentorx/Screenshot 2025-09-26 203343.png',
+                    'mentorx/Screenshot 2025-09-26 203357.png',
+                    'mentorx/Screenshot 2025-09-26 203427.png',
+                    'mentorx/Screenshot 2025-09-26 203439.png',
+                    'mentorx/Screenshot 2025-09-26 203502.png',
+                    'mentorx/Screenshot 2025-09-26 203514.png',
+                    'mentorx/Screenshot 2025-09-26 203533.png',
+                    'mentorx/Screenshot 2025-09-26 203549.png',
+                    'mentorx/Screenshot 2025-09-26 203604.png',
+                    'mentorx/Screenshot 2025-09-26 203643.png',
+                    'mentorx/Screenshot 2025-09-26 203656.png',
+                    'mentorx/Screenshot 2025-09-26 203705.png',
+                    'mentorx/Screenshot 2025-09-26 203716.png',
+                    'mentorx/Screenshot 2025-09-26 203759.png'
                 ],
                 youtubeVideoId: 'ysz5S6PUM-U', 
-                tags: ['HTML', 'CSS', 'JavaScript','Node.js','AI/ML','Express.js','MongoDB','Express.js']
+                tags: ['Node.js','AI/ML','Express.js','MongoDB']
             },
             {
                 title: 'SpectraStream',
-                description: 'SpectraStream – Dynamic Movie & Music Streaming Frontend Developed SpectraStream, a dynamic and interactive frontend platform for browsing and exploring movies and music. The platform is designed to provide an engaging and seamless user experience with intuitive navigation, rich media previews, and responsive design. Key Features Top Search Bar: Allows users to quickly find movies, music, or artists with real-time filtering. Interactive Sections: Separate sections for movies and music featuring horizontal carousels for featured content and vertical scrolling for categories. Detail Pages: Each item is clickable, leading to a detailed view containing the title, description, media preview, ratings, and other relevant information. Responsive Design: Fully optimized for desktop, tablet, and mobile devices, ensuring a smooth browsing experience across all screen sizes. Smooth Animations: Transitions, hover effects, and carousel animations enhance interactivity and user engagement. Creative Layouts: Unique and visually appealing arrangements for content categories, featured collections, and trending media, making the platform intuitive and enjoyable to navigate.',
+                description: 'Dynamic movie and music streaming frontend platform for browsing media with intuitive navigation, rich media previews, and responsive layouts.',
                 imageUrls: [
                     'spectrastream/Screenshot 2025-09-26 211854.png',
                     'spectrastream/Screenshot 2025-09-26 211909.png',
@@ -186,20 +589,18 @@
                 youtubeVideoId: 'ysz5S6PUM-U', 
                 tags: ['HTML', 'CSS', 'JavaScript']
             },
-                        {
+            {
                 title: 'Telegram Attendance Bot',
-                description: 'Telegram Attendance & Work Tracker Bot : A private and secure Telegram bot for tracking employee work hours and breaks. Users can check in, check out, and take different types of breaks (Toilet, Eat, Rest), each with specific time limits and usage counts. The bot automatically logs all activities, calculates total work and break durations, and sends detailed summary reports. Its designed for professional teams and includes an admin feature to securely retrieve the full activity log.',
+                description: 'Secure Telegram bot tracking employee hours and breaks (Toilet, Eat, Rest). Automatically logs activity and sends summary reports.',
                 imageUrls: [
                     'telegram attendence bot/telegram bot pic 1.jpg',
                     'telegram attendence bot/telegram bot pic 2.jpg'
                 ],
                 youtubeVideoId: 'ysz5S6PUM-U', 
-                tags: ['Telegram Bot','Python']
-            },
-
+                tags: ['Python', 'Telegram Bot']
+            }
         ];
 
-        // --- DOM ELEMENTS ---
         const projectGrid = document.getElementById('project-grid');
         const filterButtonsContainer = document.getElementById('filter-buttons');
         const modal = document.getElementById('projectModal');
@@ -209,15 +610,12 @@
         const modalCarousel = document.getElementById('modalCarousel');
         const modalVideo = document.getElementById('modalVideo');
         const youtubePlayer = document.getElementById('youtubePlayer');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
         const viewImagesBtn = document.getElementById('viewImagesBtn');
         const viewVideoBtn = document.getElementById('viewVideoBtn');
 
         let currentProjectImages = [];
         let currentImageIndex = 0;
 
-        // --- FUNCTIONS ---
         function renderProjects(projectsToRender) {
             projectGrid.innerHTML = '';
             if (projectsToRender.length === 0) {
@@ -232,7 +630,7 @@
                 
                 projectCard.innerHTML = `
                     <div class="project-image-container">
-                        <img class="project-image" src="${project.imageUrls[0]}" alt="${project.title}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/f8f9fa/333?text=Image+Not+Found';">
+                        <img class="project-image" src="${project.imageUrls[0]}" alt="${project.title}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/161837/ffffff?text=Image+Missing';">
                         <div class="card-video-overlay">
                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
                         </div>
@@ -272,33 +670,35 @@
             modalTitle.textContent = project.title;
             modalDescription.textContent = project.description;
             
-            // Populate Carousel
             modalCarousel.innerHTML = `
                 <button class="carousel-btn prev" id="prevBtn">&#10094;</button>
                 <button class="carousel-btn next" id="nextBtn">&#10095;</button>
-            `; // Reset and add buttons
+            `; 
             currentProjectImages = project.imageUrls;
             currentProjectImages.forEach((url, index) => {
                 const img = document.createElement('img');
                 img.src = url;
                 img.alt = `${project.title} - Image ${index + 1}`;
                 if (index === 0) img.classList.add('active');
+                img.onerror = function() { this.src = 'https://placehold.co/800x600/161837/ffffff?text=Image+Unavailable'; };
                 modalCarousel.appendChild(img);
             });
             currentImageIndex = 0;
 
-            // Set up Video
-            youtubePlayer.src = `https://www.youtube.com/embed/${project.youtubeVideoId}`;
+            if (project.youtubeVideoId) {
+                viewVideoBtn.classList.remove('hidden');
+                youtubePlayer.src = `https://www.youtube.com/embed/${project.youtubeVideoId}`;
+            } else {
+                viewVideoBtn.classList.add('hidden');
+            }
             
-            // Initial view state
             showImageView();
-
             modal.classList.add('active');
         }
 
         function closeModal() {
             modal.classList.remove('active');
-            youtubePlayer.src = ''; // Stop video from playing in background
+            youtubePlayer.src = ''; 
         }
 
         function showImage(index) {
@@ -312,22 +712,15 @@
             modalVideo.classList.add('hidden');
             viewImagesBtn.classList.add('active');
             viewVideoBtn.classList.remove('active');
-            youtubePlayer.src = ''; // Stop video when switching away
         }
 
         function showVideoView() {
-             const activeProjectTitle = modalTitle.textContent;
-             const project = projects.find(p => p.title === activeProjectTitle);
-             if (project) {
-                 youtubePlayer.src = `https://www.youtube.com/embed/${project.youtubeVideoId}`;
-             }
             modalCarousel.classList.add('hidden');
             modalVideo.classList.remove('hidden');
             viewImagesBtn.classList.remove('active');
             viewVideoBtn.classList.add('active');
         }
 
-        // --- INITIALIZATION & EVENT LISTENERS ---
         document.addEventListener('DOMContentLoaded', () => {
             renderFilterButtons();
             renderProjects(projects);
@@ -340,13 +733,12 @@
             viewImagesBtn.addEventListener('click', showImageView);
             viewVideoBtn.addEventListener('click', showVideoView);
             
-            // Using event delegation for carousel buttons as they are re-rendered
-             modalCarousel.addEventListener('click', e => {
+            modalCarousel.addEventListener('click', e => {
                 if (e.target.matches('.next')) {
                     currentImageIndex = (currentImageIndex + 1) % currentProjectImages.length;
                     showImage(currentImageIndex);
                 } else if (e.target.matches('.prev')) {
-                     currentImageIndex = (currentImageIndex - 1 + currentProjectImages.length) % currentProjectImages.length;
+                    currentImageIndex = (currentImageIndex - 1 + currentProjectImages.length) % currentProjectImages.length;
                     showImage(currentImageIndex);
                 }
             });
