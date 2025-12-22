@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Pluto | AI Research & Ghost Debugger</title>
     <!-- Premium Typography -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Outfit:wght@500;800;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
@@ -20,21 +20,26 @@
             --text-bright: #ffffff;
             --text-soft: #a1a1aa;
             --glass-border: rgba(255, 255, 255, 0.08);
-            --header-offset: 64px;
             --font-main: 'Inter', sans-serif;
             --font-display: 'Outfit', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
+            
+            /* Responsive Offsets */
+            --header-h: 64px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: var(--font-main);
             background-color: var(--bg-deep);
             color: var(--text-bright);
-            height: 100vh;
-            overflow: hidden; /* Prevent global scroll for pane layout */
+            height: 100dvh; /* Dynamic Viewport Height for Mobile */
+            width: 100%;
+            overflow: hidden;
             line-height: 1.5;
+            display: flex;
+            flex-direction: column;
         }
 
         h1, h2, h3, b { font-family: var(--font-display); }
@@ -50,18 +55,19 @@
 
         .orb {
             position: absolute;
-            width: 700px; height: 700px;
+            width: 50vw; height: 50vw;
+            min-width: 300px; min-height: 300px;
             border-radius: 50%;
-            filter: blur(140px);
+            filter: blur(80px);
             opacity: 0.15;
             animation: drift 25s infinite alternate ease-in-out;
         }
-        .orb-1 { background: var(--accent-violet); top: -15%; left: -10%; }
-        .orb-2 { background: var(--accent-lime); bottom: -15%; right: -10%; animation-delay: -7s; }
+        .orb-1 { background: var(--accent-violet); top: -10%; left: -10%; }
+        .orb-2 { background: var(--accent-lime); bottom: -10%; right: -10%; animation-delay: -7s; }
 
         @keyframes drift {
             from { transform: translate(0, 0) scale(1); }
-            to { transform: translate(150px, 80px) scale(1.1); }
+            to { transform: translate(10%, 10%) scale(1.2); }
         }
 
         /* --- UI COMPONENTS --- */
@@ -69,39 +75,29 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            padding: 16px 32px;
-            border-radius: 16px;
+            gap: 10px;
+            padding: 14px 24px;
+            border-radius: 14px;
             font-weight: 800;
             cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s ease;
             border: none;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            font-size: 0.75rem;
             width: 100%;
         }
-
         .btn-primary { background: var(--accent-lime); color: var(--bg-deep); }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(207, 255, 4, 0.2); }
         .btn-accent { background: var(--accent-violet); color: white; }
-        .btn-accent:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(139, 92, 246, 0.2); }
         .btn-emerald { background: var(--accent-emerald); color: var(--bg-deep); }
-        .btn-emerald:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(16, 185, 129, 0.2); }
-
-        .btn-ghost { 
-            background: transparent; 
-            color: var(--text-soft); 
-            border: 1px solid var(--glass-border); 
-        }
-        .btn-ghost:hover { border-color: var(--accent-lime); color: var(--accent-lime); background: rgba(207, 255, 4, 0.03); }
+        .btn-ghost { background: transparent; color: var(--text-soft); border: 1px solid var(--glass-border); }
+        .btn:active { transform: scale(0.97); }
 
         .card {
             background: var(--bg-card);
             border: 1px solid var(--glass-border);
-            border-radius: 2.5rem;
-            padding: 2.5rem;
-            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
             backdrop-filter: blur(12px);
         }
 
@@ -109,111 +105,184 @@
             width: 100%;
             background: var(--bg-input);
             border: 1px solid var(--glass-border);
-            padding: 18px;
-            border-radius: 16px;
+            padding: 14px;
+            border-radius: 12px;
             color: white;
             outline: none;
-            transition: 0.3s;
             font-size: 0.95rem;
         }
 
         /* --- HEADER --- */
         .global-header { 
-            height: 64px;
-            padding: 0 32px;
+            height: var(--header-h);
+            padding: 0 16px;
             border-bottom: 1px solid var(--glass-border);
             display: flex; align-items: center; justify-content: space-between;
-            background: rgba(10, 11, 30, 0.85);
-            backdrop-filter: blur(24px);
+            background: rgba(10, 11, 30, 0.9);
+            backdrop-filter: blur(20px);
             z-index: 1000;
+            flex-shrink: 0;
         }
         
-        .logo-box { width: 38px; height: 38px; background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .logo-box { width: 32px; height: 32px; border-radius: 8px; overflow: hidden; }
         .logo-box img { width: 100%; height: 100%; object-fit: cover; }
-        .brand-text { display: flex; flex-direction: column; }
-        .brand-text b { color: var(--text-bright); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.1em; line-height: 1; }
-        .brand-text sub { font-size: 0.65rem; color: var(--accent-violet); font-weight: 800; }
+        .brand-text b { font-size: 0.8rem; letter-spacing: 0.05em; display: block; }
+        .brand-text sub { font-size: 0.6rem; color: var(--accent-violet); }
 
-        .beta-pill { background: rgba(207, 255, 4, 0.1); color: var(--accent-lime); border: 1px solid var(--accent-lime); padding: 3px 8px; border-radius: 6px; font-size: 0.6rem; font-weight: 900; text-transform: uppercase; }
+        /* --- VIEWS CONTAINER --- */
+        main {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
 
-        /* --- GHOST MODE 2.0 (SPLIT-PANE) --- */
-        #ghost-display-view { height: 100vh; display: flex; flex-direction: column; background: #050510; }
-        .ghost-stage { flex: 1; display: flex; height: calc(100vh - 64px); overflow: hidden; }
+        /* --- SELECTION VIEW --- */
+        #selection-view {
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        .selection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .selection-card { cursor: pointer; text-align: center; }
+        .icon-circle { width: 64px; height: 64px; border-radius: 20px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; }
+        .icon-indigo { background: rgba(139, 92, 246, 0.15); color: var(--accent-violet); }
+        .icon-orange { background: rgba(207, 255, 4, 0.15); color: var(--accent-lime); }
+        .icon-emerald { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); }
+
+        /* --- CHAT VIEW --- */
+        #chat-view {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+        }
+        #chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 16px;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .chat-input-area {
+            padding: 12px 16px;
+            background: rgba(10, 11, 30, 0.8);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            flex-shrink: 0;
+        }
+        .chat-input-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: 18px;
+            display: flex;
+            align-items: flex-end;
+            padding: 8px;
+            gap: 10px;
+        }
+        #user-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 8px 12px;
+            color: white;
+            outline: none;
+            resize: none;
+            min-height: 40px;
+            max-height: 120px;
+            font-size: 1rem;
+        }
+        .send-btn {
+            width: 40px; height: 40px;
+            border-radius: 12px;
+            background: var(--accent-lime);
+            color: var(--bg-deep);
+            display: flex; align-items: center; justify-content: center;
+            border: none; cursor: pointer;
+        }
+
+        /* --- GHOST MODE 2.0 (RESPONSIVE) --- */
+        #ghost-display-view { height: 100%; display: flex; flex-direction: column; }
+        .ghost-stage { 
+            flex: 1; 
+            display: flex; 
+            flex-direction: row; 
+            overflow: hidden; 
+        }
+
+        /* Desktop split, Mobile stack */
+        @media (max-width: 850px) {
+            .ghost-stage { flex-direction: column; overflow-y: auto; }
+            .ghost-code-pane { flex: 0 0 auto !important; height: 40dvh; border-right: none !important; border-bottom: 1px solid var(--glass-border); }
+            .ghost-viz-pane { flex: 0 0 auto !important; }
+        }
 
         .ghost-code-pane { 
-            flex: 0 0 42%; 
-            border-right: 1px solid var(--glass-border); 
+            flex: 0 0 40%; 
             background: #08081a; 
             overflow-y: auto; 
             position: relative;
-            padding-bottom: 40vh;
+            border-right: 1px solid var(--glass-border);
         }
 
         .ghost-viz-pane { 
             flex: 1; 
-            padding: 32px; 
+            padding: 20px; 
             overflow-y: auto; 
             background: radial-gradient(circle at 50% 50%, #0d0d26 0%, #050510 100%); 
         }
 
-        .viz-line-highlighter { position: absolute; left: 0; width: 100%; height: 30px; background: rgba(207, 255, 4, 0.08); border-left: 4px solid var(--accent-lime); pointer-events: none; transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 5; }
-        .code-line { padding-left: 28px; font-family: var(--font-mono); font-size: 0.85rem; height: 30px; display: flex; align-items: center; color: var(--text-soft); white-space: pre; position: relative; z-index: 10; }
-        .code-line.active { color: var(--accent-lime); font-weight: 700; text-shadow: 0 0 15px rgba(207, 255, 4, 0.4); }
+        .viz-line-highlighter { position: absolute; left: 0; width: 100%; height: 30px; background: rgba(207, 255, 4, 0.1); border-left: 3px solid var(--accent-lime); pointer-events: none; transition: top 0.3s ease; }
+        .code-line { padding-left: 15px; font-family: var(--font-mono); font-size: 0.8rem; height: 30px; display: flex; align-items: center; color: var(--text-soft); white-space: pre; }
+        .code-line.active { color: var(--accent-lime); background: rgba(207, 255, 4, 0.05); }
 
-        .memory-stack { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; }
-        .memory-chip { background: var(--bg-card); border: 1px solid var(--glass-border); padding: 12px 18px; border-radius: 14px; display: flex; flex-direction: column; min-width: 150px; transition: 0.3s; }
-        .memory-chip.updated { border-color: var(--accent-lime); box-shadow: 0 0 25px rgba(207, 255, 4, 0.2); transform: scale(1.02); }
-        .chip-label { font-size: 0.6rem; color: var(--accent-emerald); font-weight: 900; text-transform: uppercase; margin-bottom: 4px; }
-        .chip-value { font-family: var(--font-mono); font-size: 0.95rem; color: white; display: flex; align-items: center; gap: 10px; }
-        .chip-diff { font-size: 0.75rem; color: var(--accent-lime); opacity: 0.6; }
+        .memory-stack { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+        .memory-chip { background: var(--bg-card); border: 1px solid var(--glass-border); padding: 10px; border-radius: 12px; min-width: 120px; }
+        .memory-chip.updated { border-color: var(--accent-lime); transform: scale(1.02); }
+        .chip-label { font-size: 0.55rem; color: var(--accent-emerald); font-weight: 900; text-transform: uppercase; }
+        .chip-value { font-family: var(--font-mono); font-size: 0.85rem; display: flex; align-items: center; gap: 5px; }
+        .chip-diff { font-size: 0.7rem; color: var(--accent-lime); opacity: 0.6; }
 
-        .ghost-dashboard-section { margin-bottom: 28px; padding: 24px; background: rgba(22, 24, 55, 0.45); border: 1px solid var(--glass-border); border-radius: 28px; position: relative; backdrop-filter: blur(16px); }
-        .commentary-header { border-left: 6px solid var(--accent-emerald); min-height: 110px; }
+        .ghost-dashboard-section { margin-bottom: 20px; padding: 16px; background: rgba(22, 24, 55, 0.5); border: 1px solid var(--glass-border); border-radius: 20px; position: relative; }
         
         .analogy-card { 
             background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(139, 92, 246, 0.05) 100%); 
             border: 1px solid var(--accent-violet); 
-            border-radius: 22px; padding: 24px; margin-bottom: 28px; display: flex; gap: 20px; align-items: flex-start;
+            border-radius: 18px; padding: 16px; margin-bottom: 20px; display: flex; gap: 12px;
         }
-        .analogy-bulb { font-size: 2.2rem; filter: drop-shadow(0 0 12px var(--accent-violet)); }
-        .analogy-title { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; color: var(--accent-violet); margin-bottom: 6px; letter-spacing: 0.15em; }
-        .analogy-content { font-size: 1.05rem; line-height: 1.6; color: #fff; font-weight: 500; }
+        .analogy-bulb { font-size: 1.5rem; filter: drop-shadow(0 0 8px var(--accent-violet)); }
+        .analogy-title { font-size: 0.6rem; font-weight: 900; text-transform: uppercase; color: var(--accent-violet); }
+        .analogy-content { font-size: 0.95rem; line-height: 1.4; color: #fff; }
 
-        .ghost-nav-cluster { position: absolute; right: 24px; top: 24px; display: flex; gap: 12px; }
-        .ghost-mini-btn { background: rgba(207, 255, 4, 0.1); border: 1px solid var(--accent-lime); color: var(--accent-lime); padding: 8px 18px; border-radius: 12px; font-size: 0.65rem; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: 0.2s; }
-        .ghost-mini-btn:hover:not(:disabled) { background: var(--accent-lime); color: var(--bg-deep); transform: translateY(-2px); }
-        .ghost-mini-btn:disabled { opacity: 0.2; cursor: not-allowed; border-color: var(--text-soft); color: var(--text-soft); }
+        .ghost-nav-cluster { display: flex; gap: 8px; margin-bottom: 10px; }
+        .ghost-mini-btn { flex: 1; background: rgba(207, 255, 4, 0.1); border: 1px solid var(--accent-lime); color: var(--accent-lime); padding: 8px; border-radius: 8px; font-size: 0.6rem; font-weight: 900; text-transform: uppercase; cursor: pointer; }
+        .ghost-mini-btn:disabled { opacity: 0.2; }
 
-        .speed-pill { display: flex; background: var(--bg-input); border-radius: 24px; padding: 5px; border: 1px solid var(--glass-border); width: fit-content; margin-top: 18px; }
-        .speed-option { padding: 6px 14px; border-radius: 18px; font-size: 0.65rem; font-weight: 900; cursor: pointer; transition: 0.3s; color: var(--text-soft); }
+        .speed-pill { display: flex; background: var(--bg-input); border-radius: 20px; padding: 4px; border: 1px solid var(--glass-border); width: fit-content; }
+        .speed-option { padding: 4px 10px; border-radius: 16px; font-size: 0.55rem; font-weight: 900; cursor: pointer; }
         .speed-option.active { background: var(--accent-violet); color: white; }
 
-        .ghost-log-area { max-height: 300px; overflow-y: auto; margin-top: 16px; border-top: 1px solid var(--glass-border); padding-top: 16px; }
-        .log-entry { font-size: 0.8rem; color: var(--text-soft); margin-bottom: 8px; display: flex; gap: 14px; }
-        .log-line { color: var(--accent-lime); font-weight: 900; min-width: 32px; font-family: var(--font-mono); }
-
-        /* --- SELECTION GRID --- */
-        #selection-view { height: calc(100vh - 64px); display: flex; align-items: center; justify-content: center; padding: 40px; overflow-y: auto; }
-        .selection-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; width: 100%; max-width: 1200px; }
-        .selection-card { cursor: pointer; text-align: center; display: flex; flex-direction: column; transition: 0.4s; }
-        .selection-card:hover { border-color: var(--accent-lime); transform: translateY(-12px); }
-        .icon-circle { width: 84px; height: 84px; border-radius: 28px; margin: 0 auto 24px; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; }
-        .icon-indigo { background: rgba(139, 92, 246, 0.12); color: var(--accent-violet); }
-        .icon-orange { background: rgba(207, 255, 4, 0.12); color: var(--accent-lime); }
-        .icon-emerald { background: rgba(16, 185, 129, 0.12); color: var(--accent-emerald); }
+        .line-badge { background: var(--accent-emerald); color: var(--bg-deep); padding: 2px 6px; border-radius: 4px; font-size: 0.55rem; font-weight: 900; margin-left: 8px; }
 
         /* --- UTILS --- */
         .hidden { display: none !important; }
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 12px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
         .typing-dot { width: 6px; height: 6px; background-color: var(--accent-lime); border-radius: 50%; display: inline-block; animation: bounce 1.4s infinite ease-in-out both; margin-right: 4px; }
         @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
-        .prose pre { background: #000; padding: 1.2rem; border-radius: 16px; overflow-x: auto; margin: 12px 0; border: 1px solid var(--glass-border); color: var(--accent-lime); font-family: var(--font-mono); }
-        
-        #intelligence-loader { margin-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        .loader-ring { width: 54px; height: 54px; border: 4px solid rgba(207, 255, 4, 0.1); border-top-color: var(--accent-lime); border-radius: 50%; animation: spin 1s infinite linear; }
-        .loader-text { font-size: 0.7rem; font-weight: 900; color: var(--accent-lime); text-transform: uppercase; letter-spacing: 0.2em; animation: pulse 2s infinite; }
+        .prose pre { background: #000; padding: 1rem; border-radius: 12px; overflow-x: auto; margin: 12px 0; border: 1px solid var(--glass-border); color: var(--accent-lime); font-size: 0.8rem; }
     </style>
 </head>
 <body class="custom-scrollbar">
@@ -223,211 +292,168 @@
         <div class="orb orb-2"></div>
     </div>
 
-    <!-- MAIN APP WRAPPER -->
-    <div id="app-root">
-        <header class="global-header">
-            <div style="display: flex; align-items: center; gap: 18px;">
-                <div class="logo-box">
-                    <img src="X.jpg" alt="Logo" onerror="this.src='https://via.placeholder.com/40/0a0b1e/cfff04?text=X'">
-                </div>
-                <div class="brand-text">
-                    <b>Pluto Intelligence</b>
-                    <sub>SpectrumSyntaX Innovation</sub>
-                </div>
+    <!-- GLOBAL HEADER -->
+    <header class="global-header">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="logo-box">
+                <img src="X.jpg" alt="Logo" onerror="this.src='https://via.placeholder.com/32/0a0b1e/cfff04?text=X'">
             </div>
-            <div style="display: flex; align-items: center; gap: 20px;">
-                <div class="beta-pill">Beta</div>
-                <button onclick="location.reload()" class="btn btn-ghost" style="width: auto; padding: 8px 16px; font-size: 0.65rem; border-radius: 10px;">Reset Session</button>
+            <div class="brand-text">
+                <b>Pluto Intelligence</b>
+                <sub>SpectrumSyntaX</sub>
             </div>
-        </header>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div class="beta-pill">Beta</div>
+            <button onclick="location.reload()" class="btn btn-ghost" style="width: auto; padding: 6px 10px; font-size: 0.6rem; border-radius: 8px;">Reset</button>
+        </div>
+    </header>
 
-        <main>
-            <!-- SELECTION VIEW -->
-            <div id="selection-view">
-                <div class="selection-grid">
-                    <div onclick="startNeuralChat()" class="card selection-card">
-                        <div>
-                            <div class="icon-circle icon-indigo">✦</div>
-                            <h2>Neural Chat</h2>
-                            <p style="color: var(--text-soft); font-size: 0.95rem; margin-top: 14px; margin-bottom: 28px;">Standard dialogue session. No cap.</p>
-                        </div>
-                        <button class="btn btn-primary">Initialize Link</button>
-                    </div>
-
-                    <div onclick="showPlutoX()" class="card selection-card">
-                        <div>
-                            <div class="icon-circle icon-orange">⚡</div>
-                            <h2>Pluto-X</h2>
-                            <p style="color: var(--text-soft); font-size: 0.95rem; margin-top: 14px; margin-bottom: 28px;">Synthesis engine. Gemini & ChatGPT inputs.</p>
-                        </div>
-                        <button class="btn btn-accent">Synthesize Base</button>
-                    </div>
-
-                    <div onclick="showGhostMode()" class="card selection-card">
-                        <div>
-                            <div class="icon-circle icon-emerald">👁</div>
-                            <h2>Ghost Mode 2.0</h2>
-                            <p style="color: var(--text-soft); font-size: 0.95rem; margin-top: 14px; margin-bottom: 28px;">Elite Debugger. Advanced Algos & ML logic.</p>
-                        </div>
-                        <button class="btn btn-emerald">Launch Engine</button>
-                    </div>
+    <main>
+        <!-- SELECTION VIEW -->
+        <div id="selection-view">
+            <div class="selection-grid">
+                <div onclick="startNeuralChat()" class="card selection-card">
+                    <div class="icon-circle icon-indigo">✦</div>
+                    <h2>Neural Chat</h2>
+                    <p style="color: var(--text-soft); font-size: 0.85rem; margin-top: 10px; margin-bottom: 20px;">Standard session dialogue. fr.</p>
+                    <button class="btn btn-primary">Initialize Link</button>
+                </div>
+                <div onclick="showPlutoX()" class="card selection-card">
+                    <div class="icon-circle icon-orange">⚡</div>
+                    <h2>Pluto-X</h2>
+                    <p style="color: var(--text-soft); font-size: 0.85rem; margin-top: 10px; margin-bottom: 20px;">Synthesis core. Ingest AI links.</p>
+                    <button class="btn btn-accent">Synthesize Base</button>
+                </div>
+                <div onclick="showGhostMode()" class="card selection-card">
+                    <div class="icon-circle icon-emerald">👁</div>
+                    <h2>Ghost Mode 2.0</h2>
+                    <p style="color: var(--text-soft); font-size: 0.85rem; margin-top: 10px; margin-bottom: 20px;">Elite Debugger. Advanced ML logic.</p>
+                    <button class="btn btn-emerald">Launch Engine</button>
                 </div>
             </div>
+        </div>
 
-            <!-- PLUTO-X SETUP -->
-            <div id="setup-view" class="hidden">
-                <div style="height: calc(100vh - 64px); display: flex; align-items: center; justify-content: center; padding: 24px;">
-                    <div class="card" style="max-width: 540px; width: 100%;">
-                        <div id="setup-content">
-                            <button onclick="goHome()" class="btn btn-ghost" style="width: auto; font-size: 0.65rem; padding: 8px 18px; margin-bottom: 28px;">← Neural Link Home</button>
-                            <h1>Foundation Synthesis</h1>
-                            <div style="text-align: left; margin: 24px 0;">
-                                <label style="font-size: 0.65rem; font-weight: 900; color: var(--text-soft); text-transform: uppercase; margin-bottom: 10px; display: block;">Input Links</label>
-                                <input id="link1" type="url" placeholder="ChatGPT Link" class="input-field" style="margin-bottom: 14px;">
-                                <input id="link2" type="url" placeholder="Gemini Link" class="input-field">
-                            </div>
-                            <button id="init-btn" onclick="runSynthesis()" class="btn btn-primary">Start to Cook</button>
-                        </div>
-                        <div id="intelligence-loader" class="intelligence-loader hidden">
-                            <div class="loader-ring"></div>
-                            <div id="loader-status" class="loader-text">Locking into Sources</div>
-                        </div>
+        <!-- PLUTO-X SETUP -->
+        <div id="setup-view" class="hidden" style="height:100%; display:flex; align-items:center; justify-content:center; padding:20px;">
+            <div class="card" style="max-width: 480px; width: 100%;">
+                <div id="setup-content">
+                    <button onclick="goHome()" class="btn btn-ghost" style="width: auto; font-size: 0.6rem; padding: 6px 12px; margin-bottom: 20px;">← Home</button>
+                    <h1>Foundation Synthesis</h1>
+                    <div style="text-align: left; margin: 20px 0;">
+                        <input id="link1" type="url" placeholder="ChatGPT Link" class="input-field" style="margin-bottom: 12px;">
+                        <input id="link2" type="url" placeholder="Gemini Link" class="input-field">
                     </div>
+                    <button id="init-btn" onclick="runSynthesis()" class="btn btn-primary">Start to Cook</button>
+                </div>
+                <div id="intelligence-loader" class="intelligence-loader hidden">
+                    <div class="loader-ring"></div>
+                    <div id="loader-status" class="loader-text">Locking into Sources</div>
                 </div>
             </div>
+        </div>
 
-            <!-- GHOST SETUP -->
-            <div id="ghost-setup-view" class="hidden">
-                <div style="height: calc(100vh - 64px); display: flex; align-items: center; justify-content: center; padding: 24px;">
-                    <div class="card" style="max-width: 850px; width: 100%; display: flex; flex-direction: column; max-height: 85vh;">
-                        <div style="flex: 0 0 auto;">
-                            <button onclick="goHome()" class="btn btn-ghost" style="width: auto; font-size: 0.65rem; padding: 8px 18px; margin-bottom: 24px;">← Back</button>
-                            <h1>Trace Simulation 2.0</h1>
-                            <p style="color: var(--text-soft); font-size: 0.9rem; margin-bottom: 24px;">Trace complex ML tensors, Linked Lists, or Algos.</p>
-                            <div style="text-align: left; margin-bottom: 16px;">
-                                <label style="font-size: 0.6rem; font-weight: 900; color: var(--text-soft); text-transform: uppercase; margin-bottom: 8px; display: block;">Engine Select</label>
-                                <select id="debug-language" class="input-field" style="padding: 12px;">
-                                    <option value="python">Python (ML Recommended)</option>
-                                    <option value="javascript">JavaScript</option>
-                                    <option value="cpp">C++ (Modern)</option>
-                                    <option value="c">C (Legacy)</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div style="flex: 1 1 auto; overflow: hidden; margin-bottom: 20px;">
-                            <textarea id="debug-code-input" class="input-field custom-scrollbar" style="height: 100%; font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.5; resize: none;" placeholder="Paste complex logic (ML, Loops, Algos) here..."></textarea>
-                        </div>
-                        <button id="debug-btn" onclick="initGhostTrace()" class="btn btn-emerald">Analyze & Animate</button>
-                    </div>
+        <!-- GHOST SETUP -->
+        <div id="ghost-setup-view" class="hidden" style="height:100%; display:flex; align-items:center; justify-content:center; padding:20px;">
+            <div class="card" style="max-width: 800px; width: 100%; display: flex; flex-direction: column; max-height: 80vh;">
+                <button onclick="goHome()" class="btn btn-ghost" style="width: auto; font-size: 0.6rem; padding: 6px 12px; margin-bottom: 15px; align-self:flex-start;">← Back</button>
+                <h1>Trace Simulation</h1>
+                <select id="debug-language" class="input-field" style="margin: 15px 0;">
+                    <option value="python">Python (ML Recommended)</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="cpp">C++ (Modern)</option>
+                </select>
+                <textarea id="debug-code-input" class="input-field custom-scrollbar" style="flex:1; font-family: var(--font-mono); font-size: 0.8rem; resize: none; margin-bottom:15px;" placeholder="Paste complex logic here..."></textarea>
+                <button id="debug-btn" onclick="initGhostTrace()" class="btn btn-emerald">Analyze & Animate</button>
+            </div>
+        </div>
+
+        <!-- CHAT INTERFACE -->
+        <div id="chat-view" class="hidden">
+            <div id="chat-messages" class="custom-scrollbar"></div>
+            <div class="chat-input-area">
+                <div class="chat-input-container">
+                    <textarea id="user-input" placeholder="Continue neural session..." oninput="autoResize(this)"></textarea>
+                    <button onclick="handleChatSubmit()" class="send-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    </button>
                 </div>
             </div>
+        </div>
 
-            <!-- CHAT INTERFACE -->
-            <div id="chat-view" class="hidden">
-                <div style="height: calc(100vh - 64px); display: flex; flex-direction: column;">
-                    <div id="chat-messages" class="flex-1 overflow-y-auto custom-scrollbar" style="padding: 32px 24px; max-width: 1000px; margin: 0 auto; width: 100%;"></div>
-                    <div class="chat-input-area" style="padding: 24px;">
-                        <div class="chat-input-container" style="max-width: 1000px; margin: 0 auto; background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: 20px; padding: 6px;">
-                            <textarea id="user-input" placeholder="Continue neural session..." oninput="autoResize(this)" style="width: 100%; background: transparent; border: none; padding: 14px 60px 14px 20px; color: white; outline: none; resize: none; min-height: 54px; max-height: 200px; font-family: inherit; font-size: 1rem;"></textarea>
-                            <button onclick="handleChatSubmit()" class="send-btn" style="position: absolute; right: 10px; bottom: 10px; width: 40px; height: 40px; border-radius: 12px; background: var(--accent-lime); color: var(--bg-deep); display: flex; align-items: center; justify-content: center; border: none; cursor: pointer;">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                            </button>
-                        </div>
-                    </div>
+        <!-- GHOST EXECUTION DASHBOARD -->
+        <div id="ghost-display-view" class="hidden">
+            <div class="ghost-stage">
+                <div class="ghost-code-pane custom-scrollbar" id="ghost-code-scroll">
+                    <div id="highlighter" class="viz-line-highlighter hidden"></div>
+                    <div id="code-lines-target"></div>
                 </div>
-            </div>
-
-            <!-- GHOST EXECUTION DASHBOARD -->
-            <div id="ghost-display-view" class="hidden">
-                <div class="ghost-stage">
-                    <!-- LEFT: CODE -->
-                    <div class="ghost-code-pane custom-scrollbar" id="ghost-code-scroll">
-                        <div id="highlighter" class="viz-line-highlighter hidden"></div>
-                        <div id="code-lines-target"></div>
+                <div class="ghost-viz-pane custom-scrollbar">
+                    <div id="analogy-bridge" class="analogy-card hidden">
+                        <span class="analogy-bulb">💡</span>
+                        <div style="flex:1;">
+                            <div class="analogy-title">The Real-World Concept</div>
+                            <div id="analogy-content" class="analogy-content">Initializing...</div>
+                        </div>
                     </div>
-
-                    <!-- RIGHT: INSIGHTS -->
-                    <div class="ghost-viz-pane custom-scrollbar">
-                        <div id="analogy-bridge" class="analogy-card hidden">
-                            <span class="analogy-bulb">💡</span>
-                            <div style="flex:1;">
-                                <div class="analogy-title">The Real-World Concept</div>
-                                <div id="analogy-content" class="analogy-content">Initializing Logic Bridge...</div>
-                            </div>
+                    <div id="ghost-commentary" class="ghost-dashboard-section commentary-header hidden">
+                        <div class="ghost-nav-cluster">
+                            <button id="ghost-prev-btn" class="ghost-mini-btn">Back</button>
+                            <button id="ghost-next-btn" class="ghost-mini-btn">Next</button>
                         </div>
-
-                        <div id="ghost-commentary" class="ghost-dashboard-section commentary-header hidden">
-                            <div class="ghost-nav-cluster">
-                                <button id="ghost-prev-btn" class="ghost-mini-btn">Back</button>
-                                <button id="ghost-next-btn" class="ghost-mini-btn">Next</button>
-                            </div>
-                            <div id="commentary-event" style="font-size: 0.55rem; font-weight: 900; color: var(--accent-emerald); text-transform: uppercase; margin-bottom: 10px;">Trace Active</div>
-                            <div id="commentary-text" style="font-size: 1rem; font-weight: 500; color: white; line-height: 1.5; padding-right: 140px;">Decrypting path...</div>
-                            
-                            <div class="speed-pill">
-                                <div class="speed-option" onclick="updateSpeed(3000, this)">Turbo</div>
-                                <div class="speed-option active" onclick="updateSpeed(12000, this)">Cinematic</div>
-                            </div>
+                        <div style="font-size: 0.55rem; font-weight: 900; color: var(--accent-emerald); text-transform: uppercase;">
+                            Trace Active <span id="line-indicator" class="line-badge">Line 0</span>
                         </div>
-
-                        <div class="ghost-dashboard-section">
-                            <label style="font-size: 0.65rem; font-weight: 900; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.15em;">Active Memory (Data Tensors)</label>
-                            <div id="ghost-memory" class="memory-stack"></div>
+                        <div id="commentary-text" style="font-size: 0.9rem; margin-top: 10px;">Decrypting...</div>
+                        <div class="speed-pill" style="margin-top:15px;">
+                            <div class="speed-option" onclick="updateSpeed(3000, this)">Turbo</div>
+                            <div class="speed-option active" onclick="updateSpeed(12000, this)">Cinematic</div>
                         </div>
-
-                        <div class="ghost-dashboard-section">
-                            <label style="font-size: 0.65rem; font-weight: 900; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.15em;">Master Logic Trail</label>
-                            <div id="ghost-log" class="ghost-log-area custom-scrollbar"></div>
-                        </div>
+                    </div>
+                    <div class="ghost-dashboard-section">
+                        <label style="font-size: 0.6rem; font-weight: 900; color: var(--text-soft); text-transform: uppercase;">Active Memory</label>
+                        <div id="ghost-memory" class="memory-stack"></div>
+                    </div>
+                    <div class="ghost-dashboard-section">
+                        <label style="font-size: 0.6rem; font-weight: 900; color: var(--text-soft); text-transform: uppercase;">Logic Trail</label>
+                        <div id="ghost-log" class="ghost-log-area custom-scrollbar"></div>
                     </div>
                 </div>
             </div>
-        </main>
-    </div>
+        </div>
+    </main>
 
     <script>
         const API_BASE = 'https://pluto-intelligence-backend-gfjl.onrender.com/api';
         let appState = {
-            foundation: "",
-            history: [],
-            ghostSteps: [],
-            ghostIdx: 0,
-            ghostDelay: 12000,
-            timer: null
+            foundation: "", history: [], ghostSteps: [], ghostIdx: 0, ghostDelay: 12000, timer: null
         };
 
-        // --- GLOBAL NAVIGATION ---
+        // --- NAVIGATION ---
         function goHome() {
             document.querySelectorAll('main > div').forEach(el => el.classList.add('hidden'));
             document.getElementById('selection-view').classList.remove('hidden');
         }
+        function showPlutoX() { goHome(); document.getElementById('selection-view').classList.add('hidden'); document.getElementById('setup-view').classList.remove('hidden'); }
+        function showGhostMode() { goHome(); document.getElementById('selection-view').classList.add('hidden'); document.getElementById('ghost-setup-view').classList.remove('hidden'); }
+        function startNeuralChat() { runSynthesis(true); }
 
-        function showPlutoX() {
-            document.getElementById('selection-view').classList.add('hidden');
-            document.getElementById('setup-view').classList.remove('hidden');
-        }
-
-        function showGhostMode() {
-            document.getElementById('selection-view').classList.add('hidden');
-            document.getElementById('ghost-setup-view').classList.remove('hidden');
-        }
-
-        function startNeuralChat() { initializeSynthesis([], "Neural Direct Session"); }
-
-        // --- SYNTHESIS ENGINE ---
-        async function runSynthesis() {
-            const l1 = document.getElementById('link1').value;
-            const l2 = document.getElementById('link2').value;
-            if(!l1 && !l2) return alert("Links required, fr.");
-
-            document.getElementById('setup-content').classList.add('hidden');
-            document.getElementById('intelligence-loader').classList.remove('hidden');
-            
+        // --- SYNTHESIS ---
+        async function runSynthesis(direct = false) {
+            let links = [];
+            if(!direct) {
+                const l1 = document.getElementById('link1').value;
+                const l2 = document.getElementById('link2').value;
+                if(!l1 && !l2) return alert("Paste links first. fr.");
+                if(l1) links.push({url:l1}); if(l2) links.push({url:l2});
+                document.getElementById('setup-content').classList.add('hidden');
+                document.getElementById('intelligence-loader').classList.remove('hidden');
+            }
             try {
                 const res = await fetch(`${API_BASE}/initialize`, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ links: [{url:l1}, {url:l2}].filter(l => l.url), title: "Research Session" })
+                    body: JSON.stringify({ links, title: direct ? "Direct Neural Session" : "Research Session" })
                 });
                 const data = await res.json();
                 if (!res.ok) throw new Error(data.error);
@@ -435,8 +461,10 @@
                 launchChatUI();
             } catch (err) {
                 alert(err.message);
-                document.getElementById('setup-content').classList.remove('hidden');
-                document.getElementById('intelligence-loader').classList.add('hidden');
+                if(!direct) {
+                    document.getElementById('setup-content').classList.remove('hidden');
+                    document.getElementById('intelligence-loader').classList.add('hidden');
+                }
             }
         }
 
@@ -444,17 +472,21 @@
             document.querySelectorAll('main > div').forEach(el => el.classList.add('hidden'));
             document.getElementById('chat-view').classList.remove('hidden');
             appendMsg('assistant', appState.foundation);
+            // Handle mobile keyboard scroll fix
+            window.addEventListener('resize', () => {
+                if (document.activeElement.tagName === 'TEXTAREA' || document.activeElement.tagName === 'INPUT') {
+                    document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+                }
+            });
         }
 
-        // --- GHOST MODE 2.0 (BUG FIXED NAV) ---
+        // --- GHOST MODE ---
         async function initGhostTrace() {
             const code = document.getElementById('debug-code-input').value.trim();
             const language = document.getElementById('debug-language').value;
-            if(!code) return alert("Trace requires logic.");
-
+            if(!code) return alert("Logic required.");
             const btn = document.getElementById('debug-btn');
-            btn.disabled = true; btn.innerText = "Processing Trace...";
-
+            btn.disabled = true; btn.innerText = "Tracing...";
             try {
                 const res = await fetch(`${API_BASE}/debug`, {
                     method: 'POST',
@@ -463,70 +495,46 @@
                 });
                 const data = await res.json();
                 if(!res.ok) throw new Error(data.error);
-
                 appState.ghostSteps = data.trace.steps;
                 appState.ghostIdx = 0;
-                setupStage(code);
-            } catch (err) {
-                alert("Trace Error: " + err.message);
-                btn.disabled = false; btn.innerText = "Analyze & Animate";
-            }
+                setupGhostStage(code);
+            } catch (err) { alert(err.message); btn.disabled = false; btn.innerText = "Analyze & Animate"; }
         }
 
-        function setupStage(rawCode) {
+        function setupGhostStage(rawCode) {
             document.querySelectorAll('main > div').forEach(el => el.classList.add('hidden'));
             document.getElementById('ghost-display-view').classList.remove('hidden');
-
             const target = document.getElementById('code-lines-target');
             target.innerHTML = '';
             rawCode.split('\n').forEach((line, i) => {
                 const div = document.createElement('div');
-                div.className = 'code-line';
-                div.id = `line-${i+1}`;
+                div.className = 'code-line'; div.id = `line-${i+1}`;
                 div.textContent = `${(i+1).toString().padStart(3, ' ')}  ${line}`;
                 target.appendChild(div);
             });
-
-            // Initialize buttons once
-            document.getElementById('ghost-next-btn').onclick = () => {
-                if(appState.timer) clearTimeout(appState.timer);
-                if(appState.ghostIdx < appState.ghostSteps.length - 1) {
-                    appState.ghostIdx++;
-                    playStep();
-                }
-            };
-
-            document.getElementById('ghost-prev-btn').onclick = () => {
-                if(appState.timer) clearTimeout(appState.timer);
-                if(appState.ghostIdx > 0) {
-                    appState.ghostIdx--;
-                    playStep();
-                }
-            };
-
+            document.getElementById('ghost-next-btn').onclick = () => { if(appState.timer) clearTimeout(appState.timer); if(appState.ghostIdx < appState.ghostSteps.length - 1) { appState.ghostIdx++; playStep(); } };
+            document.getElementById('ghost-prev-btn').onclick = () => { if(appState.timer) clearTimeout(appState.timer); if(appState.ghostIdx > 0) { appState.ghostIdx--; playStep(); } };
             playStep();
         }
 
         function truncate(val) {
             if (typeof val === 'string' && val.length > 25) return val.substring(0, 22) + "...";
-            if (Array.isArray(val) && val.length > 3) return `Array(${val.length}) [${val[0]}, ...]`;
-            if (typeof val === 'object' && val !== null) return "{Obj}";
+            if (Array.isArray(val) && val.length > 3) return `Arr(${val.length})`;
             return val;
         }
 
         function playStep() {
             if (appState.ghostSteps.length === 0) return;
             const step = appState.ghostSteps[appState.ghostIdx];
-            
-            // UI References
             const high = document.getElementById('highlighter');
             const memGrid = document.getElementById('ghost-memory');
             const comm = document.getElementById('commentary-text');
             const anal = document.getElementById('analogy-content');
             
-            // 1. Line Positioning
             high.classList.remove('hidden');
             high.style.top = `${(step.line - 1) * 30}px`;
+            document.getElementById('line-indicator').textContent = `Line ${step.line}`;
+
             document.querySelectorAll('.code-line').forEach(el => el.classList.remove('active'));
             const activeLine = document.getElementById(`line-${step.line}`);
             if(activeLine) {
@@ -534,68 +542,44 @@
                 activeLine.scrollIntoView({ behavior: 'smooth', block: 'center', container: document.getElementById('ghost-code-scroll') });
             }
 
-            // 2. Memory Diff (Calculated from Step Index)
-            const prevStepMemory = appState.ghostIdx > 0 ? appState.ghostSteps[appState.ghostIdx - 1].memory : {};
+            const prevMem = appState.ghostIdx > 0 ? appState.ghostSteps[appState.ghostIdx - 1].memory : {};
             memGrid.innerHTML = '';
             Object.entries(step.memory).forEach(([key, val]) => {
                 const chip = document.createElement('div');
-                const isNew = JSON.stringify(prevStepMemory[key]) !== JSON.stringify(val);
+                const isNew = JSON.stringify(prevMem[key]) !== JSON.stringify(val);
                 chip.className = `memory-chip ${isNew ? 'updated' : ''}`;
-                
-                const diff = (isNew && prevStepMemory[key] !== undefined) 
-                    ? `<span class="chip-diff">${truncate(prevStepMemory[key])} ➔</span>` 
-                    : '';
+                const diff = (isNew && prevMem[key] !== undefined) ? `<span class="chip-diff">${truncate(prevMem[key])} ➔</span>` : '';
                 chip.innerHTML = `<span class="chip-label">${key}</span><span class="chip-value">${diff} ${truncate(val)}</span>`;
                 memGrid.appendChild(chip);
             });
 
-            // 3. Logic & Analogies
             document.getElementById('ghost-commentary').classList.remove('hidden');
             comm.textContent = step.commentary;
-            document.getElementById('commentary-event').textContent = step.event.replace('_', ' ');
-            if (step.analogy) {
-                document.getElementById('analogy-bridge').classList.remove('hidden');
-                anal.textContent = step.analogy;
-            }
+            if (step.analogy) { document.getElementById('analogy-bridge').classList.remove('hidden'); anal.textContent = step.analogy; }
 
-            // 4. Log Update
-            const logEntry = document.createElement('div');
-            logEntry.className = 'log-entry';
-            logEntry.innerHTML = `<span class="log-line">L${step.line}</span><span>${step.commentary}</span>`;
-            document.getElementById('ghost-log').prepend(logEntry);
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerHTML = `<span class="log-line">L${step.line}</span><span>${step.commentary}</span>`;
+            document.getElementById('ghost-log').prepend(entry);
 
-            // 5. Navigation Safety
             document.getElementById('ghost-prev-btn').disabled = appState.ghostIdx === 0;
             document.getElementById('ghost-next-btn').disabled = appState.ghostIdx >= appState.ghostSteps.length - 1;
 
-            // 6. Schedule Next
             if(appState.timer) clearTimeout(appState.timer);
             if(appState.ghostIdx < appState.ghostSteps.length - 1) {
-                appState.timer = setTimeout(() => {
-                    appState.ghostIdx++;
-                    playStep();
-                }, appState.ghostDelay);
+                appState.timer = setTimeout(() => { appState.ghostIdx++; playStep(); }, appState.ghostDelay);
             }
         }
 
-        function updateSpeed(ms, el) {
-            appState.ghostDelay = ms;
-            document.querySelectorAll('.speed-option').forEach(opt => opt.classList.remove('active'));
-            el.classList.add('active');
-        }
+        function updateSpeed(ms, el) { appState.ghostDelay = ms; document.querySelectorAll('.speed-option').forEach(opt => opt.classList.remove('active')); el.classList.add('active'); }
 
-        // --- CHAT LOGIC ---
-        function simpleMd(txt) {
-            return txt.replace(/^### (.*$)/gim, '<b>$1</b>').replace(/\*\*(.*)\*\*/gim, '<b>$1</b>').replace(/\n/gim, '<br>');
-        }
-
+        // --- CHAT HELPERS ---
+        function simpleMd(txt) { return txt.replace(/^### (.*$)/gim, '<b>$1</b>').replace(/\*\*(.*)\*\*/gim, '<b>$1</b>').replace(/\n/gim, '<br>'); }
         function appendMsg(role, content) {
             const container = document.getElementById('chat-messages');
             const div = document.createElement('div');
-            div.style.display = 'flex';
-            div.style.justifyContent = role === 'user' ? 'flex-end' : 'flex-start';
-            div.style.marginBottom = '24px';
-            div.innerHTML = `<div style="background:${role === 'user' ? 'var(--accent-violet)' : 'var(--bg-card)'}; padding:20px; border-radius:22px; max-width:85%; font-size:1rem;">${simpleMd(content)}</div>`;
+            div.style.display = 'flex'; div.style.justifyContent = role === 'user' ? 'flex-end' : 'flex-start'; div.style.marginBottom = '16px';
+            div.innerHTML = `<div style="background:${role === 'user' ? 'var(--accent-violet)' : 'var(--bg-card)'}; padding:14px; border-radius:18px; max-width:90%; font-size:0.95rem;">${simpleMd(content)}</div>`;
             container.appendChild(div);
             container.scrollTop = container.scrollHeight;
         }
@@ -607,13 +591,11 @@
             input.value = ''; input.style.height = 'auto';
             appendMsg('user', txt);
             appState.history.push({role: 'user', content: txt});
-
             const tId = 't-' + Date.now();
             const div = document.createElement('div');
-            div.id = tId; div.style.display = 'flex'; div.style.marginBottom = '24px';
-            div.innerHTML = `<div style="background:var(--bg-card); padding:14px 24px; border-radius:22px;"><div style="font-size:0.6rem; font-weight:900; color:var(--accent-lime); text-transform:uppercase; margin-bottom:6px;">Pluto is cooking</div><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>`;
+            div.id = tId; div.style.display = 'flex'; div.style.marginBottom = '16px';
+            div.innerHTML = `<div style="background:var(--bg-card); padding:10px 16px; border-radius:18px;"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>`;
             document.getElementById('chat-messages').appendChild(div);
-
             try {
                 const res = await fetch(`${API_BASE}/chat`, {
                     method: 'POST',
@@ -622,14 +604,8 @@
                 });
                 const data = await res.json();
                 document.getElementById(tId).remove();
-                if(data.success) {
-                    appendMsg('assistant', data.reply);
-                    appState.history.push({role: 'assistant', content: data.reply});
-                }
-            } catch (err) { 
-                document.getElementById(tId).remove(); 
-                appendMsg('assistant', "Neural Link Error: " + err.message); 
-            }
+                if(data.success) { appendMsg('assistant', data.reply); appState.history.push({role: 'assistant', content: data.reply}); }
+            } catch (err) { document.getElementById(tId).remove(); appendMsg('assistant', "Connection Error: " + err.message); }
         }
 
         function autoResize(ta) { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; }
