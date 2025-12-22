@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pluto | AI Research & Ghost Debugger</title>
-    <!-- Modern Typography -->
+    <link rel="icon" href="spectrumsyntaxlogo.jpg">
+    <!-- Premium Typography -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Outfit:wght@500;800;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
     
     <style>
-        /* CSS VARIABLES - Midnight Aurora Theme */
+        /* DESIGN TOKENS - Midnight Aurora Theme */
         :root {
             --bg-deep: #0a0b1e;
             --bg-card: #161837;
@@ -20,7 +21,7 @@
             --text-bright: #ffffff;
             --text-soft: #a1a1aa;
             --glass-border: rgba(255, 255, 255, 0.08);
-            --header-offset: 32px;
+            --header-offset: 64px;
             --font-main: 'Inter', sans-serif;
             --font-display: 'Outfit', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
@@ -33,13 +34,13 @@
             background-color: var(--bg-deep);
             color: var(--text-bright);
             height: 100vh;
-            overflow: hidden;
+            overflow: hidden; /* Global scroll disabled for pane layout */
             line-height: 1.5;
         }
 
         h1, h2, h3, b { font-family: var(--font-display); }
 
-        /* --- ANIMATED BACKGROUND --- */
+        /* --- BACKGROUND ANIMATION --- */
         .bg-animated-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -50,62 +51,61 @@
 
         .orb {
             position: absolute;
-            width: 600px;
-            height: 600px;
+            width: 700px; height: 700px;
             border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.3;
-            animation: move 20s infinite alternate;
+            filter: blur(140px);
+            opacity: 0.15;
+            animation: drift 25s infinite alternate ease-in-out;
         }
-        .orb-1 { background: var(--accent-violet); top: -10%; left: -10%; }
-        .orb-2 { background: var(--accent-lime); bottom: -10%; right: -10%; animation-delay: -5s; opacity: 0.1; }
+        .orb-1 { background: var(--accent-violet); top: -15%; left: -10%; }
+        .orb-2 { background: var(--accent-lime); bottom: -15%; right: -10%; animation-delay: -7s; }
 
-        @keyframes move {
-            from { transform: translate(0, 0); }
-            to { transform: translate(100px, 50px); }
+        @keyframes drift {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(150px, 80px) scale(1.1); }
         }
 
-        /* --- COMMON UI COMPONENTS --- */
+        /* --- GLOBAL UI COMPONENTS --- */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             padding: 16px 32px;
             border-radius: 16px;
             font-weight: 800;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             border: none;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            font-size: 0.8rem;
             width: 100%;
         }
 
         .btn-primary { background: var(--accent-lime); color: var(--bg-deep); }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(207, 255, 4, 0.2); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(207, 255, 4, 0.2); }
         
         .btn-accent { background: var(--accent-violet); color: white; }
-        .btn-accent:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(139, 92, 246, 0.2); }
+        .btn-accent:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(139, 92, 246, 0.2); }
 
         .btn-emerald { background: var(--accent-emerald); color: var(--bg-deep); }
-        .btn-emerald:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2); }
+        .btn-emerald:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(16, 185, 129, 0.2); }
 
         .btn-ghost { 
             background: transparent; 
             color: var(--text-soft); 
             border: 1px solid var(--glass-border); 
         }
-        .btn-ghost:hover { border-color: var(--accent-lime); color: var(--accent-lime); }
+        .btn-ghost:hover { border-color: var(--accent-lime); color: var(--accent-lime); background: rgba(207, 255, 4, 0.03); }
 
         .card {
             background: var(--bg-card);
             border: 1px solid var(--glass-border);
             border-radius: 2.5rem;
             padding: 2.5rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            transition: 0.3s;
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
         }
 
         .input-field {
@@ -113,470 +113,559 @@
             background: var(--bg-input);
             border: 1px solid var(--glass-border);
             padding: 18px;
-            border-radius: 14px;
+            border-radius: 16px;
             color: white;
             outline: none;
-            transition: 0.2s;
-            font-size: 0.9rem;
+            transition: 0.3s;
+            font-size: 0.95rem;
+            font-family: inherit;
         }
-        .input-field:focus { border-color: var(--accent-lime); }
+        .input-field:focus { border-color: var(--accent-lime); box-shadow: 0 0 0 4px rgba(207, 255, 4, 0.05); }
 
-        /* --- HEADER & NAVIGATION --- */
+        /* --- HEADER --- */
         .global-header { 
-            position: fixed; 
-            top: var(--header-offset); left: var(--header-offset); 
-            z-index: 50; display: flex; align-items: center; gap: 15px; 
+            height: 64px;
+            padding: 0 32px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(10, 11, 30, 0.85);
+            backdrop-filter: blur(24px);
+            z-index: 1000;
+            position: relative;
         }
         
-        .logo-box { 
-            width: 40px; height: 40px; 
-            background: var(--bg-card); 
-            border: 1px solid var(--glass-border);
-            border-radius: 10px; 
-            display: flex; align-items: center; justify-content: center; 
-            overflow: hidden;
-        }
+        .logo-box { width: 38px; height: 38px; background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .logo-box img { width: 100%; height: 100%; object-fit: cover; }
-
         .brand-text { display: flex; flex-direction: column; }
-        .brand-text b { color: var(--text-bright); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.05em; }
-        .brand-text sub { font-size: 0.65rem; color: var(--accent-violet); }
+        .brand-text b { color: var(--text-bright); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.1em; line-height: 1; }
+        .brand-text sub { font-size: 0.65rem; color: var(--accent-violet); font-weight: 800; margin-top: 2px; }
 
-        .beta-pill {
-            position: fixed; top: var(--header-offset); right: var(--header-offset); z-index: 50;
-            background: rgba(207, 255, 4, 0.1); 
-            color: var(--accent-lime); 
-            border: 1px solid var(--accent-lime);
-            padding: 4px 8px; border-radius: 4px; font-size: 0.6rem; font-weight: 900; text-transform: uppercase;
-        }
+        .beta-pill { background: rgba(207, 255, 4, 0.1); color: var(--accent-lime); border: 1px solid var(--accent-lime); padding: 3px 8px; border-radius: 6px; font-size: 0.6rem; font-weight: 900; text-transform: uppercase; }
 
-        /* --- VIEWS --- */
-        #selection-view {
-            min-height: 100vh; display: flex; align-items: center; justify-content: center; 
-            padding: 24px; padding-top: 100px; overflow-y: auto;
-        }
-        .selection-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; width: 100%; max-width: 1000px;
-        }
-        .selection-card { cursor: pointer; text-align: center; }
-        .selection-card:hover { border-color: var(--accent-lime); transform: translateY(-8px); }
-        
-        .icon-circle {
-            width: 80px; height: 80px; border-radius: 24px; margin: 0 auto 24px;
-            display: flex; align-items: center; justify-content: center; font-size: 2rem;
-        }
-        .icon-indigo { background: rgba(139, 92, 246, 0.1); color: var(--accent-violet); }
-        .icon-orange { background: rgba(207, 255, 4, 0.1); color: var(--accent-lime); }
-        .icon-emerald { background: rgba(16, 185, 129, 0.1); color: var(--accent-emerald); }
-
-        #setup-view, #ghost-setup-view { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; padding-top: 100px; overflow-y: auto; }
-        .setup-card { max-width: 500px; width: 100%; text-align: center; }
-
-        /* --- CHAT VIEW --- */
-        #chat-view { height: 100vh; display: flex; flex-direction: column; background: var(--bg-deep); }
-        .chat-nav { 
-            height: 64px; border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; 
-            justify-content: space-between; padding: 0 24px; background: rgba(10, 11, 30, 0.8); backdrop-filter: blur(16px);
-        }
-        #chat-messages { flex: 1; overflow-y: auto; padding: 20px 16px; width: 100%; max-width: 900px; margin: 0 auto; }
-        .message-row { display: flex; margin-bottom: 24px; width: 100%; }
-        .msg-user { justify-content: flex-end; }
-        .msg-assistant { justify-content: flex-start; }
-        .message-bubble { 
-            max-width: 85%; padding: 16px; border-radius: 1.25rem; font-size: 0.9rem; 
-            line-height: 1.6; position: relative; word-wrap: break-word;
-        }
-        .msg-user .message-bubble { background: var(--accent-violet); color: white; border-bottom-right-radius: 4px; }
-        .msg-assistant .message-bubble { background: var(--bg-card); border: 1px solid var(--glass-border); color: var(--text-bright); border-bottom-left-radius: 4px; }
-
-        .chat-input-area { padding: 16px; width: 100%; max-width: 900px; margin: 0 auto; }
-        .chat-input-container { position: relative; background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: 1.25rem; padding: 4px; }
-        #user-input { 
-            width: 100%; background: transparent; border: none; padding: 14px 50px 14px 16px; color: white; 
-            outline: none; resize: none; min-height: 52px; max-height: 150px; font-family: inherit; font-size: 0.95rem;
-        }
-        .send-btn { 
-            position: absolute; right: 8px; bottom: 8px; width: 36px; height: 36px; border-radius: 10px;
-            background: var(--accent-lime); color: var(--bg-deep); display: flex; align-items: center; justify-content: center; border: none; cursor: pointer;
-        }
-
-        /* --- GHOST MODE DISPLAY --- */
+        /* --- GHOST MODE 2.0 (SPLIT-PANE DASHBOARD) --- */
         #ghost-display-view { height: 100vh; display: flex; flex-direction: column; background: #050510; }
-        .ghost-stage { flex: 1; display: flex; overflow: hidden; }
-        .ghost-code-pane { width: 35%; border-right: 1px solid var(--glass-border); display: flex; flex-direction: column; background: #08081a; }
-        .ghost-viz-pane { flex: 1; display: flex; flex-direction: column; padding: 24px; overflow-y: auto; background: radial-gradient(circle at 50% 50%, #0d0d26 0%, #050510 100%); }
         
-        .viz-line-highlighter { position: absolute; left: 0; width: 100%; height: 28px; background: rgba(207, 255, 4, 0.05); border-left: 3px solid var(--accent-lime); pointer-events: none; transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .code-line { padding-left: 20px; font-family: var(--font-mono); font-size: 0.8rem; height: 28px; display: flex; align-items: center; color: var(--text-soft); white-space: pre; }
-        .code-line.active { color: var(--accent-lime); font-weight: 700; background: rgba(207, 255, 4, 0.05); }
+        .ghost-stage { 
+            flex: 1; 
+            display: flex; 
+            height: calc(100vh - 64px); 
+            overflow: hidden; 
+        }
 
-        .memory-stack { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
-        .memory-chip { background: var(--bg-card); border: 1px solid var(--glass-border); padding: 10px 15px; border-radius: 12px; display: flex; flex-direction: column; min-width: 130px; position: relative; transition: 0.3s; }
-        .memory-chip.updated { border-color: var(--accent-lime); box-shadow: 0 0 15px rgba(207, 255, 4, 0.3); transform: scale(1.05); }
-        .chip-label { font-size: 0.6rem; color: var(--accent-emerald); font-weight: 900; text-transform: uppercase; margin-bottom: 2px; }
-        .chip-value { font-family: var(--font-mono); font-size: 0.9rem; color: white; display: flex; align-items: center; gap: 8px; }
-        .chip-diff { font-size: 0.7rem; color: var(--accent-lime); opacity: 0.8; }
+        /* Pane 1: Static Logic (Code) */
+        .ghost-code-pane { 
+            flex: 0 0 42%; 
+            border-right: 1px solid var(--glass-border); 
+            background: #08081a; 
+            overflow-y: auto; 
+            position: relative;
+            padding-bottom: 40vh; /* Allow focus centering at EOF */
+        }
 
-        /* DASHBOARD SECTIONS */
-        .ghost-dashboard-section { margin-bottom: 24px; padding: 20px; background: rgba(22, 24, 55, 0.4); border: 1px solid var(--glass-border); border-radius: 20px; position: relative; }
-        .commentary-header { border-left: 4px solid var(--accent-emerald); background: rgba(16, 185, 129, 0.05); transition: 0.3s; min-height: 100px; }
-        .commentary-header.error-active { border-color: var(--accent-pink); background: rgba(255, 46, 99, 0.1); }
+        /* Pane 2: Neural Insights (Visualization) */
+        .ghost-viz-pane { 
+            flex: 1; 
+            padding: 32px; 
+            overflow-y: auto; 
+            background: radial-gradient(circle at 50% 50%, #0d0d26 0%, #050510 100%); 
+        }
 
-        /* NAV CONTROLS */
-        .ghost-nav-cluster { position: absolute; right: 20px; top: 20px; display: flex; gap: 8px; }
-        .ghost-mini-btn { background: rgba(207, 255, 4, 0.1); border: 1px solid var(--accent-lime); color: var(--accent-lime); padding: 6px 12px; border-radius: 8px; font-size: 0.6rem; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 4px; }
-        .ghost-mini-btn:hover { background: var(--accent-lime); color: var(--bg-deep); }
-        .ghost-mini-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .viz-line-highlighter { position: absolute; left: 0; width: 100%; height: 30px; background: rgba(207, 255, 4, 0.08); border-left: 4px solid var(--accent-lime); pointer-events: none; transition: top 0.35s cubic-bezier(0.4, 0, 0.2, 1); z-index: 5; }
+        .code-line { padding-left: 28px; font-family: var(--font-mono); font-size: 0.85rem; height: 30px; display: flex; align-items: center; color: var(--text-soft); white-space: pre; position: relative; z-index: 10; transition: color 0.3s; }
+        .code-line.active { color: var(--accent-lime); font-weight: 700; text-shadow: 0 0 15px rgba(207, 255, 4, 0.4); }
 
-        .speed-pill { position: absolute; right: 20px; bottom: 20px; display: flex; background: var(--bg-input); border-radius: 20px; padding: 4px; border: 1px solid var(--glass-border); }
-        .speed-option { padding: 4px 10px; border-radius: 16px; font-size: 0.55rem; font-weight: 900; cursor: pointer; transition: 0.2s; color: var(--text-soft); }
+        .memory-stack { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; }
+        .memory-chip { background: var(--bg-card); border: 1px solid var(--glass-border); padding: 12px 18px; border-radius: 14px; display: flex; flex-direction: column; min-width: 150px; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .memory-chip.updated { border-color: var(--accent-lime); box-shadow: 0 0 25px rgba(207, 255, 4, 0.25); transform: scale(1.03); }
+        .chip-label { font-size: 0.6rem; color: var(--accent-emerald); font-weight: 900; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.05em; }
+        .chip-value { font-family: var(--font-mono); font-size: 1rem; color: white; display: flex; align-items: center; gap: 10px; }
+        .chip-diff { font-size: 0.8rem; color: var(--accent-lime); opacity: 0.7; font-weight: 400; }
+
+        .ghost-dashboard-section { margin-bottom: 28px; padding: 24px; background: rgba(22, 24, 55, 0.45); border: 1px solid var(--glass-border); border-radius: 28px; position: relative; backdrop-filter: blur(16px); box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+        .commentary-header { border-left: 6px solid var(--accent-emerald); min-height: 110px; }
+        
+        /* ANALOGY BRIDGE - THE CORE LEARNING TOOL */
+        .analogy-card { 
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(139, 92, 246, 0.05) 100%); 
+            border: 1px solid var(--accent-violet); 
+            border-radius: 22px; 
+            padding: 24px; 
+            margin-bottom: 28px; 
+            display: flex; gap: 20px; align-items: flex-start;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.4);
+        }
+        .analogy-bulb { font-size: 2.2rem; filter: drop-shadow(0 0 12px var(--accent-violet)); }
+        .analogy-info { flex: 1; }
+        .analogy-title { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; color: var(--accent-violet); margin-bottom: 6px; letter-spacing: 0.15em; }
+        .analogy-content { font-size: 1.1rem; line-height: 1.6; color: #fff; font-weight: 500; }
+
+        .ghost-nav-cluster { position: absolute; right: 24px; top: 24px; display: flex; gap: 12px; }
+        .ghost-mini-btn { background: rgba(207, 255, 4, 0.1); border: 1px solid var(--accent-lime); color: var(--accent-lime); padding: 8px 18px; border-radius: 12px; font-size: 0.65rem; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
+        .ghost-mini-btn:hover { background: var(--accent-lime); color: var(--bg-deep); transform: translateY(-2px); }
+        .ghost-mini-btn:disabled { opacity: 0.25; cursor: not-allowed; transform: none; }
+
+        .speed-pill { display: flex; background: var(--bg-input); border-radius: 24px; padding: 5px; border: 1px solid var(--glass-border); width: fit-content; margin-top: 18px; }
+        .speed-option { padding: 6px 14px; border-radius: 18px; font-size: 0.65rem; font-weight: 900; cursor: pointer; transition: 0.3s; color: var(--text-soft); }
         .speed-option.active { background: var(--accent-violet); color: white; }
 
-        /* STEP LOG */
-        .ghost-log-area { max-height: 120px; overflow-y: auto; margin-top: 15px; border-top: 1px solid var(--glass-border); padding-top: 10px; }
-        .log-entry { font-size: 0.7rem; color: var(--text-soft); margin-bottom: 4px; display: flex; gap: 10px; }
-        .log-line { color: var(--accent-lime); font-weight: 800; min-width: 25px; }
+        .ghost-log-area { max-height: 300px; overflow-y: auto; margin-top: 16px; border-top: 1px solid var(--glass-border); padding-top: 16px; }
+        .log-entry { font-size: 0.8rem; color: var(--text-soft); margin-bottom: 8px; display: flex; gap: 14px; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+        .log-line { color: var(--accent-lime); font-weight: 900; min-width: 32px; font-family: var(--font-mono); }
 
-        /* --- INTELLIGENCE LOADER --- */
-        .intelligence-loader { margin-top: 32px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
-        .loader-ring { width: 48px; height: 48px; border: 3px solid rgba(207, 255, 4, 0.1); border-top-color: var(--accent-lime); border-radius: 50%; animation: spin 1s infinite linear; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .loader-text { font-size: 0.65rem; font-weight: 900; color: var(--accent-lime); text-transform: uppercase; letter-spacing: 0.15em; animation: pulse 2s infinite ease-in-out; }
-        @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+        /* --- UI VIEWS --- */
+        #selection-view { height: calc(100vh - 64px); display: flex; align-items: center; justify-content: center; padding: 40px; overflow-y: auto; }
+        .selection-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; width: 100%; max-width: 1200px; }
+        .selection-card { cursor: pointer; text-align: center; display: flex; flex-direction: column; transition: 0.4s; }
+        .selection-card:hover { border-color: var(--accent-lime); transform: translateY(-12px); }
+        .icon-circle { width: 84px; height: 84px; border-radius: 28px; margin: 0 auto 28px; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; transition: 0.4s; }
+        .selection-card:hover .icon-circle { transform: rotate(10deg) scale(1.1); }
+        .icon-indigo { background: rgba(139, 92, 246, 0.12); color: var(--accent-violet); }
+        .icon-orange { background: rgba(207, 255, 4, 0.12); color: var(--accent-lime); }
+        .icon-emerald { background: rgba(16, 185, 129, 0.12); color: var(--accent-emerald); }
 
         /* --- UTILS --- */
         .hidden { display: none !important; }
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
-        
-        .typing-dot { width: 6px; height: 6px; background-color: var(--accent-lime); border-radius: 50%; display: inline-block; animation: bounce 1.4s infinite ease-in-out both; margin-right: 3px; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 12px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .typing-dot { width: 6px; height: 6px; background-color: var(--accent-lime); border-radius: 50%; display: inline-block; animation: bounce 1.4s infinite ease-in-out both; margin-right: 4px; }
         @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
-        .prose pre { background: #000; padding: 1rem; border-radius: 12px; overflow-x: auto; margin: 10px 0; border: 1px solid var(--glass-border); }
-        .prose code { font-family: var(--font-mono); color: var(--accent-lime); }
+
+        .prose pre { background: #000; padding: 1.2rem; border-radius: 16px; overflow-x: auto; margin: 12px 0; border: 1px solid var(--glass-border); color: var(--accent-lime); font-family: var(--font-mono); font-size: 0.85rem; }
+        .prose code { color: var(--accent-lime); }
+        
+        #intelligence-loader { margin-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .loader-ring { width: 54px; height: 54px; border: 4px solid rgba(207, 255, 4, 0.1); border-top-color: var(--accent-lime); border-radius: 50%; animation: spin 1s infinite cubic-bezier(0.5, 0, 0.5, 1); }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loader-text { font-size: 0.7rem; font-weight: 900; color: var(--accent-lime); text-transform: uppercase; letter-spacing: 0.2em; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
     </style>
 </head>
 <body class="custom-scrollbar">
 
-    <!-- BACKGROUND -->
-    <div id="bg-animation" class="bg-animated-container">
+    <div class="bg-animated-container">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
     </div>
 
-    <!-- BRANDING HEADER -->
-    <div id="global-header" class="global-header">
-        <div class="logo-box">
-            <img src="X.jpg" alt="Pluto Logo" onerror="this.style.display='none';">
-        </div>
-        <div class="brand-text">
-            <b>Pluto Intelligence</b>
-            <sub>By SpectrumSyntaX</sub>
-        </div>
-    </div>
-
-    <div id="beta-pill" class="beta-pill">Beta</div>
-
-    <!-- VIEW: SELECTION -->
-    <div id="selection-view">
-        <div class="selection-grid">
-            <div onclick="startNewChat()" class="card selection-card">
-                <div class="icon-circle icon-indigo">✦</div>
-                <h2>Start New Chat</h2>
-                <p style="color: var(--text-soft); font-size: 0.85rem; margin-bottom: 24px; margin-top: 12px;">Direct AI dialogue. Standard intelligence layer.</p>
-                <button class="btn btn-primary">Launch Standard</button>
-            </div>
-
-            <div onclick="showPlutoX()" class="card selection-card">
-                <div class="icon-circle icon-orange">⚡</div>
-                <h2>Pluto-X</h2>
-                <p style="color: var(--text-soft); font-size: 0.85rem; margin-bottom: 24px; margin-top: 12px;">Research Engine. Synthesize links into a foundation.</p>
-                <button class="btn btn-accent">Launch Research</button>
-            </div>
-
-            <div onclick="showGhostMode()" class="card selection-card">
-                <div class="icon-circle icon-emerald">👁</div>
-                <h2>Ghost Mode</h2>
-                <p style="color: var(--text-soft); font-size: 0.85rem; margin-bottom: 24px; margin-top: 12px;">Cinematic Debugger. Visualize code execution steps.</p>
-                <button class="btn btn-emerald">Launch Debugger</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- VIEW: SETUP (PLUTO-X) -->
-    <div id="setup-view" class="hidden">
-        <div class="card setup-card">
-            <div id="setup-content">
-                <button onclick="goBackToSelection()" class="btn btn-ghost" style="width: auto; font-size: 0.65rem; padding: 6px 16px; margin-bottom: 24px;">← Back</button>
-                <div class="logo-box" style="width: 60px; height: 60px; margin: 0 auto 16px; border-radius: 16px;">
-                    <img src="X.jpg" alt="Pluto Logo" onerror="this.style.display='none';">
+    <!-- MAIN APP WRAPPER -->
+    <div id="app-root">
+        <!-- GLOBAL HEADER -->
+        <header class="global-header">
+            <div style="display: flex; align-items: center; gap: 18px;">
+                <div class="logo-box">
+                    <img src="X.jpg" alt="Logo" onerror="this.src='https://via.placeholder.com/40/0a0b1e/cfff04?text=X'">
                 </div>
-                <h1>Pluto-X Engine</h1>
-                <p style="color: var(--text-soft); font-size: 0.85rem; margin-bottom: 32px;">Paste your share links to build context.</p>
-                
-                <div style="text-align: left; margin-bottom: 24px;">
-                    <label style="font-size: 0.65rem; font-weight: 900; color: var(--text-soft); text-transform: uppercase; margin-bottom: 8px; display: block;">AI Share Links</label>
-                    <input id="link1" type="url" placeholder="Gemini Share Link" class="input-field" style="margin-bottom: 12px;">
-                    <input id="link2" type="url" placeholder="ChatGPT Share Link" class="input-field">
-                </div>
-
-                <button id="init-btn" onclick="initializePlatform()" class="btn btn-primary" style="height: 56px;">Start to Cook</button>
-            </div>
-            <div id="intelligence-loader" class="intelligence-loader hidden">
-                <div class="loader-ring"></div>
-                <div id="loader-status" class="loader-text">Locking into Sources</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- VIEW: GHOST SETUP -->
-    <div id="ghost-setup-view" class="hidden">
-        <div class="card setup-card" style="max-width: 800px; display: flex; flex-direction: column; max-height: 85vh;">
-            <div style="flex: 0 0 auto;">
-                <button onclick="goBackToSelection()" class="btn btn-ghost" style="width: auto; font-size: 0.65rem; padding: 6px 16px; margin-bottom: 24px;">← Back</button>
-                <h1>Ghost Debugger</h1>
-                <p style="color: var(--text-soft); font-size: 0.85rem; margin-bottom: 24px;">Upload logic to see it execute step-by-step.</p>
-                
-                <div style="text-align: left; margin-bottom: 16px;">
-                    <label style="font-size: 0.6rem; font-weight: 900; color: var(--text-soft); text-transform: uppercase; margin-bottom: 8px; display: block;">Select Language</label>
-                    <select id="debug-language" class="input-field" style="padding: 12px;">
-                        <option value="javascript">JavaScript</option>
-                        <option value="python">Python</option>
-                        <option value="c">C (Legacy)</option>
-                        <option value="cpp">C++ (Modern)</option>
-                    </select>
+                <div class="brand-text">
+                    <b>Pluto Intelligence</b>
+                    <sub>SpectrumSyntaX Innovation</sub>
                 </div>
             </div>
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <div class="beta-pill">Beta</div>
+                <button onclick="location.reload()" class="btn btn-ghost" style="width: auto; padding: 8px 16px; font-size: 0.65rem; border-radius: 10px;">Reset Session</button>
+            </div>
+        </header>
 
-            <div style="flex: 1 1 auto; overflow: hidden; margin-bottom: 20px;">
-                <textarea id="debug-code-input" class="input-field custom-scrollbar" style="height: 100%; font-family: var(--font-mono); font-size: 0.75rem; line-height: 1.4; resize: none;" placeholder="Paste your code here..."></textarea>
-            </div>
-            
-            <div style="flex: 0 0 auto;">
-                <button id="debug-btn" onclick="runGhostDebugger()" class="btn btn-emerald" style="height: 56px;">Analyze & Animate</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- VIEW: CHAT -->
-    <div id="chat-view" class="hidden">
-        <nav class="chat-nav">
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <div class="logo-box" style="width: 32px; height: 32px; border-radius: 8px;">
-                    <img src="X.jpg" alt="Pluto Logo" onerror="this.style.display='none';">
-                </div>
-                <div class="brand-text"><b>Pluto Intelligence</b></div>
-            </div>
-            <button onclick="location.reload()" class="btn btn-ghost" style="width: auto; font-size: 0.65rem; padding: 6px 12px;">Reset</button>
-        </nav>
-        <div id="chat-messages" class="custom-scrollbar"></div>
-        <div class="chat-input-area">
-            <div class="chat-input-container">
-                <textarea id="user-input" placeholder="Continue the conversation..." oninput="autoResize(this)"></textarea>
-                <button onclick="handleSendMessage()" class="send-btn">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- VIEW: GHOST DISPLAY -->
-    <div id="ghost-display-view" class="hidden">
-        <nav class="chat-nav">
-            <span class="brand-text"><b>Ghost Mode 2.0</b> <sub>Locked In Trace</sub></span>
-            <button onclick="location.reload()" class="btn btn-ghost" style="width: auto; font-size: 0.65rem; padding: 6px 12px;">Exit</button>
-        </nav>
-        <div class="ghost-stage">
-            <div class="ghost-code-pane custom-scrollbar" id="ghost-code-display" style="position: relative;">
-                <div id="highlighter" class="viz-line-highlighter hidden"></div>
-            </div>
-            <div class="ghost-viz-pane custom-scrollbar">
-                <!-- COMMENTARY DASHBOARD -->
-                <div id="ghost-commentary" class="ghost-dashboard-section commentary-header hidden">
-                    <div class="ghost-nav-cluster">
-                        <button id="ghost-prev-btn" class="ghost-mini-btn" disabled>Back</button>
-                        <button id="ghost-next-btn" class="ghost-mini-btn">Next</button>
+        <main>
+            <!-- 1. SELECTION VIEW -->
+            <div id="selection-view">
+                <div class="selection-grid">
+                    <div onclick="startNeuralChat()" class="card selection-card">
+                        <div>
+                            <div class="icon-circle icon-indigo">✦</div>
+                            <h2>Neural Chat</h2>
+                            <p style="color: var(--text-soft); font-size: 0.95rem; margin-top: 14px; margin-bottom: 28px;">Direct session dialogue. Grounded in research.</p>
+                        </div>
+                        <button class="btn btn-primary">Initialize Link</button>
                     </div>
-                    <div id="commentary-event" style="font-size: 0.55rem; font-weight: 900; color: var(--accent-emerald); text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.1em;">Awaiting Logic</div>
-                    <div id="commentary-text" style="font-size: 0.95rem; font-weight: 500; color: white; line-height: 1.4; padding-right: 120px;">Preparing virtual execution...</div>
-                    
-                    <!-- LOG AREA -->
-                    <div id="ghost-log" class="ghost-log-area custom-scrollbar"></div>
 
-                    <div class="speed-pill">
-                        <div class="speed-option" onclick="setGhostSpeed(3000, this)">Turbo</div>
-                        <div class="speed-option active" onclick="setGhostSpeed(12000, this)">Cinematic</div>
+                    <div onclick="showPlutoX()" class="card selection-card">
+                        <div>
+                            <div class="icon-circle icon-orange">⚡</div>
+                            <h2>Pluto-X</h2>
+                            <p style="color: var(--text-soft); font-size: 0.95rem; margin-top: 14px; margin-bottom: 28px;">Synthesis engine. Ingest ChatGPT & Gemini links.</p>
+                        </div>
+                        <button class="btn btn-accent">Synthesize Base</button>
+                    </div>
+
+                    <div onclick="showGhostMode()" class="card selection-card">
+                        <div>
+                            <div class="icon-circle icon-emerald">👁</div>
+                            <h2>Ghost Mode</h2>
+                            <p style="color: var(--text-soft); font-size: 0.95rem; margin-top: 14px; margin-bottom: 28px;">Elite Debugger. Master complex Algos & ML logic.</p>
+                        </div>
+                        <button class="btn btn-emerald">Launch Engine</button>
                     </div>
                 </div>
+            </div>
 
-                <div class="ghost-dashboard-section">
-                    <label style="font-size: 0.6rem; font-weight: 900; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.1em;">Memory Chips (Variables)</label>
-                    <div id="ghost-memory" class="memory-stack"></div>
-                </div>
-
-                <div class="ghost-dashboard-section">
-                    <label style="font-size: 0.6rem; font-weight: 900; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.1em;">Function Stack</label>
-                    <div id="ghost-stack" class="memory-stack"></div>
+            <!-- 2. PLUTO-X SETUP -->
+            <div id="setup-view" class="hidden">
+                <div style="height: calc(100vh - 64px); display: flex; align-items: center; justify-content: center; padding: 24px;">
+                    <div class="card" style="max-width: 540px; width: 100%;">
+                        <div id="setup-content">
+                            <button onclick="goHome()" class="btn btn-ghost" style="width: auto; font-size: 0.65rem; padding: 8px 18px; margin-bottom: 28px;">← Neural Link Home</button>
+                            <h1>Foundation Synthesis</h1>
+                            <p style="color: var(--text-soft); font-size: 0.9rem; margin-bottom: 32px;">Paste AI share links to build your intelligence core.</p>
+                            <div style="text-align: left; margin-bottom: 24px;">
+                                <label style="font-size: 0.65rem; font-weight: 900; color: var(--text-soft); text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 0.1em;">Input Links</label>
+                                <input id="link1" type="url" placeholder="ChatGPT Link" class="input-field" style="margin-bottom: 14px;">
+                                <input id="link2" type="url" placeholder="Gemini Link" class="input-field">
+                            </div>
+                            <button id="init-btn" onclick="runSynthesis()" class="btn btn-primary">Start to Cook</button>
+                        </div>
+                        <div id="intelligence-loader" class="intelligence-loader hidden">
+                            <div class="loader-ring"></div>
+                            <div id="loader-status" class="loader-text">Locking into Sources</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+
+            <!-- 3. GHOST SETUP -->
+            <div id="ghost-setup-view" class="hidden">
+                <div style="height: calc(100vh - 64px); display: flex; align-items: center; justify-content: center; padding: 24px;">
+                    <div class="card" style="max-width: 850px; width: 100%; display: flex; flex-direction: column; max-height: 85vh;">
+                        <div style="flex: 0 0 auto;">
+                            <button onclick="goHome()" class="btn btn-ghost" style="width: auto; font-size: 0.65rem; padding: 8px 18px; margin-bottom: 24px;">← Back</button>
+                            <h1>Ghost Debugger</h1>
+                            <p style="color: var(--text-soft); font-size: 0.9rem; margin-bottom: 24px;">Trace ML tensors, Linked Lists, or Algos. Built for zero-coders.</p>
+                            <div style="text-align: left; margin-bottom: 16px;">
+                                <label style="font-size: 0.6rem; font-weight: 900; color: var(--text-soft); text-transform: uppercase; margin-bottom: 8px; display: block;">Select logic layer</label>
+                                <select id="debug-language" class="input-field" style="padding: 12px;">
+                                    <option value="python">Python (Recommended for ML)</option>
+                                    <option value="javascript">JavaScript</option>
+                                    <option value="cpp">C++ (Modern)</option>
+                                    <option value="c">C (Legacy)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="flex: 1 1 auto; overflow: hidden; margin-bottom: 20px;">
+                            <textarea id="debug-code-input" class="input-field custom-scrollbar" style="height: 100%; font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.5; resize: none;" placeholder="Paste complex logic (ML, Loops, Algos) here..."></textarea>
+                        </div>
+                        <button id="debug-btn" onclick="initGhostTrace()" class="btn btn-emerald">Analyze & Animate</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. CHAT INTERFACE -->
+            <div id="chat-view" class="hidden">
+                <div style="height: calc(100vh - 64px); display: flex; flex-direction: column;">
+                    <div id="chat-messages" class="flex-1 overflow-y-auto custom-scrollbar" style="padding: 32px 24px; max-width: 1000px; margin: 0 auto; width: 100%;"></div>
+                    <div class="chat-input-area" style="padding: 24px;">
+                        <div class="chat-input-container" style="max-width: 1000px; margin: 0 auto; background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: 20px; padding: 6px;">
+                            <textarea id="user-input" placeholder="Continue neural session..." oninput="autoResize(this)" style="width: 100%; background: transparent; border: none; padding: 14px 60px 14px 20px; color: white; outline: none; resize: none; min-height: 54px; max-height: 200px; font-family: inherit; font-size: 1rem;"></textarea>
+                            <button onclick="handleChatSubmit()" class="send-btn" style="position: absolute; right: 10px; bottom: 10px; width: 40px; height: 40px; border-radius: 12px; background: var(--accent-lime); color: var(--bg-deep); display: flex; align-items: center; justify-content: center; border: none; cursor: pointer;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. GHOST EXECUTION DASHBOARD -->
+            <div id="ghost-display-view" class="hidden">
+                <div class="ghost-stage">
+                    <!-- LEFT: INDEPENDENT CODE PANEL -->
+                    <div class="ghost-code-pane custom-scrollbar" id="ghost-code-scroll">
+                        <div id="highlighter" class="viz-line-highlighter hidden"></div>
+                        <div id="code-lines-target"></div>
+                    </div>
+
+                    <!-- RIGHT: INDEPENDENT INSIGHTS PANEL -->
+                    <div class="ghost-viz-pane custom-scrollbar">
+                        <!-- THE ANALOGY BRIDGE (Top Priority for Learning) -->
+                        <div id="analogy-bridge" class="analogy-card hidden">
+                            <span class="analogy-bulb">💡</span>
+                            <div class="analogy-info">
+                                <div class="analogy-title">The Real-World Concept</div>
+                                <div id="analogy-content" class="analogy-content">Initializing Logic Bridge...</div>
+                            </div>
+                        </div>
+
+                        <!-- CORE COMMENTARY & NAV -->
+                        <div id="ghost-commentary" class="ghost-dashboard-section commentary-header hidden">
+                            <div class="ghost-nav-cluster">
+                                <button id="ghost-prev-btn" class="ghost-mini-btn" disabled>Back</button>
+                                <button id="ghost-next-btn" class="ghost-mini-btn">Next Step</button>
+                            </div>
+                            <div id="commentary-event" style="font-size: 0.55rem; font-weight: 900; color: var(--accent-emerald); text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.15em;">Trace Active</div>
+                            <div id="commentary-text" style="font-size: 1rem; font-weight: 500; color: white; line-height: 1.5; padding-right: 130px;">Decrypting virtual execution path...</div>
+                            
+                            <div class="speed-pill">
+                                <div class="speed-option" onclick="updateGhostSpeed(3000, this)">Turbo</div>
+                                <div class="speed-option active" onclick="updateGhostSpeed(12000, this)">Cinematic</div>
+                            </div>
+                        </div>
+
+                        <!-- MEMORY MAPPING -->
+                        <div class="ghost-dashboard-section">
+                            <label style="font-size: 0.65rem; font-weight: 900; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.15em;">Active Memory (Data Tensors)</label>
+                            <div id="ghost-memory" class="memory-stack"></div>
+                        </div>
+
+                        <!-- LOGGING -->
+                        <div class="ghost-dashboard-section">
+                            <label style="font-size: 0.65rem; font-weight: 900; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.15em;">Intelligence Trail</label>
+                            <div id="ghost-log" class="ghost-log-area custom-scrollbar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
 
     <script>
         const API_BASE = 'https://pluto-intelligence-backend-gfjl.onrender.com/api';
-        let researchFoundation = "";
-        let chatHistory = [];
-        let ghostTimeoutId = null;
-        let ghostSteps = [];
-        let ghostIndex = 0;
-        let ghostDelay = 12000;
-        let lastMemory = {};
+        let appState = {
+            foundation: "",
+            history: [],
+            ghostSteps: [],
+            ghostIdx: 0,
+            ghostDelay: 12000,
+            lastMem: {},
+            timer: null
+        };
 
-        // Navigation
-        function startNewChat() { initializePlatform([], "Standard Chat Session"); }
-        function showPlutoX() { document.getElementById('selection-view').classList.add('hidden'); document.getElementById('setup-view').classList.remove('hidden'); }
-        function showGhostMode() { document.getElementById('selection-view').classList.add('hidden'); document.getElementById('ghost-setup-view').classList.remove('hidden'); }
-        function goBackToSelection() { document.getElementById('selection-view').classList.remove('hidden'); document.getElementById('setup-view').classList.add('hidden'); document.getElementById('ghost-setup-view').classList.add('hidden'); hideLoader(); }
+        // --- NAVIGATION ---
+        function goHome() {
+            document.querySelectorAll('main > div').forEach(el => el.classList.add('hidden'));
+            document.getElementById('selection-view').classList.remove('hidden');
+        }
 
-        // Loader
-        function showLoader() { document.getElementById('setup-content').classList.add('hidden'); document.getElementById('intelligence-loader').classList.remove('hidden'); const ss = ["Locking into Sources", "Bypassing Noise", "Decrypting Context", "Locked In", "Synthesizing", "Cooking W Logic"]; let i = 0; window.loaderInterval = setInterval(() => { i = (i + 1) % ss.length; document.getElementById('loader-status').innerText = ss[i]; }, 3000); }
-        function hideLoader() { clearInterval(window.loaderInterval); document.getElementById('setup-content').classList.remove('hidden'); document.getElementById('intelligence-loader').classList.add('hidden'); }
+        function showPlutoX() {
+            document.getElementById('selection-view').classList.add('hidden');
+            document.getElementById('setup-view').classList.remove('hidden');
+        }
 
-        // Pluto-X Logic
-        async function initializePlatform(manualLinks = null, customTitle = null) {
-            let links = manualLinks || [];
-            if (!manualLinks) {
-                const l1 = document.getElementById('link1').value;
-                const l2 = document.getElementById('link2').value;
-                if(!l1 && !l2) return alert("Paste your links first.");
-                if(l1) links.push({url: l1});
-                if(l2) links.push({url: l2});
-            }
-            showLoader();
+        function showGhostMode() {
+            document.getElementById('selection-view').classList.add('hidden');
+            document.getElementById('ghost-setup-view').classList.remove('hidden');
+        }
+
+        function startNeuralChat() { initializeSynthesis([], "Neural Direct Session"); }
+
+        // --- SYNTHESIS CORE ---
+        async function runSynthesis() {
+            const l1 = document.getElementById('link1').value;
+            const l2 = document.getElementById('link2').value;
+            if(!l1 && !l2) return alert("Paste links first. fr.");
+
+            document.getElementById('setup-content').classList.add('hidden');
+            document.getElementById('intelligence-loader').classList.remove('hidden');
+            
+            const statuses = ["Decrypting Context", "Filtering Noise", "Locked In", "Synthesizing Algos"];
+            let sIdx = 0;
+            const loaderTimer = setInterval(() => {
+                sIdx = (sIdx + 1) % statuses.length;
+                document.getElementById('loader-status').innerText = statuses[sIdx];
+            }, 3000);
+
             try {
-                const res = await fetch(`${API_BASE}/initialize`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ links, title: customTitle || "Research Session" }) });
+                const res = await fetch(`${API_BASE}/initialize`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ links: [{url:l1}, {url:l2}].filter(l => l.url), title: "Research Session" })
+                });
                 const data = await res.json();
+                clearInterval(loaderTimer);
                 if (!res.ok) throw new Error(data.error);
-                researchFoundation = data.foundation;
-                launchChat(researchFoundation);
-            } catch (err) { alert(err.message); hideLoader(); }
+                appState.foundation = data.foundation;
+                launchChat();
+            } catch (err) {
+                alert(err.message);
+                document.getElementById('setup-content').classList.remove('hidden');
+                document.getElementById('intelligence-loader').classList.add('hidden');
+            }
         }
 
-        function launchChat(foundationText) {
-            document.querySelectorAll('body > div').forEach(el => { if(el.id !== 'chat-view') el.classList.add('hidden'); });
+        function launchChat() {
+            document.querySelectorAll('main > div').forEach(el => el.classList.add('hidden'));
             document.getElementById('chat-view').classList.remove('hidden');
-            appendMessage('assistant', foundationText);
+            appendBubble('assistant', appState.foundation);
         }
 
-        async function handleSendMessage() {
-            const input = document.getElementById('user-input');
-            const content = input.value.trim();
-            if(!content) return;
-            input.value = ''; input.style.height = 'auto';
-            appendMessage('user', content); chatHistory.push({ role: 'user', content });
-            const tId = showThinking();
-            try {
-                const res = await fetch(`${API_BASE}/chat`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ foundation: researchFoundation, history: chatHistory }) });
-                const data = await res.json(); removeThinking(tId);
-                if(data.success) { appendMessage('assistant', data.reply); chatHistory.push({ role: 'assistant', content: data.reply }); }
-            } catch (err) { removeThinking(tId); appendMessage('assistant', "Error: " + err.message); }
-        }
-
-        // Ghost Mode 2.0
-        async function runGhostDebugger() {
+        // --- GHOST MODE 2.0 ENGINE ---
+        async function initGhostTrace() {
             const code = document.getElementById('debug-code-input').value.trim();
             const language = document.getElementById('debug-language').value;
-            if(!code) return alert("Ghost requires logic.");
+            if(!code) return alert("Ghost requires logic to animate.");
+
             const btn = document.getElementById('debug-btn');
-            btn.disabled = true; btn.innerText = "Tracing Memory...";
+            btn.disabled = true; btn.innerText = "Processing Trace...";
+
             try {
-                const res = await fetch(`${API_BASE}/debug`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ code, language }) });
-                const data = await res.json();
+                const res = await fetch(`${API_BASE}/debug`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ code, language })
+                });
+                const raw = await res.text();
+                let data;
+                try { data = JSON.parse(raw); } catch(e) { throw new Error("JSON Buffer Overrun. Simplify chunks."); }
+                
                 if(!res.ok) throw new Error(data.error);
-                ghostSteps = data.trace.steps;
-                ghostIndex = 0;
-                lastMemory = {};
-                startGhostAnimation(code);
-            } catch (err) { alert(err.message); btn.disabled = false; btn.innerText = "Analyze & Animate"; }
+
+                appState.ghostSteps = data.trace.steps;
+                appState.ghostIdx = 0;
+                appState.lastMem = {};
+                startSimulation(code);
+            } catch (err) {
+                alert("Spectrum Trace Error: " + err.message);
+                btn.disabled = false; btn.innerText = "Analyze & Animate";
+            }
         }
 
-        function startGhostAnimation(rawCode) {
-            document.querySelectorAll('body > div').forEach(el => el.classList.add('hidden'));
+        function startSimulation(rawCode) {
+            document.querySelectorAll('main > div').forEach(el => el.classList.add('hidden'));
             document.getElementById('ghost-display-view').classList.remove('hidden');
-            const codeDisplay = document.getElementById('ghost-code-display');
-            codeDisplay.innerHTML = '<div id="highlighter" class="viz-line-highlighter hidden"></div>';
+
+            const target = document.getElementById('code-lines-target');
+            target.innerHTML = '';
             rawCode.split('\n').forEach((line, i) => {
                 const div = document.createElement('div');
-                div.className = 'code-line'; div.id = `line-${i+1}`;
-                div.textContent = `${i+1}  ${line}`;
-                codeDisplay.appendChild(div);
+                div.className = 'code-line';
+                div.id = `line-${i+1}`;
+                div.textContent = `${(i+1).toString().padStart(3, ' ')}  ${line}`;
+                target.appendChild(div);
             });
+
             playStep();
         }
 
+        function truncate(val) {
+            if (typeof val === 'string' && val.length > 28) return val.substring(0, 25) + "...";
+            if (Array.isArray(val) && val.length > 3) return `Array(${val.length}) [${val[0]}, ...]`;
+            if (typeof val === 'object' && val !== null) return "{Object}";
+            return val;
+        }
+
         function playStep() {
-            if (ghostIndex >= ghostSteps.length) return;
-            const step = ghostSteps[ghostIndex];
+            if (appState.ghostIdx >= appState.ghostSteps.length) return;
+            
+            const step = appState.ghostSteps[appState.ghostIdx];
             const highlighter = document.getElementById('highlighter');
             const memGrid = document.getElementById('ghost-memory');
             const commText = document.getElementById('commentary-text');
-            const commEvent = document.getElementById('commentary-event');
-            const log = document.getElementById('ghost-log');
-            const prevBtn = document.getElementById('ghost-prev-btn');
-
-            // Highlighter & Line Focus
+            const analText = document.getElementById('analogy-content');
+            const analBox = document.getElementById('analogy-bridge');
+            const logArea = document.getElementById('ghost-log');
+            
+            // 1. Highlighter & Focus (Scoped to Pane)
             highlighter.classList.remove('hidden');
-            highlighter.style.top = `${(step.line - 1) * 28}px`;
+            highlighter.style.top = `${(step.line - 1) * 30}px`;
+            
             document.querySelectorAll('.code-line').forEach(el => el.classList.remove('active'));
-            const currentLineEl = document.getElementById(`line-${step.line}`);
-            if(currentLineEl) { currentLineEl.classList.add('active'); currentLineEl.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+            const activeLine = document.getElementById(`line-${step.line}`);
+            if(activeLine) {
+                activeLine.classList.add('active');
+                activeLine.scrollIntoView({ behavior: 'smooth', block: 'center', container: document.getElementById('ghost-code-scroll') });
+            }
 
-            // Memory Diffing & Chips
+            // 2. Memory Diffing
             memGrid.innerHTML = '';
             Object.entries(step.memory).forEach(([key, val]) => {
                 const chip = document.createElement('div');
-                const isNew = lastMemory[key] !== val;
+                const strVal = JSON.stringify(val);
+                const isNew = appState.lastMem[key] !== strVal;
                 chip.className = `memory-chip ${isNew ? 'updated' : ''}`;
-                const diffLabel = isNew && lastMemory[key] !== undefined ? `<span class="chip-diff">${lastMemory[key]} ➔</span>` : '';
-                chip.innerHTML = `<span class="chip-label">${key}</span><span class="chip-value">${diffLabel} ${val}</span>`;
+                
+                const prev = (isNew && appState.lastMem[key] !== undefined) ? `<span class="chip-diff">${truncate(JSON.parse(appState.lastMem[key]))} ➔</span>` : '';
+                chip.innerHTML = `<span class="chip-label">${key}</span><span class="chip-value">${prev} ${truncate(val)}</span>`;
                 memGrid.appendChild(chip);
             });
-            lastMemory = {...step.memory};
+            Object.entries(step.memory).forEach(([k,v]) => appState.lastMem[k] = JSON.stringify(v));
 
-            // Stack
-            const stackGrid = document.getElementById('ghost-stack');
-            stackGrid.innerHTML = '';
-            step.stack.forEach(f => { const c = document.createElement('div'); c.className = 'memory-chip'; c.style.borderColor = 'var(--accent-violet)'; c.innerHTML = `<span class="chip-label" style="color:var(--accent-violet)">Scope</span><span class="chip-value">${f}</span>`; stackGrid.appendChild(c); });
-
-            // Commentary & Log
+            // 3. Logic & Analogy
             document.getElementById('ghost-commentary').classList.remove('hidden');
             commText.textContent = step.commentary;
-            commEvent.textContent = step.event.replace('_', ' ');
-            const logEntry = document.createElement('div');
-            logEntry.className = 'log-entry';
-            logEntry.innerHTML = `<span class="log-line">L${step.line}</span><span>${step.commentary}</span>`;
-            log.prepend(logEntry);
+            document.getElementById('commentary-event').textContent = step.event.replace('_', ' ');
 
-            if (step.error) { document.getElementById('ghost-commentary').classList.add('error-active'); commEvent.textContent = "ERROR"; }
-            else { document.getElementById('ghost-commentary').classList.remove('error-active'); }
+            if (step.analogy) {
+                analBox.classList.remove('hidden');
+                analText.textContent = step.analogy;
+            }
 
-            // Nav
-            prevBtn.disabled = ghostIndex === 0;
-            document.getElementById('ghost-next-btn').onclick = () => { if (ghostTimeoutId) clearTimeout(ghostTimeoutId); ghostIndex++; playStep(); };
-            prevBtn.onclick = () => { if (ghostTimeoutId) clearTimeout(ghostTimeoutId); ghostIndex = Math.max(0, ghostIndex - 1); playStep(); };
+            // 4. Intelligence Log
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerHTML = `<span class="log-line">L${step.line}</span><span>${step.commentary}</span>`;
+            logArea.prepend(entry);
 
-            if (ghostTimeoutId) clearTimeout(ghostTimeoutId);
-            ghostTimeoutId = setTimeout(() => { ghostIndex++; playStep(); }, ghostDelay);
+            // 5. Controls
+            document.getElementById('ghost-prev-btn').disabled = appState.ghostIdx === 0;
+            document.getElementById('ghost-next-btn').onclick = () => { if(appState.timer) clearTimeout(appState.timer); appState.ghostIdx++; playStep(); };
+            document.getElementById('ghost-prev-btn').onclick = () => { if(appState.timer) clearTimeout(appState.timer); appState.ghostIdx = Math.max(0, appState.ghostIdx - 1); playStep(); };
+
+            // 6. Step Delay
+            if(appState.timer) clearTimeout(appState.timer);
+            appState.timer = setTimeout(() => {
+                appState.ghostIdx++;
+                playStep();
+            }, appState.ghostDelay);
         }
 
-        function setGhostSpeed(ms, el) { ghostDelay = ms; document.querySelectorAll('.speed-option').forEach(opt => opt.classList.remove('active')); el.classList.add('active'); }
+        function updateGhostSpeed(ms, el) {
+            appState.ghostDelay = ms;
+            document.querySelectorAll('.speed-option').forEach(opt => opt.classList.remove('active'));
+            el.classList.add('active');
+        }
 
-        // UI Helpers
-        function simpleMarkdown(text) { if (!text) return ""; return text.replace(/^### (.*$)/gim, '<h3 style="margin-top:15px;color:var(--accent-lime)">$1</h3>').replace(/^## (.*$)/gim, '<h2 style="margin-top:15px;color:var(--accent-lime)">$1</h2>').replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>').replace(/```([\s\S]*?)```/gim, '<pre><code>$1</code></pre>').replace(/\n/gim, '<br>'); }
-        function appendMessage(role, content) { const container = document.getElementById('chat-messages'); const div = document.createElement('div'); div.className = `message-row ${role === 'user' ? 'msg-user' : 'msg-assistant'}`; div.innerHTML = `<div class="message-bubble"><div class="prose">${simpleMarkdown(content)}</div></div>`; container.appendChild(div); container.scrollTop = container.scrollHeight; }
-        function showThinking() { const id = 't-' + Date.now(); const div = document.createElement('div'); div.id = id; div.className = "message-row msg-assistant"; div.innerHTML = `<div class="message-bubble" style="padding: 12px 20px;"><div style="font-size: 0.65rem; font-weight: 900; color: var(--accent-lime); text-transform: uppercase; margin-bottom: 4px;">Pluto is cooking</div><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>`; document.getElementById('chat-messages').appendChild(div); return id; }
-        function removeThinking(id) { const el = document.getElementById(id); if(el) el.remove(); }
-        function autoResize(textarea) { textarea.style.height = 'auto'; textarea.style.height = textarea.scrollHeight + 'px'; }
-        document.getElementById('user-input').addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSendMessage(); } });
+        // --- CHAT LOGIC ---
+        function simpleMd(txt) {
+            if (!txt) return "";
+            return txt
+                .replace(/^### (.*$)/gim, '<h3 style="margin-top:16px;color:var(--accent-lime)">$1</h3>')
+                .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
+                .replace(/```([\s\S]*?)```/gim, '<pre class="custom-scrollbar"><code>$1</code></pre>')
+                .replace(/\n/gim, '<br>');
+        }
+
+        function appendBubble(role, content) {
+            const container = document.getElementById('chat-messages');
+            const div = document.createElement('div');
+            div.style.display = 'flex';
+            div.style.justifyContent = role === 'user' ? 'flex-end' : 'flex-start';
+            div.style.marginBottom = '24px';
+            div.innerHTML = `<div class="message-bubble prose" style="background:${role === 'user' ? 'var(--accent-violet)' : 'var(--bg-card)'}; border:1px solid ${role === 'user' ? 'transparent' : 'var(--glass-border)'}; padding:20px; border-radius:22px; max-width:85%; font-size:1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">${simpleMd(content)}</div>`;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        async function handleChatSubmit() {
+            const input = document.getElementById('user-input');
+            const txt = input.value.trim();
+            if(!txt) return;
+            input.value = ''; input.style.height = 'auto';
+            appendBubble('user', txt);
+            appState.history.push({role: 'user', content: txt});
+
+            const tId = 't-' + Date.now();
+            const div = document.createElement('div');
+            div.id = tId; div.style.display = 'flex'; div.style.marginBottom = '24px';
+            div.innerHTML = `<div class="message-bubble" style="background:var(--bg-card); border:1px solid var(--glass-border); padding:14px 24px; border-radius:22px;"><div style="font-size:0.65rem; font-weight:900; color:var(--accent-lime); text-transform:uppercase; margin-bottom:6px;">Pluto is cooking</div><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>`;
+            document.getElementById('chat-messages').appendChild(div);
+
+            try {
+                const res = await fetch(`${API_BASE}/chat`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ foundation: appState.foundation, history: appState.history })
+                });
+                const data = await res.json();
+                document.getElementById(tId).remove();
+                if(data.success) {
+                    appendBubble('assistant', data.reply);
+                    appState.history.push({role: 'assistant', content: data.reply});
+                }
+            } catch (err) { document.getElementById(tId).remove(); appendBubble('assistant', "Neural Link Error: " + err.message); }
+        }
+
+        function autoResize(ta) { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; }
+        document.getElementById('user-input').addEventListener('keydown', (e) => { if(e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleChatSubmit(); } });
+
     </script>
 </body>
 </html>
