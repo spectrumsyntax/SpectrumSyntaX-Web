@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Pluto | AI Research & Ghost Debugger</title>
-     <link rel="icon" href="spectrumsyntaxlogo.jpg">
+    <link rel="icon" href="spectrumsyntaxlogo.jpg">
     <!-- Premium Typography -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Outfit:wght@500;800;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
     
@@ -142,18 +142,45 @@
             .ghost-code-pane { flex: 0 0 auto !important; height: 35dvh !important; border-bottom: 1px solid var(--glass-border); border-right: none !important; }
         }
 
-        .ghost-code-pane { flex: 0 0 42%; background: #08081a; overflow-y: auto; position: relative; border-right: 1px solid var(--glass-border); padding-bottom: 30vh; }
+        .ghost-code-pane { flex: 0 0 42%; background: #08081a; overflow-y: auto; position: relative; border-right: 1px solid var(--glass-border); padding: 0; }
         .ghost-viz-pane { flex: 1; padding: 24px; overflow-y: auto; background: radial-gradient(circle at 50% 50%, #0d0d26 0%, #050510 100%); }
 
+        /* HIGHLIGHTER PRECISION LOCK */
         .viz-line-highlighter { 
-            position: absolute; left: 0; width: 100%; height: 30px; 
-            background: rgba(207, 255, 4, 0.15); border-left: 4px solid var(--accent-lime); 
-            pointer-events: none; transition: top 0.25s cubic-bezier(0.4, 0, 0.2, 1); z-index: 5;
+            position: absolute; 
+            left: 0; 
+            width: 100%; 
+            height: 30px; 
+            background: rgba(207, 255, 4, 0.15); 
+            border-left: 4px solid var(--accent-lime); 
+            pointer-events: none; 
+            transition: top 0.2s cubic-bezier(0.4, 0, 0.2, 1); 
+            z-index: 5;
             animation: pulseHigh 1.5s infinite;
+            box-sizing: border-box; /* Ensures border doesn't add height */
         }
         @keyframes pulseHigh { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; background: rgba(207, 255, 4, 0.25); } }
 
-        .code-line { padding-left: 30px; font-family: var(--font-mono); font-size: 0.85rem; height: 30px; display: flex; align-items: center; color: var(--text-soft); white-space: pre; position: relative; z-index: 10; }
+        #code-lines-target {
+            padding: 0;
+            margin: 0;
+            display: block;
+        }
+
+        .code-line { 
+            padding-left: 30px; 
+            font-family: var(--font-mono); 
+            font-size: 0.85rem; 
+            height: 30px; 
+            line-height: 30px; 
+            display: flex; 
+            align-items: center; 
+            color: var(--text-soft); 
+            white-space: pre; 
+            position: relative; 
+            z-index: 10;
+            overflow: hidden;
+        }
         .code-line.active { color: var(--accent-lime); font-weight: 700; background: rgba(207, 255, 4, 0.05); text-shadow: 0 0 8px rgba(207, 255, 4, 0.3); }
 
         .memory-stack { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
@@ -204,7 +231,7 @@
     <header class="global-header">
         <div style="display:flex; align-items:center; gap:15px;">
             <div class="logo-box"><img src="X.jpg" alt="X" onerror="this.src='https://via.placeholder.com/32/cfff04?text=X'"></div>
-            <div class="brand-text"><b>Pluto Intelligence</b><sub>SpectrumSyntaX</sub></div>
+            <div class="brand-text"><b>Pluto Intelligence</b><sub>by SpectrumSyntaX</sub></div>
         </div>
         <div style="display: flex; align-items: center; gap: 12px;">
             <div class="beta-pill">Beta</div>
@@ -258,7 +285,7 @@
             <div class="card" style="max-width:850px; width:100%; height:85vh; display:flex; flex-direction:column;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 15px; flex-shrink: 0;">
                     <button onclick="goHome()" class="btn btn-ghost" style="width:auto; padding:8px 16px; font-size: 0.65rem;">← Back</button>
-                    <button onclick="loadTemplateCode()" class="btn btn-ghost" style="width:auto; padding:8px 16px; font-size: 0.65rem; border-color: var(--accent-emerald); color: var(--accent-emerald);">Load Template</button>
+                    
                 </div>
                 <h1>Trace Simulation</h1>
                 <select id="debug-language" class="input-field" style="margin: 15px 0; flex-shrink: 0;">
@@ -285,8 +312,11 @@
         <div id="ghost-display-view" class="hidden">
             <div class="ghost-stage">
                 <div class="ghost-code-pane custom-scrollbar" id="ghost-code-scroll">
-                    <div id="code-target" style="position:relative;"><div id="highlighter" class="viz-line-highlighter hidden"></div></div>
-                    <div id="code-lines-target"></div>
+                    <!-- Unified relative container with absolute zero padding -->
+                    <div id="code-viz-container" style="position:relative; min-height: 100%; padding: 0; margin: 0; top: 0; left: 0;">
+                        <div id="highlighter" class="viz-line-highlighter hidden"></div>
+                        <div id="code-lines-target" style="padding: 0; margin: 0;"></div>
+                    </div>
                 </div>
                 <div class="ghost-viz-pane custom-scrollbar">
                     <div id="analogy-bridge" class="analogy-card hidden">
@@ -332,9 +362,20 @@
         let appState = { foundation: "", history: [], ghostSteps: [], ghostIdx: 0, ghostDelay: 12000, timer: null };
 
         // --- NAVIGATION ---
-        function goHome() { document.querySelectorAll('main > div').forEach(el => el.classList.add('hidden')); document.getElementById('selection-view').classList.remove('hidden'); }
-        function showPlutoX() { goHome(); document.getElementById('selection-view').classList.add('hidden'); document.getElementById('setup-view').classList.remove('hidden'); }
-        function showGhostMode() { goHome(); document.getElementById('selection-view').classList.add('hidden'); document.getElementById('ghost-setup-view').classList.remove('hidden'); }
+        function goHome() { 
+            document.querySelectorAll('main > div').forEach(el => el.classList.add('hidden')); 
+            document.getElementById('selection-view').classList.remove('hidden'); 
+        }
+        function showPlutoX() { 
+            goHome(); 
+            document.getElementById('selection-view').classList.add('hidden'); 
+            document.getElementById('setup-view').classList.remove('hidden'); 
+        }
+        function showGhostMode() { 
+            goHome(); 
+            document.getElementById('selection-view').classList.add('hidden'); 
+            document.getElementById('ghost-setup-view').classList.remove('hidden'); 
+        }
         function startNeuralChat() { runSynthesis(true); }
 
         // --- TEMPLATES ---
@@ -350,22 +391,35 @@
 
         // --- SYNTHESIS ---
         async function runSynthesis(direct = false) {
-            const links = direct ? [] : [{url: document.getElementById('link1').value}, {url: document.getElementById('link2').value}].filter(l => l.url);
+            const links = direct ? [] : [
+                {url: document.getElementById('link1').value}, 
+                {url: document.getElementById('link2').value}
+            ].filter(l => l.url);
+            
             if(!direct && links.length === 0) return alert("Links needed. fr.");
+            
             document.getElementById('setup-content').classList.add('hidden');
             document.getElementById('intelligence-loader').classList.remove('hidden');
+            
             try {
-                const res = await fetch(`${API_BASE}/initialize`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ links, title: direct ? "Direct Neural Session" : "Research Session" }) });
+                const res = await fetch(`${API_BASE}/initialize`, { 
+                    method: 'POST', 
+                    headers: {'Content-Type': 'application/json'}, 
+                    body: JSON.stringify({ links, title: direct ? "Direct Neural Session" : "Research Session" }) 
+                });
                 const data = await res.json();
                 appState.foundation = data.foundation;
                 launchChatUI();
-            } catch (e) { alert("API Offline or Rate Limited."); goHome(); }
+            } catch (e) { 
+                alert("API Offline or Rate Limited."); 
+                goHome(); 
+            }
         }
 
         function launchChatUI() {
             document.querySelectorAll('main > div').forEach(el => el.classList.add('hidden'));
             document.getElementById('chat-view').classList.remove('hidden');
-            appendMsg('assistant', appState.foundation);
+            appendMsg('assistant', appState.foundation, true);
         }
 
         // --- GHOST MODE ---
@@ -373,29 +427,56 @@
             const code = document.getElementById('debug-code-input').value.trim();
             const language = document.getElementById('debug-language').value;
             if(!code) return alert("Code needed.");
-            const btn = document.getElementById('debug-btn'); btn.disabled = true; btn.innerText = "Analyzing Trace...";
+            
+            const btn = document.getElementById('debug-btn'); 
+            btn.disabled = true; 
+            btn.innerText = "Analyzing Trace...";
+            
             try {
-                const res = await fetch(`${API_BASE}/debug`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ code, language }) });
+                const res = await fetch(`${API_BASE}/debug`, { 
+                    method: 'POST', 
+                    headers: {'Content-Type': 'application/json'}, 
+                    body: JSON.stringify({ code, language }) 
+                });
                 const data = await res.json();
                 if (!data.success || !data.trace || !data.trace.steps) throw new Error("Invalid Trace Data");
-                appState.ghostSteps = data.trace.steps; appState.ghostIdx = 0;
+                appState.ghostSteps = data.trace.steps; 
+                appState.ghostIdx = 0;
                 renderStage(code);
-            } catch (e) { alert("Trace Error: Logic extraction failed. fr. try again."); btn.disabled = false; btn.innerText = "Analyze & Animate"; }
+            } catch (e) { 
+                alert("Trace Error: Logic extraction failed. fr. try again."); 
+                btn.disabled = false; 
+                btn.innerText = "Analyze & Animate"; 
+            }
         }
 
         function renderStage(code) {
             document.querySelectorAll('main > div').forEach(el => el.classList.add('hidden'));
             document.getElementById('ghost-display-view').classList.remove('hidden');
             const target = document.getElementById('code-lines-target');
-            const high = document.getElementById('highlighter');
             target.innerHTML = ''; 
             code.split('\n').forEach((line, i) => {
-                const div = document.createElement('div'); div.className = 'code-line'; div.id = `line-${i+1}`;
+                const div = document.createElement('div'); 
+                div.className = 'code-line'; 
+                div.id = `line-${i+1}`;
                 div.textContent = `${(i+1).toString().padStart(3, ' ')}  ${line}`;
                 target.appendChild(div);
             });
-            document.getElementById('ghost-next-btn').onclick = () => { if(appState.timer) clearTimeout(appState.timer); if(appState.ghostIdx < appState.ghostSteps.length-1) { appState.ghostIdx++; playStep(); } };
-            document.getElementById('ghost-prev-btn').onclick = () => { if(appState.timer) clearTimeout(appState.timer); if(appState.ghostIdx > 0) { appState.ghostIdx--; playStep(); } };
+            
+            document.getElementById('ghost-next-btn').onclick = () => { 
+                if(appState.timer) clearTimeout(appState.timer); 
+                if(appState.ghostIdx < appState.ghostSteps.length-1) { 
+                    appState.ghostIdx++; 
+                    playStep(); 
+                } 
+            };
+            document.getElementById('ghost-prev-btn').onclick = () => { 
+                if(appState.timer) clearTimeout(appState.timer); 
+                if(appState.ghostIdx > 0) { 
+                    appState.ghostIdx--; 
+                    playStep(); 
+                } 
+            };
             document.getElementById('ghost-log').innerHTML = '';
             playStep();
         }
@@ -417,8 +498,10 @@
             const prevMemory = (prevStep && prevStep.memory) ? prevStep.memory : {};
 
             high.classList.remove('hidden');
-            // Strict 30px offset per line height
-            high.style.top = `${(step.line - 1) * 30}px`;
+            // Strict 30px coordinate match with zero baseline
+            const topPos = (step.line - 1) * 30;
+            high.style.top = `${topPos}px`;
+            
             document.getElementById('line-indicator').textContent = `Line ${step.line}`;
             
             document.querySelectorAll('.code-line').forEach(el => el.classList.remove('active'));
@@ -431,7 +514,8 @@
             memGrid.innerHTML = '';
             Object.entries(currentMemory).forEach(([k, v]) => {
                 const isUpdated = JSON.stringify(prevMemory[k]) !== JSON.stringify(v);
-                const chip = document.createElement('div'); chip.className = `memory-chip ${isUpdated ? 'updated' : ''}`;
+                const chip = document.createElement('div'); 
+                chip.className = `memory-chip ${isUpdated ? 'updated' : ''}`;
                 const diff = (isUpdated && prevMemory[k] !== undefined) ? `<span class="chip-diff">${truncate(prevMemory[k])} ➔</span>` : '';
                 chip.innerHTML = `<span class="chip-label">${k}</span><div class="chip-value">${diff} ${truncate(v)}</div>`;
                 memGrid.appendChild(chip);
@@ -439,13 +523,17 @@
 
             document.getElementById('ghost-commentary').classList.remove('hidden');
             document.getElementById('commentary-text').textContent = step.commentary || "Executing logic...";
+            
             if(step.analogy) { 
                 document.getElementById('analogy-bridge').classList.remove('hidden'); 
                 document.getElementById('analogy-content').textContent = step.analogy; 
+            } else {
+                document.getElementById('analogy-bridge').classList.add('hidden');
             }
 
             const log = document.getElementById('ghost-log');
-            const entry = document.createElement('div'); entry.className = 'ghost-log-entry';
+            const entry = document.createElement('div'); 
+            entry.className = 'ghost-log-entry';
             entry.innerHTML = `<span class="ghost-log-line">L${step.line}</span> ${step.commentary}`;
             log.prepend(entry);
 
@@ -458,47 +546,122 @@
             }
         }
 
-        function updateSpeed(ms, el) { appState.ghostDelay = ms; document.querySelectorAll('.speed-option').forEach(opt => opt.classList.remove('active')); el.classList.add('active'); }
+        function updateSpeed(ms, el) { 
+            appState.ghostDelay = ms; 
+            document.querySelectorAll('.speed-option').forEach(opt => opt.classList.remove('active')); 
+            el.classList.add('active'); 
+        }
 
         // --- CHAT HELPERS ---
-        function simpleMd(txt) { return txt.replace(/^### (.*$)/gim, '<b>$1</b>').replace(/\*\*(.*)\*\*/gim, '<b>$1</b>').replace(/\n/gim, '<br>'); }
+        function simpleMd(txt) { 
+            if (!txt) return "";
+            return txt
+                // Code Blocks Synthesis (Yellow separate panel)
+                .replace(/```([\s\S]*?)```/g, (match, code) => {
+                    return `<div style="background:#050510; color:var(--accent-lime); padding:15px; border-radius:12px; font-family:var(--font-mono); font-size:0.85rem; margin:10px 0; border:1px solid var(--glass-border); overflow-x:auto; white-space:pre-wrap; box-shadow: inset 0 0 20px rgba(0,0,0,0.5);">${code.trim()}</div>`;
+                })
+                // Inline Code
+                .replace(/`([^`]+)`/g, '<code style="background:rgba(207,255,4,0.1); color:var(--accent-lime); padding:2px 5px; border-radius:4px; font-family:var(--font-mono); font-size:0.9em;">$1</code>')
+                // Basic Markdown elements
+                .replace(/^### (.*$)/gim, '<b>$1</b>')
+                .replace(/\*\*(.*?)\*\*/gim, '<b>$1</b>')
+                .replace(/\n/gim, '<br>'); 
+        }
         
-        function appendMsg(role, content) {
+        function appendMsg(role, content, animate = false) {
             const container = document.getElementById('chat-messages');
             const div = document.createElement('div');
-            div.style.display = 'flex'; div.style.justifyContent = role === 'user' ? 'flex-end' : 'flex-start'; div.style.marginBottom = '20px';
-            div.innerHTML = `<div style="background:${role === 'user' ? 'var(--accent-violet)' : 'var(--bg-card)'}; border:1px solid ${role === 'user' ? 'transparent' : 'var(--glass-border)'}; padding:18px; border-radius:20px; max-width:85%; font-size:1rem; line-height:1.6;">${simpleMd(content)}</div>`;
+            div.style.display = 'flex'; 
+            div.style.justifyContent = role === 'user' ? 'flex-end' : 'flex-start'; 
+            div.style.marginBottom = '20px';
+            
+            const bubble = document.createElement('div');
+            bubble.style.background = role === 'user' ? 'var(--accent-violet)' : 'var(--bg-card)';
+            bubble.style.border = `1px solid ${role === 'user' ? 'transparent' : 'var(--glass-border)'}`;
+            bubble.style.padding = '18px';
+            bubble.style.borderRadius = '20px';
+            bubble.style.maxWidth = '85%';
+            bubble.style.fontSize = '1rem';
+            bubble.style.lineHeight = '1.6';
+            
+            div.appendChild(bubble);
             container.appendChild(div);
+            
+            const html = simpleMd(content);
+            
+            if (animate && role === 'assistant') {
+                let charIdx = 0;
+                const type = () => {
+                    if (charIdx <= html.length) {
+                        if (html[charIdx] === '<') {
+                            charIdx = html.indexOf('>', charIdx) + 1;
+                        } else {
+                            charIdx++;
+                        }
+                        bubble.innerHTML = html.substring(0, charIdx);
+                        container.scrollTop = container.scrollHeight;
+                        if (charIdx < html.length) {
+                            setTimeout(type, 2); // Fast (5ms)
+                        }
+                    }
+                };
+                type();
+            } else {
+                bubble.innerHTML = html;
+            }
+            
             container.scrollTop = container.scrollHeight;
         }
 
         async function handleChatSubmit() {
-            const input = document.getElementById('user-input'); const txt = input.value.trim();
-            if(!txt) return; input.value = ''; input.style.height = 'auto'; appendMsg('user', txt); appState.history.push({role:'user', content:txt});
+            const input = document.getElementById('user-input'); 
+            const txt = input.value.trim();
+            if(!txt) return; 
+            input.value = ''; 
+            input.style.height = 'auto'; 
+            appendMsg('user', txt); 
+            appState.history.push({role:'user', content:txt});
             
-            // "Pluto is cooking" status restored
+            // "Pluto is cooking" status restored with accent-lime glow
             const tId = 't-' + Date.now();
             const div = document.createElement('div');
-            div.id = tId; div.style.display = 'flex'; div.style.marginBottom = '20px';
-            div.innerHTML = `<div style="background:var(--bg-card); border: 1px solid var(--glass-border); padding:12px 20px; border-radius:18px;">
-                <div style="font-size:0.6rem; font-weight:900; color:var(--accent-lime); text-transform:uppercase; margin-bottom:4px; letter-spacing:0.1em;">Pluto is cooking</div>
+            div.id = tId; 
+            div.style.display = 'flex'; 
+            div.style.marginBottom = '20px';
+            div.innerHTML = `<div style="background:var(--bg-card); border: 1px solid var(--glass-border); padding:12px 20px; border-radius:18px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                <div style="font-size:0.6rem; font-weight:900; color:var(--accent-lime); text-transform:uppercase; margin-bottom:4px; letter-spacing:0.1em; text-shadow: 0 0 10px var(--accent-lime);">Pluto is cooking</div>
                 <span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>
             </div>`;
             document.getElementById('chat-messages').appendChild(div);
             document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
 
             try {
-                const res = await fetch(`${API_BASE}/chat`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ foundation:appState.foundation, history:appState.history }) });
+                const res = await fetch(`${API_BASE}/chat`, { 
+                    method:'POST', 
+                    headers:{'Content-Type':'application/json'}, 
+                    body:JSON.stringify({ foundation:appState.foundation, history:appState.history }) 
+                });
                 const data = await res.json(); 
-                document.getElementById(tId).remove();
-                if(data.success) { appendMsg('assistant', data.reply); appState.history.push({role:'assistant', content:data.reply}); }
+                const existingTyping = document.getElementById(tId);
+                if(existingTyping) existingTyping.remove();
+                
+                if(data.success) { 
+                    appendMsg('assistant', data.reply, true); 
+                    appState.history.push({role:'assistant', content:data.reply}); 
+                }
             } catch(e) { 
-                if(document.getElementById(tId)) document.getElementById(tId).remove(); 
+                const existingTyping = document.getElementById(tId);
+                if(existingTyping) existingTyping.remove(); 
                 appendMsg('assistant', "Neural Link Error. try again. fr."); 
             }
         }
 
-        document.getElementById('user-input').addEventListener('keydown', (e) => { if(e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleChatSubmit(); } });
+        document.getElementById('user-input').addEventListener('keydown', (e) => { 
+            if(e.key === 'Enter' && !e.shiftKey) { 
+                e.preventDefault(); 
+                handleChatSubmit(); 
+            } 
+        });
 
         if(window.visualViewport) {
             window.visualViewport.addEventListener('resize', () => {
